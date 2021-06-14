@@ -44,6 +44,7 @@ fun Context.showToast(message: String) {
 //    this.requestFocus()
 //}
 
+
 fun Activity.isCameraPermissionGranted(context: Context, REQUEST_PERMISSION_CAMERA : Int): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
