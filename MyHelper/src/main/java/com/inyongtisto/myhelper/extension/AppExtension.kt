@@ -11,6 +11,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +42,10 @@ fun Context.setToolbar(toolbar: Toolbar, title: String) {
     this.supportActionBar!!.title = title
     this.supportActionBar!!.setDisplayShowHomeEnabled(true)
     this.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+}
+
+fun Activity.hidenKeyboard() {
+    this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 }
 
 fun Context.setError(editText: EditText) {
