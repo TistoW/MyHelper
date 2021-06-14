@@ -2,9 +2,8 @@ package com.inyongtisto.helpers
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.inyongtisto.myhelper.extension.logs
-import com.inyongtisto.myhelper.extension.remove
+import com.inyongtisto.myhelper.PullRefresh
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -12,10 +11,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btn_simpan.setOnClickListener {
-            Log.d("TAG", "onCreate: ")
+        PullRefresh(swipeRefresh) {
+            logs("do this on this")
         }
 
-        logs("apaini".remove("ini"))
+        swipeRefresh.setOnRefreshListener {
+
+        }
+        swipeRefresh.setColorSchemeColors()
     }
 }

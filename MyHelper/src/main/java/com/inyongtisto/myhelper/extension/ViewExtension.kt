@@ -1,7 +1,7 @@
-package com.inyongtisto.myhelper
+package com.inyongtisto.myhelper.extension
 
 import android.view.View
-import com.google.android.material.snackbar.Snackbar
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 fun View.toVisible() {
     this.visibility = View.VISIBLE
@@ -14,3 +14,12 @@ fun View.toGone() {
 fun View.toInvisible() {
     this.visibility = View.INVISIBLE
 }
+
+fun SwipeRefreshLayout.setDefaultColor() {
+    this.setColorSchemeColors(
+        context.getColor(android.R.color.holo_green_light),
+        context.getColor(android.R.color.holo_orange_light),
+        context.getColor(android.R.color.holo_red_light)
+    )
+}
+

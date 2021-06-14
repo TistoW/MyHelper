@@ -167,6 +167,8 @@ fun priceFormatter(price: Int): String {
 //}
 
 fun AppCompatEditText.addCustomTextWatcher(button: View) {
+
+    context.getColor(android.R.color.holo_blue_bright)
     addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}
 
