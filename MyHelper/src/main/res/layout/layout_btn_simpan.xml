@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/btn_simpan"
+    style="@style/layout_clickable"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_round_primary"
+    android:gravity="center"
+    android:padding="@dimen/_10sdp"
+    android:text="@string/simpan"
+    android:textColor="@color/white"
+    android:textStyle="bold" />

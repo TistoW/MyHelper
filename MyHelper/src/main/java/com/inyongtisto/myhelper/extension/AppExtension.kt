@@ -9,6 +9,7 @@ import android.graphics.Rect
 import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -31,6 +32,10 @@ fun Context.showToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
+fun logs(message: String) {
+    Log.d("RESPONS", message)
+}
+
 fun Context.setToolbar(toolbar: Toolbar, title: String) {
     (this as AppCompatActivity).setSupportActionBar(toolbar)
     this.supportActionBar!!.title = title
@@ -47,12 +52,12 @@ fun EditText.setEmptyError() {
     this.error = context.getString(R.string.kolom_tidak_boleh_kosong)
     this.requestFocus()
 }
+
 //
 //fun AppCompatEditText.setEmptyError() {
 //    this.error = context.getString(R.string.kolom_tidak_boleh_kosong)
 //    this.requestFocus()
 //}
-
 
 fun Activity.isCameraPermissionGranted(context: Context, REQUEST_PERMISSION_CAMERA: Int): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -93,9 +98,9 @@ fun getFragmentWidthPercentage(percentage: Int): Int {
 //    context.hideKeyboard(this)
 //}
 
-fun String.removeComma(): String {
-    return replace(",", "")
-}
+fun String.remove(string: String): String = replace(string, "")
+
+fun String.removeComma(): String = replace(",", "")
 
 fun String.fixPhoneNumber(): String {
     return when {

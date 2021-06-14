@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+<!--    <color name="colorPrimary">#069517</color>-->
+<!--    <color name="colorPrimaryDark">#069517</color>-->
+<!--    <color name="colorPrimaryVariant">#F9591D</color>-->
+<!--    <color name="colorAccent">#069517</color>-->
+<!--    <color name="colorText">#121931</color>-->
+<!--    <color name="colorText2">#DB3975</color>-->
+
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="orange">#FF9800</color>
+    <color name="backgroud_white">#EDF8F8F8</color>
+    <color name="blue">#0E87F0</color>
+    <color name="dark">#1C2029</color>
+    <color name="shimmer">#A4ECECEC</color>
+    <color name="red">#ff0000</color>
+    <color name="transparant">#C4000000</color>
+    <color name="transparant1">#C44A4A4A</color>
+    <color name="toolbar">#FFFFFF</color>
+    <color name="orange_1">#FFFBE8</color>
+
+    <color name="delete">#E60000</color>
+
+    <color name="dimulai">#8BC34A</color>
+    <color name="akandimulai">#FFC107</color>
+    <color name="selesai">#F44336</color>
+    <color name="colorStand">#73000000</color>
+
+    <color name="green_normal">#069517</color>
+
+    <color name="grey">#F1F1F1</color>
+    <color name="grey0">#FAFAFA</color>
+    <color name="grey1">#F5F5F5</color>
+    <color name="grey2">#EEEEEE</color>
+    <color name="grey3">#E0E0E0</color>
+    <color name="grey4">#BDBDBD</color>
+    <color name="grey5">#9E9E9E</color>
+    <color name="grey6">#757575</color>
+    <color name="grey7">#616161</color>
+    <color name="grey8">#424242</color>
+    <color name="grey9">#212121</color>
+    <color name="grey10">#F8F8F8</color>
+
+    <color name="black_20">#33000000</color>
+</resources>
