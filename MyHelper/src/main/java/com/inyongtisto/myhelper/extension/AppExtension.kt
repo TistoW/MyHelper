@@ -12,12 +12,14 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.inyongtisto.myhelper.R
 import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
 
 fun visible() = View.VISIBLE
 fun invisible() = View.INVISIBLE
@@ -29,15 +31,22 @@ fun Context.showToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
-//fun Context.setError(editText: EditText) {
-//    editText.error = getString(R.string.kolom_tidak_boleh_kosong)
-//    editText.requestFocus()
-//}
-//
-//fun EditText.setEmptyError() {
-//    this.error = context.getString(R.string.kolom_tidak_boleh_kosong)
-//    this.requestFocus()
-//}
+fun Context.setToolbar(toolbar: Toolbar, title: String) {
+    (this as AppCompatActivity).setSupportActionBar(toolbar)
+    this.supportActionBar!!.title = title
+    this.supportActionBar!!.setDisplayShowHomeEnabled(true)
+    this.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+}
+
+fun Context.setError(editText: EditText) {
+    editText.error = getString(R.string.kolom_tidak_boleh_kosong)
+    editText.requestFocus()
+}
+
+fun EditText.setEmptyError() {
+    this.error = context.getString(R.string.kolom_tidak_boleh_kosong)
+    this.requestFocus()
+}
 //
 //fun AppCompatEditText.setEmptyError() {
 //    this.error = context.getString(R.string.kolom_tidak_boleh_kosong)
@@ -45,16 +54,19 @@ fun Context.showToast(message: String) {
 //}
 
 
-fun Activity.isCameraPermissionGranted(context: Context, REQUEST_PERMISSION_CAMERA : Int): Boolean {
+fun Activity.isCameraPermissionGranted(context: Context, REQUEST_PERMISSION_CAMERA: Int): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
         if (context.checkSelfPermission(Manifest.permission.CAMERA) ==
-            PackageManager.PERMISSION_GRANTED) {
+            PackageManager.PERMISSION_GRANTED
+        ) {
             true
         } else {
             // Show the permission request
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),
-                    REQUEST_PERMISSION_CAMERA)
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.CAMERA),
+                REQUEST_PERMISSION_CAMERA
+            )
             false
         }
     } else {
@@ -92,11 +104,31 @@ fun String.fixPhoneNumber(): String {
         isNullOrEmpty() -> this
         else -> "62$this"
     }
-//    return if (this.take(1) == "0") {
-//        "62${this.substring(1, this.length)}"
-//    } else {
-//        "62$this"
-//    }
+}
+
+fun Int.convertRupiah(hideCurrency: Boolean = false): String {
+    val localeID = Locale("in", "ID")
+    val format = NumberFormat.getCurrencyInstance(localeID)
+    var value = format.format(this).replace(",00", "")
+    if (hideCurrency) value = value.replace("Rp", "")
+    return value
+}
+
+fun Double.convertRupiah(hideCurrency: Boolean = false): String {
+    val localeID = Locale("in", "ID")
+    val format = NumberFormat.getCurrencyInstance(localeID)
+    var value = format.format(this).replace(",00", "")
+    if (hideCurrency) value = value.replace("Rp", "")
+    return value
+}
+
+fun String?.convertRupiah(hideCurrency: Boolean = false): String {
+    if (this == null || this.isEmpty()) return ""
+    val localeID = Locale("in", "ID")
+    val format = NumberFormat.getCurrencyInstance(localeID)
+    var value = format.format(this.toDouble()).replace(",00", "")
+    if (hideCurrency) value = value.replace("Rp", "")
+    return value
 }
 
 //fun Context.showSuccessDialog(message: String, onConfirmClickListener: () -> Unit) {
