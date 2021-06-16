@@ -58,6 +58,16 @@ fun EditText.setEmptyError() {
     this.requestFocus()
 }
 
+fun EditText.isEmpty(setError: Boolean = true): Boolean {
+    return if (this.text.isEmpty()) {
+        if (setError){
+            this.error = context.getString(R.string.kolom_tidak_boleh_kosong)
+            this.requestFocus()
+        }
+        true
+    } else false
+}
+
 //
 //fun AppCompatEditText.setEmptyError() {
 //    this.error = context.getString(R.string.kolom_tidak_boleh_kosong)
