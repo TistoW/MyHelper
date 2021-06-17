@@ -2,6 +2,8 @@ package com.inyongtisto.helpers
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.EditText
+import com.inyongtisto.myhelper.OnEditTextChanged
 import com.inyongtisto.myhelper.extension.logs
 import com.inyongtisto.myhelper.PullRefresh
 import kotlinx.android.synthetic.main.activity_main.*

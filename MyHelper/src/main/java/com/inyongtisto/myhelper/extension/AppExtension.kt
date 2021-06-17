@@ -68,11 +68,17 @@ fun EditText.isEmpty(setError: Boolean = true): Boolean {
     } else false
 }
 
-//
-//fun AppCompatEditText.setEmptyError() {
-//    this.error = context.getString(R.string.kolom_tidak_boleh_kosong)
-//    this.requestFocus()
-//}
+fun EditText.clearText() {
+    setText("")
+    clearFocus()
+//    context.hideKeyboard(this)
+}
+
+fun AppCompatEditText.clearSearch() {
+    setText("")
+    clearFocus()
+//    context.hideKeyboard(this)
+}
 
 fun Activity.isCameraPermissionGranted(context: Context, REQUEST_PERMISSION_CAMERA: Int): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -99,56 +105,6 @@ fun getFragmentWidthPercentage(percentage: Int): Int {
     val dm = Resources.getSystem().displayMetrics
     val rect = dm.run { Rect(0, 0, widthPixels, heightPixels) }
     return (rect.width() * percent).toInt()
-}
-
-//fun EditText.clearSearch() {
-//    setText("")
-//    clearFocus()
-//    context.hideKeyboard(this)
-//}
-//
-//fun AppCompatEditText.clearSearch() {
-//    setText("")
-//    clearFocus()
-//    context.hideKeyboard(this)
-//}
-
-fun String.remove(string: String): String = replace(string, "")
-
-fun String.removeComma(): String = replace(",", "")
-
-fun String.fixPhoneNumber(): String {
-    return when {
-        take(1) == "0" -> "62${this.substring(1, this.length)}"
-        take(2) == "62" -> this
-        isNullOrEmpty() -> this
-        else -> "62$this"
-    }
-}
-
-fun Int.convertRupiah(hideCurrency: Boolean = false): String {
-    val localeID = Locale("in", "ID")
-    val format = NumberFormat.getCurrencyInstance(localeID)
-    var value = format.format(this).replace(",00", "")
-    if (hideCurrency) value = value.replace("Rp", "")
-    return value
-}
-
-fun Double.convertRupiah(hideCurrency: Boolean = false): String {
-    val localeID = Locale("in", "ID")
-    val format = NumberFormat.getCurrencyInstance(localeID)
-    var value = format.format(this).replace(",00", "")
-    if (hideCurrency) value = value.replace("Rp", "")
-    return value
-}
-
-fun String?.convertRupiah(hideCurrency: Boolean = false): String {
-    if (this == null || this.isEmpty()) return ""
-    val localeID = Locale("in", "ID")
-    val format = NumberFormat.getCurrencyInstance(localeID)
-    var value = format.format(this.toDouble()).replace(",00", "")
-    if (hideCurrency) value = value.replace("Rp", "")
-    return value
 }
 
 //fun Context.showSuccessDialog(message: String, onConfirmClickListener: () -> Unit) {
