@@ -2,4 +2,6 @@
 <resources>
     <string name="kolom_tidak_boleh_kosong">Kolom tidak boleh kosong</string>
     <string name="simpan">Simpan</string>
+    <string name="oopss">Oopss…</string>
+    <string name="berhasil">Berhasil</string>
 </resources>

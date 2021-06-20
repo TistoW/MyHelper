@@ -17,6 +17,7 @@ public class OnEditTextChanged {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                assert listener != null;
                 listener.onChanged(s.toString());
             }
 

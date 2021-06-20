@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.inyongtisto.myhelper.R
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -28,10 +29,6 @@ fun invisible() = View.INVISIBLE
 fun gone() = View.GONE
 
 const val dateFormat = "yyyy-MM-dd"
-
-fun Context.showToast(message: String) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-}
 
 fun logs(message: String) {
     Log.d("RESPONS", message)
@@ -53,31 +50,11 @@ fun Context.setError(editText: EditText) {
     editText.requestFocus()
 }
 
-fun EditText.setEmptyError() {
-    this.error = context.getString(R.string.kolom_tidak_boleh_kosong)
-    this.requestFocus()
-}
-
-fun EditText.isEmpty(setError: Boolean = true): Boolean {
-    return if (this.text.isEmpty()) {
-        if (setError){
-            this.error = context.getString(R.string.kolom_tidak_boleh_kosong)
-            this.requestFocus()
-        }
-        true
-    } else false
-}
-
-fun EditText.clearText() {
-    setText("")
-    clearFocus()
-//    context.hideKeyboard(this)
-}
-
-fun AppCompatEditText.clearSearch() {
-    setText("")
-    clearFocus()
-//    context.hideKeyboard(this)
+fun Activity.blackStatusBar(context: Activity) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val decor = this.window.decorView
+        decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
 }
 
 fun Activity.isCameraPermissionGranted(context: Context, REQUEST_PERMISSION_CAMERA: Int): Boolean {
@@ -107,46 +84,14 @@ fun getFragmentWidthPercentage(percentage: Int): Int {
     return (rect.width() * percent).toInt()
 }
 
-//fun Context.showSuccessDialog(message: String, onConfirmClickListener: () -> Unit) {
-//    SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-//            .setTitleText(getString(R.string.berhasil))
-//            .setContentText(message)
-//            .setConfirmText(getString(R.string.dialog_ok))
-//            .setConfirmClickListener {
-//                onConfirmClickListener()
-//            }
-//            .show()
-//}
-
-//fun Context.showErrorDialog(message: String) {
-//    SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-//            .setTitleText(getString(R.string.oopss))
-//            .setConfirmText(getString(R.string.dialog_ok))
-//            .setContentText(message)
-//            .show()
-//}
-
-fun priceFormatter(price: Int): String {
-    val formatter = DecimalFormat("#,###")
-    return formatter.format(price)
+fun Context.verticalLayoutManager(): LinearLayoutManager {
+    val layoutManager = LinearLayoutManager(this)
+    layoutManager.orientation = LinearLayoutManager.VERTICAL
+    return layoutManager
 }
 
-//fun RecyclerView.setItemSeparator() {
-//    val divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-//    divider.setDrawable(context.getDrawableCompat(R.drawable.item_separator)!!)
-//    addItemDecoration(divider)
-//}
-
-fun AppCompatEditText.addCustomTextWatcher(button: View) {
-
-    context.getColor(android.R.color.holo_blue_bright)
-    addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {}
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            button.isEnabled = !s.isNullOrEmpty()
-        }
-    })
+fun Context.horizontalLayoutManager(): LinearLayoutManager {
+    val layoutManager = LinearLayoutManager(this)
+    layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+    return layoutManager
 }

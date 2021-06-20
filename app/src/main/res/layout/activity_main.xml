@@ -32,6 +32,10 @@
                 android:id="@+id/btn_simpan"
                 layout="@layout/layout_btn_simpan" />
 
+            <include
+                android:id="@+id/btn_simpan"
+                layout="@layout/layout_progress_dialog" />
+
         </LinearLayout>
 
 

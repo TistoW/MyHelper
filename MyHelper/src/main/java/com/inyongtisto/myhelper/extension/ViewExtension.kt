@@ -23,3 +23,14 @@ fun SwipeRefreshLayout.setDefaultColor() {
     )
 }
 
+fun View.toSquare() {
+    val observer = this.viewTreeObserver
+    observer.addOnGlobalLayoutListener {
+        this.viewTreeObserver
+//            val a = view.measuredHeight
+        val b = this.measuredWidth
+        this.layoutParams.height = b
+        this.requestLayout()
+    }
+}
+

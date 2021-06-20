@@ -5,6 +5,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class PullRefresh {
     public PullRefresh(SwipeRefreshLayout view, @Nullable OnRefreshListener listener) {
+        assert listener != null;
         view.setOnRefreshListener(listener::onRefresh);
         view.setColorSchemeResources(
                 android.R.color.holo_green_light,
