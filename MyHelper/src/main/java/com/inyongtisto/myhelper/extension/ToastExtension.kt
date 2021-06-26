@@ -25,8 +25,8 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
-fun Context.toastSimple(context: Context, pesan: String) {
-    Toast.makeText(context, pesan, Toast.LENGTH_SHORT).show()
+fun Context.toastSimple(pesan: String) {
+    Toast.makeText(this, pesan, Toast.LENGTH_SHORT).show()
 }
 
 fun Context.toastSuccess(pesan: String) {
