@@ -48,9 +48,10 @@ dependencies {
     implementation "com.intuit.sdp:sdp-android:1.0.6"
 
     //Sweet Alert Dialog
+    implementation 'com.github.GrenderG:Toasty:1.4.0'
+    implementation 'com.github.thomper:sweet-alert-dialog:1.4.0'
+
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
 
-    // sweet Alert
-    implementation 'com.github.thomper:sweet-alert-dialog:1.4.0'
 }

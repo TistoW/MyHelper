@@ -47,4 +47,18 @@ fun Context.showErrorDialog(message: String, title: String = getString(R.string.
         .show()
 }
 
+fun Context.showSuccessDialog(title: String, pesan: String) {
+    SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+        .setTitleText(title)
+        .setContentText(pesan)
+        .show()
+}
+
+fun Context.showInfoDialog(title: String, pesan: String) {
+    SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+        .setTitleText(title)
+        .setContentText(pesan)
+        .show()
+}
+
 
