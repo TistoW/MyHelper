@@ -7,22 +7,15 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Rect
 import android.os.Build
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inyongtisto.myhelper.R
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.util.*
 
 fun visible() = View.VISIBLE
 fun invisible() = View.INVISIBLE
@@ -32,6 +25,28 @@ const val dateFormat = "yyyy-MM-dd"
 
 fun logs(message: String) {
     Log.d("RESPONS", message)
+}
+
+fun logs(tag: String, message: String) {
+    Log.d(tag, message)
+}
+
+fun logs(tag: String, vararg str: String) {
+    var message = ""
+    for ((i, s) in str.withIndex()) {
+        message += if (i == str.size - 1) s else "$s - "
+    }
+    Log.d(tag, message)
+}
+
+fun longLogs(longString: String, tag: String = "RESPONS") {
+    val maxLogSize = 3000
+    for (i in 0..longString.length / maxLogSize) {
+        val start = i * maxLogSize
+        var end = (i + 1) * maxLogSize
+        end = if (end > longString.length) longString.length else end
+        logs(tag, longString.substring(start, end))
+    }
 }
 
 fun Context.setToolbar(toolbar: Toolbar, title: String) {

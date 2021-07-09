@@ -2,12 +2,16 @@ package com.inyongtisto.myhelper;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-public class OnEditTextChanged {
+public class OnEditTextChanged implements View.OnClickListener {
+
+    private OnFocusChangedListener mOnFocusChanged;
+
     public OnEditTextChanged(EditText editText, @Nullable OnRefreshListener listener) {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -26,9 +30,27 @@ public class OnEditTextChanged {
 
             }
         });
+        editText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (mOnFocusChanged != null) {
+                mOnFocusChanged.onChanged(hasFocus);
+            }
+        });
+    }
+
+    public OnEditTextChanged setOnFocusChanged(@Nullable OnFocusChangedListener listener) {
+        mOnFocusChanged = listener;
+        return this;
+    }
+
+    @Override
+    public void onClick(View v) {
     }
 
     public interface OnRefreshListener {
         void onChanged(String s);
+    }
+
+    public interface OnFocusChangedListener {
+        void onChanged(Boolean b);
     }
 }

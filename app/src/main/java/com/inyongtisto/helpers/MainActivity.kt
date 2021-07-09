@@ -18,9 +18,13 @@ class MainActivity : AppCompatActivity() {
             logs("do this on this")
         }
 
-        swipeRefresh.setOnRefreshListener {
+//        swipeRefresh.setOnRefreshListener {
+//
+//        }
+//        swipeRefresh.setColorSchemeColors()
 
-        }
-        swipeRefresh.setColorSchemeColors()
+        logs("Tandapa Tag")
+        logs("tage", "with Tage")
+        logs("tage", "mesage banya", "sama ini", "sama itu")
     }
 }

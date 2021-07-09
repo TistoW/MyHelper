@@ -1,6 +1,8 @@
 package com.inyongtisto.myhelper.extension
 
+import android.graphics.Paint
 import android.view.View
+import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 fun View.toVisible() {
@@ -13,6 +15,10 @@ fun View.toGone() {
 
 fun View.toInvisible() {
     this.visibility = View.INVISIBLE
+}
+
+fun TextView.coret(){
+    this.paintFlags = this.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 }
 
 fun SwipeRefreshLayout.setDefaultColor() {
