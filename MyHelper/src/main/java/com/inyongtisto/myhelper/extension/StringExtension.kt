@@ -60,6 +60,10 @@ fun String.toRequestBody(): RequestBody {
     return this.toRequestBody("text/plain".toMediaTypeOrNull())
 }
 
+fun Int.toRequestBody(): RequestBody {
+    return this.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+}
+
 
 @SuppressLint("SimpleDateFormat")
 fun String.toSalam(): String {

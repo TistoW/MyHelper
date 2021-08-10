@@ -34,6 +34,7 @@ fun Context.showSuccessDialog(message: String, onConfirmClickListener: () -> Uni
         .setContentText(message)
         .setConfirmText(getString(R.string.dialog_ok))
         .setConfirmClickListener {
+            it.dismiss()
             onConfirmClickListener()
         }
         .show()

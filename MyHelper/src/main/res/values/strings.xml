@@ -5,4 +5,5 @@
     <string name="oopss">Oopss…</string>
     <string name="berhasil">Berhasil</string>
     <string name="cari">Cari</string>
+    <string name="dialog_ok">Ok</string>
 </resources>
