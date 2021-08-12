@@ -17,10 +17,6 @@ fun View.toInvisible() {
     this.visibility = View.INVISIBLE
 }
 
-fun TextView.coret(){
-    this.paintFlags = this.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-}
-
 fun SwipeRefreshLayout.setDefaultColor() {
     this.setColorSchemeColors(
         context.getColor(android.R.color.holo_green_light),
