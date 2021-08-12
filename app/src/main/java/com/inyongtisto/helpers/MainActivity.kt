@@ -16,15 +16,8 @@ class MainActivity : AppCompatActivity() {
 
         PullRefresh(swipeRefresh) {
             logs("do this on this")
+            toastSuccess("Success Dongs")
+            swipeRefresh.isRefreshing = false
         }
-
-//        swipeRefresh.setOnRefreshListener {
-//
-//        }
-//        swipeRefresh.setColorSchemeColors()
-
-        logs("Tandapa Tag")
-        logs("tage", "with Tage")
-        logs("tage", "mesage banya", "sama ini", "sama itu")
     }
 }

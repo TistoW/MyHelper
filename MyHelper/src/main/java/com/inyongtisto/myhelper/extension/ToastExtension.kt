@@ -18,9 +18,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
+import androidx.core.content.res.ResourcesCompat
 import com.inyongtisto.myhelper.R
-import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
-import es.dmoral.toasty.Toasty
+import www.sanju.motiontoast.MotionToast
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
@@ -29,16 +29,50 @@ fun Context.toastSimple(pesan: String) {
     Toast.makeText(this, pesan, Toast.LENGTH_SHORT).show()
 }
 
-fun Context.toastSuccess(pesan: String) {
-    Toasty.success(this, pesan, Toast.LENGTH_SHORT, true).show()
+fun Activity.toastSuccess(pesan: String) {
+//    Toasty.success(this, pesan, Toast.LENGTH_SHORT, true).show()
+    MotionToast.createToast(
+        this,
+        "Success",
+        pesan,
+        MotionToast.TOAST_SUCCESS,
+        MotionToast.GRAVITY_BOTTOM,
+        MotionToast.LONG_DURATION,
+        ResourcesCompat.getFont(this, R.font.helvetica_regular)
+    )
 }
 
-fun Context.toastInfo(pesan: String) {
-    Toasty.info(this, pesan, Toast.LENGTH_SHORT, true).show()
+fun Activity.toastInfo(pesan: String) {
+    MotionToast.createToast(
+        this,
+        "Info",
+        pesan,
+        MotionToast.TOAST_INFO,
+        MotionToast.GRAVITY_BOTTOM,
+        MotionToast.LONG_DURATION,
+        ResourcesCompat.getFont(this, R.font.helvetica_regular))
 }
 
-fun Context.toastError(pesan: String) {
-    Toasty.error(this, pesan, Toast.LENGTH_SHORT, true).show()
+fun Activity.toastWarning(pesan: String) {
+    MotionToast.createToast(
+        this,
+        "Warning",
+        pesan,
+        MotionToast.TOAST_WARNING,
+        MotionToast.GRAVITY_BOTTOM,
+        MotionToast.LONG_DURATION,
+        ResourcesCompat.getFont(this, R.font.helvetica_regular))
+}
+
+fun Activity.toastError(pesan: String) {
+    MotionToast.createToast(
+        this,
+        "Error",
+        pesan,
+        MotionToast.TOAST_ERROR,
+        MotionToast.GRAVITY_BOTTOM,
+        MotionToast.LONG_DURATION,
+        ResourcesCompat.getFont(this, R.font.helvetica_regular))
 }
 
 
