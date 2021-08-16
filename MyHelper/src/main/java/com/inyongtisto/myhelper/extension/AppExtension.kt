@@ -9,6 +9,7 @@ import android.graphics.Rect
 import android.os.Build
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -49,11 +50,19 @@ fun longLogs(longString: String, tag: String = "RESPONS") {
     }
 }
 
-fun Context.setToolbar(toolbar: Toolbar, title: String) {
-    (this as AppCompatActivity).setSupportActionBar(toolbar)
+fun Context.setToolbar(view: Toolbar, title: String) {
+    (this as AppCompatActivity).setSupportActionBar(view)
     this.supportActionBar!!.title = title
     this.supportActionBar!!.setDisplayShowHomeEnabled(true)
     this.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+}
+
+fun Activity.setTransparantStatusBar() {
+    val w: Window = this.window
+    w.setFlags(
+        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+    )
 }
 
 fun Activity.hidenKeyboard() {
