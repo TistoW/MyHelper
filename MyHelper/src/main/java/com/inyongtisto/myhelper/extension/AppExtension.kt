@@ -1,22 +1,29 @@
 package com.inyongtisto.myhelper.extension
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Rect
+import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inyongtisto.myhelper.R
+import java.net.URLEncoder
+import javax.security.auth.Subject
 
 fun visible() = View.VISIBLE
 fun invisible() = View.INVISIBLE
@@ -119,3 +126,39 @@ fun Context.horizontalLayoutManager(): LinearLayoutManager {
     layoutManager.orientation = LinearLayoutManager.HORIZONTAL
     return layoutManager
 }
+
+@SuppressLint("QueryPermissionsNeeded")
+fun Context.openWhatsApp(phone: String, message: String = "Hallo admin,") {
+    try {
+        val packageManager = packageManager
+        val i = Intent(Intent.ACTION_VIEW)
+        val url = "https://wa.me/" + phone + "?text=" + URLEncoder.encode(message, "UTF-8")
+        i.setPackage("com.whatsapp")
+        i.data = Uri.parse(url)
+        if (i.resolveActivity(packageManager) != null) {
+            startActivity(i)
+        } else {
+            Toast.makeText(this, "Tidak ada whatsapp terinstall", Toast.LENGTH_SHORT).show()
+        }
+    } catch (e: Exception) {
+        Log.e("ERROR WHATSAPP", e.toString())
+        Toast.makeText(this, "Tidak ada whatsapp terinstall", Toast.LENGTH_SHORT).show()
+    }
+}
+
+fun Context.openBrowser(url: String) {
+    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    startActivity(browserIntent)
+}
+
+fun Context.openEmail(emailTo: String, text: String, subject: String = "") {
+    try {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("mailto:$emailTo"))
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        intent.putExtra(Intent.EXTRA_TEXT, text)
+        startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        showErrorDialog("tidak ada Aplikasi Emailer terpasang")
+    }
+}
+
