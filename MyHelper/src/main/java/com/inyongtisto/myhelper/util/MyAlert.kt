@@ -1,14 +1,7 @@
 package com.inyongtisto.myhelper.util
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
-import android.graphics.Color
-import android.view.View
-import android.widget.TextView
-import com.google.android.material.snackbar.Snackbar
-import com.inyongtisto.myhelper.R
-import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
+import cn.pedant.SweetAlert.SweetAlertDialog
 
 object MyAlert {
 

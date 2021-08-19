@@ -23,6 +23,9 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inyongtisto.myhelper.R
 import java.net.URLEncoder
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.security.auth.Subject
 
 fun visible() = View.VISIBLE
@@ -160,5 +163,24 @@ fun Context.openEmail(emailTo: String, text: String, subject: String = "") {
     } catch (e: ActivityNotFoundException) {
         showErrorDialog("tidak ada Aplikasi Emailer terpasang")
     }
+}
+
+@SuppressLint("SimpleDateFormat")
+fun convertTglUTC(date: String, ygDimau: String): String {
+    var hasil = ""
+    val frmtlama = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    val dateFormat = SimpleDateFormat(frmtlama)
+    try {
+        val dd = dateFormat.parse(date)
+        // tambah 7 jam untuk indonesia
+        val hour: Long = 3600 * 1000 // in milli-seconds.
+        val newDate = Date(dd!!.time + 7 * hour)
+        dateFormat.applyPattern(ygDimau)
+        hasil = dateFormat.format(newDate)
+
+    } catch (e: ParseException) {
+        e.printStackTrace()
+    }
+    return hasil
 }
 
