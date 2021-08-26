@@ -53,7 +53,6 @@ fun Context.showErrorDialog(
         .show()
 }
 
-
 fun Context.showInfoDialog(title: String, pesan: String) {
     SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
         .setTitleText(title)
