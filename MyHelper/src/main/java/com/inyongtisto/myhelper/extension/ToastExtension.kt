@@ -59,15 +59,15 @@ fun Activity.toastError(pesan: String) {
 }
 
 fun Fragment.toastSuccess(pesan: String){
-    requireActivity().toastError(pesan)
+    requireActivity().toastSuccess(pesan)
 }
 
 fun Fragment.toastInfo(pesan: String){
-    requireActivity().toastError(pesan)
+    requireActivity().toastInfo(pesan)
 }
 
 fun Fragment.toastWarning(pesan: String){
-    requireActivity().toastError(pesan)
+    requireActivity().toastWarning(pesan)
 }
 
 fun Fragment.toastError(pesan: String){
