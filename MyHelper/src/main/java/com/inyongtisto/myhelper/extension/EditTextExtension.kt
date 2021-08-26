@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.textfield.TextInputEditText
 import com.inyongtisto.myhelper.R
 import java.text.NumberFormat
 import java.util.*
@@ -83,6 +84,21 @@ fun EditText.onChangeRupiah(onChange: ((s: String) -> Unit?)? = null) {
                     this@onChangeRupiah.setSelection(current.length)
                 }
             }
+        }
+    })
+}
+
+fun TextInputEditText.onChangeListener(onChange: ((s: String) -> Unit?)? = null) {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(p0: Editable?) {
+
+        }
+
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            onChange?.invoke(s.toString())
         }
     })
 }

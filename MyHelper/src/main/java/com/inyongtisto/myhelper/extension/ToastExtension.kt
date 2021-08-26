@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import com.inyongtisto.myhelper.R
 import www.sanju.motiontoast.MotionToast
 
@@ -57,4 +58,19 @@ fun Activity.toastError(pesan: String) {
         ResourcesCompat.getFont(this, R.font.helvetica_regular))
 }
 
+fun Fragment.toastSuccess(pesan: String){
+    requireActivity().toastError(pesan)
+}
+
+fun Fragment.toastInfo(pesan: String){
+    requireActivity().toastError(pesan)
+}
+
+fun Fragment.toastWarning(pesan: String){
+    requireActivity().toastError(pesan)
+}
+
+fun Fragment.toastError(pesan: String){
+    requireActivity().toastError(pesan)
+}
 

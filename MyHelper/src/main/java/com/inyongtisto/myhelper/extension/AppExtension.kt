@@ -3,9 +3,7 @@ package com.inyongtisto.myhelper.extension
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ActivityNotFoundException
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Rect
@@ -20,6 +18,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inyongtisto.myhelper.R
 import java.net.URLEncoder
@@ -124,11 +123,24 @@ fun Context.verticalLayoutManager(): LinearLayoutManager {
     return layoutManager
 }
 
+fun Fragment.verticalLayoutManager(): LinearLayoutManager {
+    val layoutManager = LinearLayoutManager(requireActivity())
+    layoutManager.orientation = LinearLayoutManager.VERTICAL
+    return layoutManager
+}
+
 fun Context.horizontalLayoutManager(): LinearLayoutManager {
     val layoutManager = LinearLayoutManager(this)
     layoutManager.orientation = LinearLayoutManager.HORIZONTAL
     return layoutManager
 }
+
+fun Fragment.horizontalLayoutManager(): LinearLayoutManager {
+    val layoutManager = LinearLayoutManager(requireActivity())
+    layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+    return layoutManager
+}
+
 
 @SuppressLint("QueryPermissionsNeeded")
 fun Context.openWhatsApp(phone: String, message: String = "Hallo admin,") {
@@ -182,5 +194,22 @@ fun convertTglUTC(date: String, ygDimau: String): String {
         e.printStackTrace()
     }
     return hasil
+}
+
+fun Context.shareTo(message: String) {
+    val intent = Intent()
+    intent.action = Intent.ACTION_SEND
+    intent.putExtra(Intent.EXTRA_TEXT, message)
+    intent.type = "text/plain"
+    startActivity(Intent.createChooser(intent, "Share to.."))
+}
+
+fun Context.copyText(text: String, showToast: Boolean = true) {
+    val copyManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val copyText = ClipData.newPlainText("text", text)
+    copyManager.setPrimaryClip(copyText)
+
+    if (showToast)
+        Toast.makeText(this, "Text Berhasil di salin", Toast.LENGTH_LONG).show()
 }
 
