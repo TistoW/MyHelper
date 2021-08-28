@@ -17,6 +17,10 @@ fun View.toInvisible() {
     this.visibility = View.INVISIBLE
 }
 
+fun View.visible(status: Boolean) {
+    if (status) this.toVisible() else this.toGone()
+}
+
 fun SwipeRefreshLayout.setDefaultColor() {
     this.setColorSchemeColors(
         context.getColor(android.R.color.holo_green_light),
