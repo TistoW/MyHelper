@@ -73,7 +73,7 @@ fun EditText.onChangeRupiah(onChange: ((s: String) -> Unit?)? = null) {
                 val parsed = java.lang.Double.parseDouble(cleanString)
                 val formatted = NumberFormat.getCurrencyInstance(localeID).format(parsed)
 
-                val nilai = formatted.replace("Rp", "")
+                val nilai = formatted.replace("Rp", "").replace(",00", "")
                 if (formatted.length < 18) {
                     current = nilai
                     onChange?.invoke(cleanString)
