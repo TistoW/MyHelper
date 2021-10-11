@@ -8,6 +8,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.textfield.TextInputEditText
 import com.inyongtisto.myhelper.R
+import com.inyongtisto.myhelper.util.MoneyTextWatcher
 import java.text.NumberFormat
 import java.util.*
 
@@ -117,4 +118,13 @@ fun EditText.onChangeListener(onChange: ((s: String) -> Unit?)? = null) {
         }
     })
 }
+
+fun AppCompatEditText.addRupiahListener() {
+    addTextChangedListener(MoneyTextWatcher(this))
+}
+
+fun TextInputEditText.addRupiahListener() {
+    addTextChangedListener(MoneyTextWatcher(this))
+}
+
 
