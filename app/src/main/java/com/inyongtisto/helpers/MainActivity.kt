@@ -7,6 +7,7 @@ import com.inyongtisto.myhelper.OnEditTextChanged
 import com.inyongtisto.myhelper.extension.logs
 import com.inyongtisto.myhelper.PullRefresh
 import com.inyongtisto.myhelper.base.BaseActivity
+import com.inyongtisto.myhelper.extension.showErrorDialog
 import com.inyongtisto.myhelper.extension.toastSuccess
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,6 +20,8 @@ class MainActivity : BaseActivity() {
             logs("do this on this")
             toastSuccess("Success Dongs")
             swipeRefresh.isRefreshing = false
+
+            showErrorDialog("Error dialogs test")
         }
     }
 }
