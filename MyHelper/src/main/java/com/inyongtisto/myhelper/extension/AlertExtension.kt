@@ -1,10 +1,18 @@
 package com.inyongtisto.myhelper.extension
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.inyongtisto.myhelper.R
+import com.inyongtisto.myhelper.loading.MyLoading
 
 fun Context.showToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -101,4 +109,19 @@ fun Fragment.showInfoDialog(
     onConfirm: () -> Unit
 ) {
     requireActivity().showInfoDialog(message, pesan, onConfirm)
+}
+
+fun Activity.showLoading() {
+    val inflater = layoutInflater
+    val layout = inflater.inflate(R.layout.view_loading, null)
+    val alertDialog: AlertDialog = MyLoading.newInstance(this)
+    alertDialog.setView(layout)
+    alertDialog.setCancelable(false)
+    alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    alertDialog.show()
+}
+
+fun Activity.dismisLoading() {
+    val alertDialog: AlertDialog = MyLoading.newInstance(this)
+    alertDialog.dismiss()
 }
