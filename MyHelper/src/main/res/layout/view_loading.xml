@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_25sdp"
         android:text="@string/LOADING" />
 
     <ProgressBar
@@ -20,7 +20,7 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_25sdp"
         android:indeterminate="true"
         android:indeterminateBehavior="repeat"
         android:indeterminateDuration="10" />
