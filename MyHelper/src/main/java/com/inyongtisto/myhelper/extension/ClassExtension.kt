@@ -1,11 +1,10 @@
 package com.inyongtisto.myhelper.extension
 
-import android.graphics.Paint
-import android.view.View
-import android.widget.TextView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.Gson
 import com.google.gson.internal.Primitives
+import com.google.gson.reflect.TypeToken
+import retrofit2.Response
+import java.lang.Exception
 import java.lang.reflect.Type
 
 fun <T> T.toJson(): String {
@@ -18,3 +17,26 @@ fun <T> String?.toModel(classOfT: Class<T>): T? {
     return Primitives.wrap(classOfT).cast(obj)!!
 }
 
+inline fun <reified T> Gson.fromJson(json: String): T =
+    fromJson(json, object : TypeToken<T>() {}.type)
+
+fun <T> Response<T>.getErrorBody(): ErrorResponse? {
+    return try {
+        this.errorBody()?.string()?.let { error ->
+            Gson().fromJson<ErrorResponse>(error)
+        }
+    } catch (exception: Exception) {
+        null
+    }
+}
+
+fun <T, S> Response<T>.getErrorBody(classOfT: Class<S>): S? {
+    return this.errorBody()?.string()?.let { error ->
+        error.toModel(classOfT)
+    }
+}
+
+data class ErrorResponse(
+    val code: String? = null,
+    val message: String? = null
+)
