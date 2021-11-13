@@ -90,6 +90,13 @@ fun Activity.blackStatusBar(context: Activity) {
     }
 }
 
+fun Activity.blackStatusBar() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val decor = this.window.decorView
+        decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
+}
+
 fun Activity.isCameraPermissionGranted(context: Context, REQUEST_PERMISSION_CAMERA: Int): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
