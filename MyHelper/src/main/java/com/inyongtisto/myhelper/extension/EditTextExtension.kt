@@ -12,6 +12,10 @@ import com.inyongtisto.myhelper.util.MoneyTextWatcher
 import java.text.NumberFormat
 import java.util.*
 
+fun EditText.getString():String {
+    return this.text.toString()
+}
+
 fun EditText.setEmptyError() {
     this.error = context.getString(R.string.kolom_tidak_boleh_kosong)
     this.requestFocus()
