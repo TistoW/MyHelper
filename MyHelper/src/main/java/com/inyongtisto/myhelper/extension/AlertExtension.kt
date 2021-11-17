@@ -125,3 +125,13 @@ fun Activity.dismisLoading() {
     val alertDialog: AlertDialog = MyLoading.newInstance(this)
     alertDialog.dismiss()
 }
+
+fun Activity.appLoadingDialog(): AlertDialog {
+    val inflater = layoutInflater
+    val layout = inflater.inflate(R.layout.view_loading, null)
+    val alertDialog: AlertDialog = MyLoading.newInstance(this)
+    alertDialog.setView(layout)
+    alertDialog.setCancelable(false)
+    alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    return alertDialog
+}
