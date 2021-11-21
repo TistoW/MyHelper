@@ -1,9 +1,14 @@
 package com.inyongtisto.myhelper.extension
 
+import android.content.Context
 import android.graphics.Paint
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.inyongtisto.myhelper.R
 
 fun View.toVisible() {
     this.visibility = View.VISIBLE
@@ -29,6 +34,14 @@ fun SwipeRefreshLayout.setDefaultColor() {
     )
 }
 
+fun SwipeRefreshLayout.showLoading() {
+    this.isRefreshing = true
+}
+
+fun SwipeRefreshLayout.dismissLoading() {
+    this.isRefreshing = false
+}
+
 fun View.toSquare() {
     val observer = this.viewTreeObserver
     observer.addOnGlobalLayoutListener {
@@ -40,3 +53,42 @@ fun View.toSquare() {
     }
 }
 
+fun Spinner.setOnPositionSelectedListener(
+    context: Context,
+    array: List<String>,
+    layout: Int = R.layout.item_spinner,
+    onSelected: (pos: Int) -> Unit
+) {
+    val adapter = ArrayAdapter<Any>(context, layout, array.toTypedArray())
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    this.adapter = adapter
+    this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+
+        }
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            onSelected.invoke(position)
+        }
+    }
+}
+
+fun Spinner.setOnItemSelectedListener(
+    context: Context,
+    array: List<String>,
+    layout: Int = R.layout.item_spinner,
+    onSelected: (item: String) -> Unit
+) {
+    val adapter = ArrayAdapter<Any>(context, R.layout.item_spinner, array.toTypedArray())
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+    this.adapter = adapter
+    this.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+
+        }
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            onSelected.invoke(array[position])
+        }
+    }
+}

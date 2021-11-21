@@ -6,6 +6,9 @@ import android.content.Intent
 import android.graphics.Paint
 import android.view.View
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
@@ -61,7 +64,28 @@ fun <T> Fragment.pushActivity(activity: Class<T>) {
     startActivity(i)
 }
 
-
 fun Activity.getStringExtra(name: String = "extra"): String? {
     return intent.getStringExtra(name)
+}
+
+fun <T> Activity.intentActivityResult(activity: Class<T>, activityResult: ActivityResultLauncher<Intent>) {
+    val intent = Intent(this, activity)
+    activityResult.launch(intent)
+}
+
+//fun getActivityResult(name: String = "extra", onResultListener: (String) -> Unit): ActivityResultLauncher<Intent> {
+//    return registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+//        if (it.resultCode == 0) {
+//            val str: String? = it.data?.getStringExtra(name)
+//            onResultListener.invoke(str ?: "")
+//        }
+//    }
+//}
+
+fun Activity.sendResult(value: String? = null, name: String = "extra") {
+    val intent = Intent()
+    if (value != null) {
+        intent.putExtra(name, value)
+    }
+    setResult(0, intent)
 }

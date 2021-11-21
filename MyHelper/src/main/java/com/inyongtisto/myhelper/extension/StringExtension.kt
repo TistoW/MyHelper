@@ -21,6 +21,22 @@ fun String.fixPhoneNumber(): String {
     }
 }
 
+fun String?.uppercaseFirstChar(): String {
+    return this?.replaceFirstChar { it.uppercaseChar() } ?: ""
+}
+
+@SuppressLint("SimpleDateFormat")
+fun String.convertTanggal(
+    tgl: String,
+    formatBaru: String,
+    fromatLama: String = "yyyy-MM-dd kk:mm:ss"
+): String {
+    val dateFormat = SimpleDateFormat(fromatLama)
+    val confert = dateFormat.parse(tgl)
+    dateFormat.applyPattern(formatBaru)
+    return dateFormat.format(confert ?: "")
+}
+
 fun Int.toRupiah(hideCurrency: Boolean = false): String {
     val localeID = Locale("in", "ID")
     val format = NumberFormat.getCurrencyInstance(localeID)

@@ -25,5 +25,9 @@ class MainActivity : BaseActivity() {
         btn_simpan.setOnClickListener {
             progress.dismiss()
         }
+
+        spn.setOnPositionSelectedListener(this, arrayListOf()) {
+
+        }
     }
 }

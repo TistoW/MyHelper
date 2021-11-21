@@ -32,6 +32,11 @@
                 android:id="@+id/btn_simpan"
                 layout="@layout/layout_btn_simpan" />
 
+            <Spinner
+                android:id="@+id/spn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         </LinearLayout>
 
 
