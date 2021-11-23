@@ -79,6 +79,22 @@ fun Context.showInfoDialog(title: String, pesan: String, onConfirmClickListener:
         .show()
 }
 
+fun Activity.showWarningConfirmAlert(title: String, message: String, onConfirmClickListener: () -> Unit) {
+    SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+        .setTitleText(title)
+        .setContentText(message)
+        .setConfirmText(getString(R.string.dialog_ok))
+        .setConfirmClickListener {
+            it.dismiss()
+            onConfirmClickListener()
+        }
+        .setCancelText("Tutup")
+        .setCancelClickListener {
+            it.dismiss()
+        }
+        .show()
+}
+
 fun Fragment.showSuccessDialog(message: String, onConfirmClickListener: () -> Unit) {
     requireActivity().showSuccessDialog(message, onConfirmClickListener)
 }
@@ -110,6 +126,7 @@ fun Fragment.showInfoDialog(
 ) {
     requireActivity().showInfoDialog(message, pesan, onConfirm)
 }
+
 
 fun Activity.showLoading() {
     val inflater = layoutInflater

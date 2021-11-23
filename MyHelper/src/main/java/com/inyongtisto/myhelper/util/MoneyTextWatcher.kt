@@ -21,14 +21,18 @@ class MoneyTextWatcher(private val editText: AppCompatEditText) : TextWatcher {
             if (originalString.contains(",")) {
                 originalString = originalString.replace(",".toRegex(), "")
             }
-            val longVal = originalString.toLong()
-            val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
-            formatter.applyPattern("#,###,###,###")
-            val formattedString = formatter.format(longVal)
+            if (originalString == ""){
+                editText.setText(originalString)
+            } else{
+                val longVal = originalString.toLong()
+                val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
+                formatter.applyPattern("#,###,###,###")
+                val formattedString = formatter.format(longVal)
 
-            //setting text after format to EditText
-            editText.setText(formattedString)
-            editText.setSelection(editText.text!!.length)
+                //setting text after format to EditText
+                editText.setText(formattedString)
+                editText.setSelection(editText.text!!.length)
+            }
         } catch (nfe: NumberFormatException) {
             nfe.printStackTrace()
         }

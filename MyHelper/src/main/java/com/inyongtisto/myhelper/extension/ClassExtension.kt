@@ -17,6 +17,18 @@ fun <T> String?.toModel(classOfT: Class<T>): T? {
     return Primitives.wrap(classOfT).cast(obj)!!
 }
 
+fun <T, R> T.toModel(classOfT: Class<R>): R? {
+    return this.toJson().toModel(classOfT)
+}
+
+fun Int?.int(): Int {
+    return this ?: 0
+}
+
+fun String?.string(): String {
+    return this ?: ""
+}
+
 inline fun <reified T> Gson.fromJson(json: String): T =
     fromJson(json, object : TypeToken<T>() {}.type)
 
