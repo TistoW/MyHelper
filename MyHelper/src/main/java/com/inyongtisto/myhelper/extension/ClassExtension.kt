@@ -1,5 +1,8 @@
 package com.inyongtisto.myhelper.extension
 
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.google.gson.Gson
 import com.google.gson.internal.Primitives
 import com.google.gson.reflect.TypeToken
@@ -52,3 +55,12 @@ data class ErrorResponse(
     val code: String? = null,
     val message: String? = null
 )
+
+fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+    observe(lifecycleOwner, object : Observer<T> {
+        override fun onChanged(t: T?) {
+            observer.onChanged(t)
+            removeObserver(this)
+        }
+    })
+}

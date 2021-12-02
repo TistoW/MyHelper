@@ -21,9 +21,12 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inyongtisto.myhelper.R
+import com.inyongtisto.myhelper.util.Constants.TIME_STAMP_FORMAT
 import java.net.URLEncoder
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import javax.security.auth.Subject
 
@@ -57,6 +60,16 @@ fun longLogs(longString: String, tag: String = "RESPONS") {
         end = if (end > longString.length) longString.length else end
         logs(tag, longString.substring(start, end))
     }
+}
+
+private fun <T> List<T>.loga(string: String = "This:") {
+    this.forEach {
+        logs("$string:" + it.toJson())
+    }
+}
+
+private fun <T> T.logm(string: String = "This:") {
+    logs("$string:" + this.toJson())
 }
 
 fun Context.setToolbar(view: Toolbar, title: String) {
@@ -218,5 +231,9 @@ fun Context.copyText(text: String, showToast: Boolean = true) {
 
     if (showToast)
         Toast.makeText(this, "Text Berhasil di salin", Toast.LENGTH_LONG).show()
+}
+
+fun LocalDateTime.toTimeStamp(format: String = TIME_STAMP_FORMAT): String {
+    return DateTimeFormatter.ofPattern(format).format(this)
 }
 

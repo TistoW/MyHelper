@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="300dp"
+    android:minHeight="200dp"
+    android:id="@+id/parent_view"
+    android:theme="@style/Widget.DesignSystem.NumberPicker">
+
+    <NumberPicker
+        android:id="@+id/picker_day"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="@dimen/_8sdp"
+        android:layout_height="@dimen/_8sdp"/>
+
+    <NumberPicker
+        android:id="@+id/picker_month"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="@dimen/_8sdp"
+        android:layout_height="@dimen/_8sdp"/>
+
+    <NumberPicker
+        android:id="@+id/picker_year"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+</LinearLayout>

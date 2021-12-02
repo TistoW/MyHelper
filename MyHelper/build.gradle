@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -30,6 +30,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -46,6 +49,7 @@ dependencies {
 
     //Pixele
     implementation "com.intuit.sdp:sdp-android:1.0.6"
+    implementation "com.intuit.ssp:ssp-android:1.0.6"
 
     //Sweet Alert Dialog
 //    implementation 'com.github.GrenderG:Toasty:1.4.0'
@@ -57,4 +61,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
     implementation 'com.google.code.gson:gson:2.8.7'
 
+    // Date
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+    // Image picker
 }

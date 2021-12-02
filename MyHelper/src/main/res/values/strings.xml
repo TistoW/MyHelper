@@ -6,4 +6,6 @@
     <string name="berhasil">Berhasil</string>
     <string name="cari">Cari</string>
     <string name="dialog_ok">Ok</string>
+    <string name="date_picker">Date Picker</string>
+    <string name="oke">Oke</string>
 </resources>

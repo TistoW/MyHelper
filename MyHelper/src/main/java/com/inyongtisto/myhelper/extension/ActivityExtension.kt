@@ -87,5 +87,5 @@ fun Activity.sendResult(value: String? = null, name: String = "extra") {
     if (value != null) {
         intent.putExtra(name, value)
     }
-    setResult(0, intent)
+    setResult(Activity.RESULT_OK, intent)
 }

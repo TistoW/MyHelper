@@ -51,4 +51,44 @@
     <color name="grey10">#F8F8F8</color>
 
     <color name="black_20">#33000000</color>
+
+    <color name="green_10">#E3FFEC</color>
+    <color name="green_50">#e1fbe8</color>
+    <color name="green_700">#00b01c</color>
+
+    <color name="gray1">#292929</color>
+    <color name="gray2">#5C5C5C</color>
+    <color name="gray3">#8F8F8F</color>
+    <color name="gray4">#C2C2C2</color>
+    <color name="gray5">#F5F5F5</color>
+
+    <color name="blue1">#002952</color>
+    <color name="blue2">#0025B8</color>
+    <color name="blue3">#1F4BFF</color>
+    <color name="blue4">#859DFF</color>
+    <color name="blue5">#EBEEFF</color>
+
+    <color name="red1">#52001B</color>
+    <color name="red2">#B80006</color>
+    <color name="red3">#FF1F26</color>
+    <color name="red4">#FF8589</color>
+    <color name="red5">#FFEBEB</color>
+
+    <color name="green1">#042A18</color>
+    <color name="green2">#086336</color>
+    <color name="green3">#0D9B54</color>
+    <color name="green4">#78F0B4</color>
+    <color name="green5">#ECFEF5</color>
+
+    <color name="orange1">#522700</color>
+    <color name="orange2">#B84300</color>
+    <color name="orange3">#FF711F</color>
+    <color name="orange4">#FFB185</color>
+    <color name="orange5">#FFF3EB</color>
+
+    <color name="purple1">#210052</color>
+    <color name="purple2">#8100B8</color>
+    <color name="purple3">#BC1FFF</color>
+    <color name="purple4">#DA85FF</color>
+    <color name="purple5">#FAEBFF</color>
 </resources>

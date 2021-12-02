@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/bg_date_dialog"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_15sdp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_3sdp"
+            android:text="@string/date_picker"
+            android:textAppearance="@style/TypographyStyles.Text2.Bold" />
+
+        <com.inyongtisto.myhelper.view.DatePicker
+            android:id="@+id/date_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_simpan"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_43sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:backgroundTint="@color/green_700"
+            android:text="@string/oke"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TypographyStyles.Text2"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

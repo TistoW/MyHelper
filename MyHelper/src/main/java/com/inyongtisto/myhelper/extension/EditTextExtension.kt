@@ -145,4 +145,32 @@ fun TextInputEditText.addRupiahListener() {
     addTextChangedListener(MoneyTextWatcher(this))
 }
 
+fun TextInputEditText.addFirstTextCapitalListener() {
+    addTextChangedListener(FirstCapitalTextWatcher(this))
+}
+
+class FirstCapitalTextWatcher(private val editText: AppCompatEditText) : TextWatcher {
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+    override fun afterTextChanged(s: Editable) {
+        editText.removeTextChangedListener(this)
+        try {
+            var originalString = s.toString()
+            if (originalString.length == 1){
+                originalString = originalString.uppercase()
+            }
+            //setting text after format to EditText
+            editText.setText(originalString)
+            editText.setSelection(editText.text!!.length)
+        } catch (nfe: NumberFormatException) {
+            nfe.printStackTrace()
+        }
+
+        editText.addTextChangedListener(this)
+    }
+}
+
 
