@@ -109,7 +109,7 @@ fun String?.getInitial(): String {
     if (array.isEmpty()) return this
     var inisial = array[0].substring(0, 1)
     if (array.size > 1) inisial += array[1].substring(0, 1)
-    return inisial
+    return inisial.uppercase()
 }
 
 
