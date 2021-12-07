@@ -112,5 +112,21 @@ fun String?.getInitial(): String {
     return inisial.uppercase()
 }
 
+fun String?.toKFormat(): String {
+    if (this == null) return ""
+    return if (this.length > 4) {
+        return when (this.length) {
+            4 -> this.toRupiah(true).dropLast(2) + "K"
+            in 5..6 -> this.dropLast(3) + "K"
+            7 -> this.toRupiah(true).dropLast(6) + "M"
+            in 8..9 -> this.dropLast(6) + "M"
+            10 -> this.toRupiah(true).dropLast(6) + "M"
+            in 8..9 -> this.dropLast(10) + "B"
+            in 11..100 -> this.dropLast(9).toRupiah(true) + "B"
+            else -> this
+        }
+    } else this
+}
+
 
 
