@@ -2,8 +2,11 @@ package com.inyongtisto.myhelper.extension
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.textfield.TextInputEditText
@@ -171,6 +174,18 @@ class FirstCapitalTextWatcher(private val editText: AppCompatEditText) : TextWat
 
         editText.addTextChangedListener(this)
     }
+}
+
+fun AppCompatEditText.setOnSearchActionListener(onSearch: (s: String) -> Unit){
+    setOnEditorActionListener(object : TextView.OnEditorActionListener {
+        override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                onSearch.invoke(this@setOnSearchActionListener.text.toString())
+                return true
+            }
+            return false
+        }
+    })
 }
 
 
