@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -89,6 +90,11 @@ fun Activity.setTransparantStatusBar() {
 
 fun Activity.hidenKeyboard() {
     this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+}
+
+fun Fragment.hideKeyboard(){
+    val imm: InputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view!!.windowToken, 0)
 }
 
 fun Context.setError(editText: EditText) {
