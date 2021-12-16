@@ -1,12 +1,18 @@
 package com.inyongtisto.myhelper.extension
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Paint
+import android.os.Build
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.inyongtisto.myhelper.R
 
@@ -70,6 +76,28 @@ fun Spinner.setOnPositionSelectedListener(
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             onSelected.invoke(position)
         }
+    }
+}
+
+fun Activity.setStatusBarBackgroudColor(color: Int) {
+    val window: Window = window
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    window.statusBarColor = getColor(color)
+}
+
+fun AppCompatImageView.setTintColor(context: Context, color: Int) {
+    setColorFilter(
+        ContextCompat.getColor(context, color),
+        android.graphics.PorterDuff.Mode.MULTIPLY
+    )
+}
+
+fun Activity.lightStatusBar() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val decor = this.window.decorView
+        decor.systemUiVisibility =
+            decor.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv() //set status text  light
+
     }
 }
 
