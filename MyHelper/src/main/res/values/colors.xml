@@ -8,12 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-<!--    <color name="colorPrimary">#069517</color>-->
-<!--    <color name="colorPrimaryDark">#069517</color>-->
-<!--    <color name="colorPrimaryVariant">#F9591D</color>-->
-<!--    <color name="colorAccent">#069517</color>-->
-<!--    <color name="colorText">#121931</color>-->
-<!--    <color name="colorText2">#DB3975</color>-->
+    <!--    <color name="colorPrimary">#069517</color>-->
+    <!--    <color name="colorPrimaryDark">#069517</color>-->
+    <!--    <color name="colorPrimaryVariant">#F9591D</color>-->
+    <!--    <color name="colorAccent">#069517</color>-->
+    <!--    <color name="colorText">#121931</color>-->
+    <!--    <color name="colorText2">#DB3975</color>-->
 
     <color name="transparent">#00FFFFFF</color>
 
@@ -26,7 +26,6 @@
     <color name="transparant">#C4000000</color>
     <color name="transparant1">#C44A4A4A</color>
     <color name="toolbar">#FFFFFF</color>
-    <color name="orange_1">#FFFBE8</color>
 
     <color name="delete">#E60000</color>
 
@@ -52,9 +51,7 @@
 
     <color name="black_20">#33000000</color>
 
-    <color name="green_10">#E3FFEC</color>
-    <color name="green_50">#e1fbe8</color>
-    <color name="green_700">#00b01c</color>
+
 
     <color name="gray1">#292929</color>
     <color name="gray2">#5C5C5C</color>
@@ -91,4 +88,46 @@
     <color name="purple3">#BC1FFF</color>
     <color name="purple4">#DA85FF</color>
     <color name="purple5">#FAEBFF</color>
+
+    <color name="indigo_50">#E8EAF6</color>
+    <color name="indigo_100">#C5CAE9</color>
+    <color name="indigo_200">#9FA8DA</color>
+    <color name="indigo_300">#7986CB</color>
+    <color name="indigo_400">#5C6BC0</color>
+    <color name="indigo_500">#3F51B5</color>
+    <color name="indigo_600">#3949AB</color>
+    <color name="indigo_700">#303F9F</color>
+    <color name="indigo_800">#283593</color>
+    <color name="indigo_900">#1A237E</color>
+    <color name="indigo_1">#8C9EFF</color>
+    <color name="indigo_2">#536DFE</color>
+    <color name="indigo_3">#3D5AFE</color>
+    <color name="indigo_4">#304FFE</color>
+
+    <color name="orange_50">#FFF3E0</color>
+    <color name="orange_100">#FFE0B2</color>
+    <color name="orange_200">#FFCC80</color>
+    <color name="orange_300">#FFB74D</color>
+    <color name="orange_400">#FFA726</color>
+    <color name="orange_500">#FF9800</color>
+    <color name="orange_600">#FB8C00</color>
+    <color name="orange_700">#F57C00</color>
+    <color name="orange_800">#EF6C00</color>
+    <color name="orange_900">#E65100</color>
+    <color name="orange_1">#FFD180</color>
+    <color name="orange_2">#FFAB40</color>
+    <color name="orange_3">#FF9100</color>
+    <color name="orange_4">#FF6D00</color>
+
+    <color name="green_10">#E3FFEC</color>
+    <color name="green_50">#e5f5e5</color>
+    <color name="green_100">#c1e7bf</color>
+    <color name="green_200">#99d796</color>
+    <color name="green_300">#6cc86a</color>
+    <color name="green_400">#45bc47</color>
+    <color name="green_500">#00b01d</color>
+    <color name="green_600">#00a112</color>
+    <color name="green_700">#008f00</color>
+    <color name="green_800">#007e00</color>
+    <color name="green_900">#006000</color>
 </resources>

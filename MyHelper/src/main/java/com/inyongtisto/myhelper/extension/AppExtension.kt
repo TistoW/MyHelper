@@ -15,6 +15,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -241,5 +242,12 @@ fun Context.copyText(text: String, showToast: Boolean = true) {
 
 fun LocalDateTime.toTimeStamp(format: String = TIME_STAMP_FORMAT): String {
     return DateTimeFormatter.ofPattern(format).format(this)
+}
+
+fun TextView.setErrors(message: String = "Oopss, gagal memuat data!\nCoba lagi!", onClick: (() -> Unit?)? = null) {
+    this.text = message
+    this.setOnClickListener {
+        onClick?.invoke()
+    }
 }
 
