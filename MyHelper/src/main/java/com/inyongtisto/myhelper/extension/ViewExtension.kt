@@ -4,9 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Paint
 import android.os.Build
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
+import android.os.Handler
+import android.os.Looper
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -14,6 +14,9 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.transition.Slide
+import androidx.transition.Transition
+import androidx.transition.TransitionManager
 import com.inyongtisto.myhelper.R
 
 fun View.toVisible() {
@@ -119,4 +122,19 @@ fun Spinner.setOnItemSelectedListener(
             onSelected.invoke(array[position])
         }
     }
+}
+
+fun View.setVisibelityWithAnimation(
+    views: ViewGroup,
+    transition: Transition = Slide(Gravity.START)
+) {
+    // example
+    // var transition: Transition = Fade()
+    // var transition: Transition = Slide(Gravity.BOTTOM)
+    val show: Boolean = this.visibility != View.VISIBLE
+
+    transition.duration = 400
+    transition.addTarget(this)
+    TransitionManager.beginDelayedTransition(views, transition)
+    this.visibility = if (show) View.VISIBLE else View.GONE
 }

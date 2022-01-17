@@ -9,6 +9,8 @@ import android.content.res.Resources
 import android.graphics.Rect
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.Window
@@ -93,8 +95,9 @@ fun Activity.hidenKeyboard() {
     this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 }
 
-fun Fragment.hideKeyboard(){
-    val imm: InputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+fun Fragment.hideKeyboard() {
+    val imm: InputMethodManager =
+        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(view!!.windowToken, 0)
 }
 
@@ -244,10 +247,16 @@ fun LocalDateTime.toTimeStamp(format: String = TIME_STAMP_FORMAT): String {
     return DateTimeFormatter.ofPattern(format).format(this)
 }
 
-fun TextView.setErrors(message: String = "Oopss, gagal memuat data!\nCoba lagi!", onClick: (() -> Unit?)? = null) {
+fun TextView.setErrors(
+    message: String = "Oopss, gagal memuat data!\nCoba lagi!",
+    onClick: (() -> Unit?)? = null
+) {
     this.text = message
     this.setOnClickListener {
         onClick?.invoke()
     }
 }
 
+fun delayFunction(r: Runnable, duration: Long = 300) {
+    Handler(Looper.getMainLooper()).postDelayed(r, duration)
+}
