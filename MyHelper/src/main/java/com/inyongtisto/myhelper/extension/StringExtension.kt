@@ -5,6 +5,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.text.NumberFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,6 +37,83 @@ fun String.convertTanggal(
     dateFormat.applyPattern(formatBaru)
     return dateFormat.format(confert ?: "")
 }
+
+
+const val defaultDateFormat = "yyyy-MM-dd kk:mm:ss"
+const val defaultUTCDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+
+@SuppressLint("SimpleDateFormat")
+fun String.convertToUTC(
+    fromatLama: String = defaultDateFormat
+): String {
+    val formatBaru = defaultUTCDateFormat
+    val dateFormat = SimpleDateFormat(fromatLama)
+    val confert = dateFormat.parse(this)
+    dateFormat.applyPattern(formatBaru)
+    return dateFormat.format(confert ?: "")
+}
+
+@SuppressLint("SimpleDateFormat")
+fun String.convertFromUTC(ygDimau: String = defaultDateFormat): String {
+    var hasil = ""
+    val frmtlama = defaultUTCDateFormat
+    val dateFormat = SimpleDateFormat(frmtlama)
+    try {
+        val dd = dateFormat.parse(this)
+        // tambah 7 jam untuk indonesia
+        val hour: Long = 3600 * 1000 // in milli-seconds.
+        val newDate = Date(dd!!.time + 7 * hour)
+        dateFormat.applyPattern(ygDimau)
+        hasil = dateFormat.format(newDate)
+
+    } catch (e: ParseException) {
+        e.printStackTrace()
+    }
+    return hasil
+}
+
+fun String.convertFromUTCDay(): String {
+    return this.convertFromUTCDayTime(false)
+}
+
+@SuppressLint("SimpleDateFormat")
+fun String.convertFromUTCDayTime(time: Boolean = true): String {
+    val date = this.convertFromUTC()
+
+    var tanggal = ""
+    var hari = ""
+
+    val formatTgl = "dd MMM yyyy${if (time) " kk:mm" else ""}"
+    val formatHari = "EEEE"
+    val formatLama = defaultDateFormat
+
+    val dateFormat = SimpleDateFormat(formatLama)
+    val dateFormat2 = SimpleDateFormat(formatLama)
+    try {
+        val dd = dateFormat.parse(date)
+        dateFormat.applyPattern(formatTgl)
+        tanggal = dateFormat.format(dd!!)
+
+        val mHari = dateFormat2.parse(date)
+        dateFormat2.applyPattern(formatHari)
+        hari = dateFormat2.format(mHari!!)
+    } catch (e: ParseException) {
+        e.printStackTrace()
+    }
+
+    when (hari) {
+        "Sunday" -> hari = "Minggu"
+        "Monday" -> hari = "Senin"
+        "Tuesday" -> hari = "Selasa"
+        "Wednesday" -> hari = "Rabo"
+        "Thursday" -> hari = "Kamis"
+        "Friday" -> hari = "Jumat"
+        "Saturday" -> hari = "Sabtu"
+    }
+
+    return "$hari, $tanggal${if (time) " WIB" else ""}"
+}
+
 
 fun Int.toRupiah(hideCurrency: Boolean = false): String {
     val localeID = Locale("in", "ID")
