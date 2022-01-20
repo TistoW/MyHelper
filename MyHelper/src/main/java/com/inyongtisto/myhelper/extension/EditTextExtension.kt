@@ -16,20 +16,22 @@ import java.text.NumberFormat
 import java.util.*
 import java.util.regex.Pattern
 
-fun EditText.getString():String {
+fun EditText.getString(): String {
     return this.text.toString()
 }
 
 fun EditText.isValidPassword(): Boolean {
-    val passwordREGEX = Pattern.compile("^" +
-            "(?=.*[0-9])" +         //at least 1 digit
-            "(?=.*[a-z])" +         //at least 1 lower case letter
-            "(?=.*[A-Z])" +         //at least 1 upper case letter
-            "(?=.*[a-zA-Z])" +      //any letter
-            "(?=.*[@#$%^&+=])" +    //at least 1 special character
-            "(?=\\S+$)" +           //no white spaces
-            ".{8,}" +               //at least 8 characters
-            "$");
+    val passwordREGEX = Pattern.compile(
+        "^" +
+                "(?=.*[0-9])" +         //at least 1 digit
+                "(?=.*[a-z])" +         //at least 1 lower case letter
+                "(?=.*[A-Z])" +         //at least 1 upper case letter
+                "(?=.*[a-zA-Z])" +      //any letter
+                "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                "(?=\\S+$)" +           //no white spaces
+                ".{8,}" +               //at least 8 characters
+                "$"
+    );
     return passwordREGEX.matcher(this.text.toString()).matches()
 }
 
@@ -40,7 +42,7 @@ fun EditText.setEmptyError() {
 
 fun EditText.isEmpty(setError: Boolean = true): Boolean {
     return if (this.text.isEmpty()) {
-        if (setError){
+        if (setError) {
             this.error = context.getString(R.string.kolom_tidak_boleh_kosong)
             this.requestFocus()
         }
@@ -110,7 +112,7 @@ fun EditText.onChangeRupiah(onChange: ((s: String) -> Unit?)? = null) {
     })
 }
 
-fun TextInputEditText.onChangeListener(onChange: ((s: String) -> Unit?)? = null) {
+fun TextInputEditText.onChangeListener(onChange: ((s: String) -> Unit)? = null) {
     this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {
 
@@ -140,19 +142,22 @@ fun EditText.onChangeListener(onChange: ((s: String) -> Unit?)? = null) {
     })
 }
 
-fun AppCompatEditText.addRupiahListener() {
-    addTextChangedListener(MoneyTextWatcher(this))
+fun AppCompatEditText.addRupiahListener(onChange: ((s: String) -> Unit)? = null) {
+    addTextChangedListener(MoneyTextWatcher(this) { onChange?.invoke(it) })
 }
 
-fun TextInputEditText.addRupiahListener() {
-    addTextChangedListener(MoneyTextWatcher(this))
+fun TextInputEditText.addRupiahListener(onChange: ((s: String) -> Unit)? = null) {
+    addTextChangedListener(MoneyTextWatcher(this) { onChange?.invoke(it) })
 }
 
-fun TextInputEditText.addFirstTextCapitalListener() {
-    addTextChangedListener(FirstCapitalTextWatcher(this))
+fun TextInputEditText.addFirstTextCapitalListener(onChange: ((s: String) -> Unit)? = null) {
+    addTextChangedListener(FirstCapitalTextWatcher(this) { onChange?.invoke(it) })
 }
 
-class FirstCapitalTextWatcher(private val editText: AppCompatEditText) : TextWatcher {
+class FirstCapitalTextWatcher(
+    private val editText: AppCompatEditText,
+    private val onChange: ((s: String) -> Unit)? = null
+) : TextWatcher {
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
@@ -162,7 +167,7 @@ class FirstCapitalTextWatcher(private val editText: AppCompatEditText) : TextWat
         editText.removeTextChangedListener(this)
         try {
             var originalString = s.toString()
-            if (originalString.length == 1){
+            if (originalString.length == 1) {
                 originalString = originalString.uppercase()
             }
             //setting text after format to EditText
@@ -172,11 +177,12 @@ class FirstCapitalTextWatcher(private val editText: AppCompatEditText) : TextWat
             nfe.printStackTrace()
         }
 
+        onChange?.invoke(editText.getString())
         editText.addTextChangedListener(this)
     }
 }
 
-fun AppCompatEditText.setOnSearchActionListener(onSearch: (s: String) -> Unit){
+fun AppCompatEditText.setOnSearchActionListener(onSearch: (s: String) -> Unit) {
     setOnEditorActionListener(object : TextView.OnEditorActionListener {
         override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {

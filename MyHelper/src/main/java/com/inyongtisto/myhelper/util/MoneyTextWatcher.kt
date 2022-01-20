@@ -3,12 +3,16 @@ package com.inyongtisto.myhelper.util
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.widget.AppCompatEditText
+import com.inyongtisto.myhelper.extension.getString
 import com.inyongtisto.myhelper.extension.logs
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
-class MoneyTextWatcher(private val editText: AppCompatEditText) : TextWatcher {
+class MoneyTextWatcher(
+    private val editText: AppCompatEditText,
+    private val onChange: ((s: String) -> Unit)? = null
+) : TextWatcher {
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
@@ -21,9 +25,9 @@ class MoneyTextWatcher(private val editText: AppCompatEditText) : TextWatcher {
             if (originalString.contains(",")) {
                 originalString = originalString.replace(",".toRegex(), "")
             }
-            if (originalString == ""){
+            if (originalString == "") {
                 editText.setText(originalString)
-            } else{
+            } else {
                 val longVal = originalString.toLong()
                 val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
                 formatter.applyPattern("#,###,###,###")
@@ -37,6 +41,7 @@ class MoneyTextWatcher(private val editText: AppCompatEditText) : TextWatcher {
             nfe.printStackTrace()
         }
 
+        onChange?.invoke(editText.getString())
         editText.addTextChangedListener(this)
     }
 }
