@@ -1,16 +1,26 @@
 package com.inyongtisto.myhelper.extension
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.view.View
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.inyongtisto.myhelper.BuildConfig
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import org.jsoup.Jsoup
+import java.util.concurrent.ExecutionException
 
 
 fun <T> Context.intentActivity(activity: Class<T>, value: String, name: String = "extra") {
@@ -68,7 +78,10 @@ fun Activity.getStringExtra(name: String = "extra"): String? {
     return intent.getStringExtra(name)
 }
 
-fun <T> Activity.intentActivityResult(activity: Class<T>, activityResult: ActivityResultLauncher<Intent>) {
+fun <T> Activity.intentActivityResult(
+    activity: Class<T>,
+    activityResult: ActivityResultLauncher<Intent>
+) {
     val intent = Intent(this, activity)
     activityResult.launch(intent)
 }
@@ -89,3 +102,67 @@ fun Activity.sendResult(value: String? = null, name: String = "extra") {
     }
     setResult(Activity.RESULT_OK, intent)
 }
+
+// BuildConfig.APPLICATION_ID
+// BuildConfig.VERSION_NAME
+fun Activity.checkUpdates(
+    packageName: String = "com.tisto.smartshop",
+    appVersionName: String = "1.0.0"
+) {
+    var newVersion = ""
+    CompositeDisposable().add(Observable.fromCallable {
+        try {
+            newVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=$packageName")
+                .timeout(30000)
+                .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+                .referrer("http://www.google.com")
+                .get()
+                .select(".hAyfc .htlgb")[7]
+                .ownText()
+        } catch (e:Exception){
+
+        }
+
+    }.subscribeOn(Schedulers.computation())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe {
+            if (newVersion.isEmpty()) return@subscribe
+            try {
+                val mLatestVersionName = newVersion
+                logs("version:$appVersionName - $mLatestVersionName")
+                if (appVersionName != mLatestVersionName) {
+                    val alertDialog: AlertDialog.Builder = AlertDialog.Builder(this)
+                    alertDialog.setTitle("Update Aplikasi")
+                    alertDialog.setMessage("Update aplikasi ke versi yang lebih stabil.")
+                    alertDialog.setPositiveButton("Update") { dialog, _ ->
+                        dialog.dismiss()
+                        try {
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("market://details?id=$packageName")
+                                )
+                            )
+                        } catch (anfe: ActivityNotFoundException) {
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                                )
+                            )
+                        }
+                    }
+                    alertDialog.setNegativeButton("Tutup") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    alertDialog.show()
+
+                }
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            } catch (e: ExecutionException) {
+                e.printStackTrace()
+            }
+        })
+}
+

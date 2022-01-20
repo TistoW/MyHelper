@@ -6,3 +6,7 @@ import android.widget.TextView
 fun TextView.coret() {
     this.paintFlags = this.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 }
+
+fun TextView.unCoret() {
+    this.paintFlags = 0
+}

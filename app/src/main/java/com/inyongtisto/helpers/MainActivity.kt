@@ -41,9 +41,6 @@ class MainActivity : BaseActivity() {
         spn.setOnPositionSelectedListener(this, arrayListOf()) {
 
         }
-//        dialogDatePicker {
-//            logs("SelectedDate:" + it.toTimeStamp())
-//        }
     }
 
     var fileImage: File? = null
