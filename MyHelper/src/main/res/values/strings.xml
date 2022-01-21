@@ -8,4 +8,9 @@
     <string name="dialog_ok">Ok</string>
     <string name="date_picker">Date Picker</string>
     <string name="oke">Oke</string>
+    <string name="permission_dialog_message">Untuk mengakses Fitur ini membutuhkan izin agar dapat melanjutkan?</string>
+    <string name="izinkan">Izinkan</string>
+    <string name="tutup">Tutup</string>
+    <string name="permission_warning_dialog">Anda wajib memberikan izin untuk melanjutkan Aplikasi.</string>
+    <string name="app_need_some_permission">Aplikasi ini memerlukan beberapa izin.</string>
 </resources>
