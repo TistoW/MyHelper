@@ -1,5 +1,6 @@
 package com.inyongtisto.myhelper.extension
 
+import android.app.Activity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -12,6 +13,11 @@ import java.lang.reflect.Type
 
 fun <T> T.toJson(): String {
     return Gson().toJson(this)
+}
+
+fun <R> Activity.getObjectExtra(classOfT: Class<R>, extra: String = "extra"): R? {
+    val json: String = getStringExtra(extra) ?: ""
+    return json.toModel(classOfT)
 }
 
 fun <T> String?.toModel(classOfT: Class<T>): T? {

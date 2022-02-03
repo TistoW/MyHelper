@@ -20,6 +20,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -241,6 +242,18 @@ fun Context.copyText(text: String, showToast: Boolean = true) {
 
     if (showToast)
         Toast.makeText(this, "Text Berhasil di salin", Toast.LENGTH_LONG).show()
+}
+
+fun Activity.popUpMenu(view: View, list: List<String>, onClicked: (String) -> Unit) {
+    val popupMenu = PopupMenu(this, view)
+    popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+        onClicked.invoke(it.toString())
+        return@OnMenuItemClickListener true
+    })
+    list.forEach {
+        popupMenu.menu.add(it)
+    }
+    popupMenu.show()
 }
 
 fun LocalDateTime.toTimeStamp(format: String = TIME_STAMP_FORMAT): String {
