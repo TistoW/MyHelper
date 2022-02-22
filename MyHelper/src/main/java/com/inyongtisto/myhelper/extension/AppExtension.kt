@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
@@ -176,19 +177,19 @@ fun Fragment.horizontalLayoutManager(): LinearLayoutManager {
 @SuppressLint("QueryPermissionsNeeded")
 fun Context.openWhatsApp(phone: String, message: String = "Hallo admin,") {
     try {
-        val packageManager = packageManager
+        val packageManager: PackageManager = packageManager
         val i = Intent(Intent.ACTION_VIEW)
-        val url = "https://wa.me/" + phone + "?text=" + URLEncoder.encode(message, "UTF-8")
+        val url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode(message, "UTF-8")
         i.setPackage("com.whatsapp")
         i.data = Uri.parse(url)
         if (i.resolveActivity(packageManager) != null) {
             startActivity(i)
         } else {
-            Toast.makeText(this, "Tidak ada whatsapp terinstall", Toast.LENGTH_SHORT).show()
+            toastSimple("Tidak ada whatsapp terinstall")
         }
-    } catch (e: Exception) {
+    } catch (e: java.lang.Exception) {
         Log.e("ERROR WHATSAPP", e.toString())
-        Toast.makeText(this, "Tidak ada whatsapp terinstall", Toast.LENGTH_SHORT).show()
+        toastSimple("Error:${e.message}")
     }
 }
 
@@ -256,6 +257,7 @@ fun Activity.popUpMenu(view: View, list: List<String>, onClicked: (String) -> Un
     popupMenu.show()
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 fun LocalDateTime.toTimeStamp(format: String = TIME_STAMP_FORMAT): String {
     return DateTimeFormatter.ofPattern(format).format(this)
 }
