@@ -7,13 +7,26 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="light">#FFFFFFFF</color>
 
-    <!--    <color name="colorPrimary">#069517</color>-->
-    <!--    <color name="colorPrimaryDark">#069517</color>-->
-    <!--    <color name="colorPrimaryVariant">#F9591D</color>-->
-    <!--    <color name="colorAccent">#069517</color>-->
-    <!--    <color name="colorText">#121931</color>-->
-    <!--    <color name="colorText2">#DB3975</color>-->
+    <color name="colorPrimary">@color/colorPrimary_600</color>
+    <color name="colorPrimaryDark">@color/colorPrimary_800</color>
+    <color name="colorPrimaryVariant">#F9591D</color>
+    <color name="colorAccent">#00C717</color>
+    <color name="colorText">#121931</color>
+    <color name="colorText2">#DB3975</color>
+
+    <color name="colorPrimary_10">@color/orange_10</color>
+    <color name="colorPrimary_50">@color/orange_50</color>
+    <color name="colorPrimary_100">@color/orange_100</color>
+    <color name="colorPrimary_200">@color/orange_200</color>
+    <color name="colorPrimary_300">@color/orange_300</color>
+    <color name="colorPrimary_400">@color/orange_400</color>
+    <color name="colorPrimary_500">@color/orange_500</color>
+    <color name="colorPrimary_600">@color/orange_600</color>
+    <color name="colorPrimary_700">@color/orange_700</color>
+    <color name="colorPrimary_800">@color/orange_800</color>
+    <color name="colorPrimary_900">@color/orange_900</color>
 
     <color name="transparent">#00FFFFFF</color>
 
@@ -50,8 +63,6 @@
     <color name="grey10">#F8F8F8</color>
 
     <color name="black_20">#33000000</color>
-
-
 
     <color name="gray1">#292929</color>
     <color name="gray2">#5C5C5C</color>
@@ -105,6 +116,7 @@
     <color name="indigo_3">#3D5AFE</color>
     <color name="indigo_4">#304FFE</color>
 
+    <color name="orange_10">#FFF8ED</color>
     <color name="orange_50">#FFF3E0</color>
     <color name="orange_100">#FFE0B2</color>
     <color name="orange_200">#FFCC80</color>
@@ -148,6 +160,7 @@
     <color name="pink_3">#F50057</color>
     <color name="pink_4">#F50057</color>
 
+    <color name="blue_10">#F5FBFF</color>
     <color name="blue_50">#E3F2FD</color>
     <color name="blue_100">#BBDEFB</color>
     <color name="blue_200">#90CAF9</color>
@@ -162,4 +175,16 @@
     <color name="blue_2">#448AFF</color>
     <color name="blue_3">#2979FF</color>
     <color name="blue_4">#2962FF</color>
+
+    <color name="red_10">#FFF8F9</color>
+    <color name="red_50">#ffeaed</color>
+    <color name="red_100">#ffcacf</color>
+    <color name="red_200">#f59493</color>
+    <color name="red_300">#ec6969</color>
+    <color name="red_400">#f64342</color>
+    <color name="red_500">#fb2b22</color>
+    <color name="red_600">#ec1c23</color>
+    <color name="red_700">#da071d</color>
+    <color name="red_800">#cd0015</color>
+    <color name="red_900">#c00004</color>
 </resources>

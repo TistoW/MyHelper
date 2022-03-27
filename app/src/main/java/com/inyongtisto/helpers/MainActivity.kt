@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.inyongtisto.helpers.util.BaseActivity
 import com.inyongtisto.myhelper.PullRefresh
 import com.inyongtisto.myhelper.extension.*
+import com.inyongtisto.myhelper.util.EditTextSearchListener
 import com.inyongtisto.myhelper.util.StoragePermissionsManager
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
@@ -34,7 +35,7 @@ class MainActivity : BaseActivity() {
         }
 
         btn_simpan.setOnClickListener {
-
+            showConfirmDialog("Doalog", "This is the message")
         }
 
         spn.setOnPositionSelectedListener(this, arrayListOf()) {

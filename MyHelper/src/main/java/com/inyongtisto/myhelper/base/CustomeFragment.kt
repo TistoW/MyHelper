@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.inyongtisto.myhelper.util.AppProgressDialog
 
-abstract class BaseFragment: Fragment() {
+abstract class CustomeFragment: Fragment() {
 
     lateinit var progress : AppProgressDialog
 

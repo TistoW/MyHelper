@@ -206,5 +206,9 @@ fun String?.toKFormat(): String {
     } else this
 }
 
+fun String.searchQuery(): String {
+    return "%$this%"
+}
+
 
 

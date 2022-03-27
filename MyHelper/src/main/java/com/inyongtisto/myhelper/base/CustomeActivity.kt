@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.inyongtisto.myhelper.util.AppProgressDialog
 
-abstract class BaseActivity: AppCompatActivity() {
+abstract class CustomeActivity: AppCompatActivity() {
 
     lateinit var progress : AppProgressDialog
 

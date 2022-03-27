@@ -11,6 +11,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
+import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.View
 import android.view.Window
@@ -24,17 +26,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inyongtisto.myhelper.R
-import com.inyongtisto.myhelper.util.Constants.TIME_STAMP_FORMAT
+import com.inyongtisto.myhelper.util.AppConstants.TIME_STAMP_FORMAT
 import java.net.URLEncoder
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import javax.security.auth.Subject
 
 fun visible() = View.VISIBLE
 fun invisible() = View.INVISIBLE
@@ -185,11 +187,26 @@ fun Context.openWhatsApp(phone: String, message: String = "Hallo admin,") {
         if (i.resolveActivity(packageManager) != null) {
             startActivity(i)
         } else {
-            toastSimple("Tidak ada whatsapp terinstall")
+            openWhatsappAlternate(phone, message)
         }
-    } catch (e: java.lang.Exception) {
-        Log.e("ERROR WHATSAPP", e.toString())
-        toastSimple("Error:${e.message}")
+    } catch (e: Exception) {
+        openWhatsappAlternate(phone, message)
+    }
+}
+
+fun Context.openWhatsappAlternate(nomor: String, message: String) {
+    try {
+        var toNumber = nomor // contains spaces.
+        toNumber = toNumber.replace("+", "").replace(" ", "")
+        val sendIntent = Intent("android.intent.action.MAIN")
+        sendIntent.putExtra("jid", "$toNumber@s.whatsapp.net")
+        sendIntent.putExtra(Intent.EXTRA_TEXT, message)
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.setPackage("com.whatsapp")
+        sendIntent.type = "text/plain"
+        startActivity(sendIntent)
+    } catch (e: Exception) {
+        toastSimple("Gagal Membuka Whatsapp!")
     }
 }
 
@@ -257,6 +274,18 @@ fun Activity.popUpMenu(view: View, list: List<String>, onClicked: (String) -> Un
     popupMenu.show()
 }
 
+fun Context.popUpMenu(view: View, list: List<String>, onClicked: (String) -> Unit) {
+    val popupMenu = PopupMenu(this, view)
+    popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+        onClicked.invoke(it.toString())
+        return@OnMenuItemClickListener true
+    })
+    list.forEach {
+        popupMenu.menu.add(it)
+    }
+    popupMenu.show()
+}
+
 @RequiresApi(Build.VERSION_CODES.O)
 fun LocalDateTime.toTimeStamp(format: String = TIME_STAMP_FORMAT): String {
     return DateTimeFormatter.ofPattern(format).format(this)
@@ -274,4 +303,29 @@ fun TextView.setErrors(
 
 fun delayFunction(r: Runnable, duration: Long = 300) {
     Handler(Looper.getMainLooper()).postDelayed(r, duration)
+}
+
+@SuppressLint("HardwareIds")
+fun Context.getImei(): String {
+
+    fun getDeviceID(): String {
+        return Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID).toString()
+    }
+
+    val imei: String
+    val permisI = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+    imei = if (permisI == PackageManager.PERMISSION_GRANTED) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            try {
+                val telephonyManager = this.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+                telephonyManager.imei
+            } catch (e: Exception) {
+                getDeviceID()
+            }
+        } else getDeviceID()
+    } else {
+        "unknown"
+    }
+
+    return imei.uppercase()
 }

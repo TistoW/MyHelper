@@ -21,7 +21,7 @@ fun Activity.toastSuccess(pesan: String) {
         MotionToast.TOAST_SUCCESS,
         MotionToast.GRAVITY_BOTTOM,
         MotionToast.LONG_DURATION,
-        ResourcesCompat.getFont(this, R.font.helvetica_regular)
+        ResourcesCompat.getFont(this, R.font.worksans_regular)
     )
 }
 
@@ -33,7 +33,7 @@ fun Activity.toastInfo(pesan: String) {
         MotionToast.TOAST_INFO,
         MotionToast.GRAVITY_BOTTOM,
         MotionToast.LONG_DURATION,
-        ResourcesCompat.getFont(this, R.font.helvetica_regular))
+        ResourcesCompat.getFont(this, R.font.worksans_regular))
 }
 
 fun Activity.toastWarning(pesan: String) {
@@ -44,7 +44,7 @@ fun Activity.toastWarning(pesan: String) {
         MotionToast.TOAST_WARNING,
         MotionToast.GRAVITY_BOTTOM,
         MotionToast.LONG_DURATION,
-        ResourcesCompat.getFont(this, R.font.helvetica_regular))
+        ResourcesCompat.getFont(this, R.font.worksans_regular))
 }
 
 fun Activity.toastError(pesan: String) {
@@ -55,7 +55,7 @@ fun Activity.toastError(pesan: String) {
         MotionToast.TOAST_ERROR,
         MotionToast.GRAVITY_BOTTOM,
         MotionToast.LONG_DURATION,
-        ResourcesCompat.getFont(this, R.font.helvetica_regular))
+        ResourcesCompat.getFont(this, R.font.worksans_regular))
 }
 
 fun Fragment.toastSuccess(pesan: String){
