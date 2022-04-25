@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Material.OutlineBox" parent="">
+        <item name="strokeColor">@color/mtrl_btn_stroke_color_selector</item>
+        <item name="strokeWidth">@dimen/mtrl_btn_stroke_size</item>
+    </style>
+
     <style name="layout_clickable">
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
@@ -27,7 +32,7 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
-        <style name="TypographyStyles.TextParent" parent="TextAppearance.MaterialComponents.Subtitle1">
+    <style name="TypographyStyles.TextParent" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="fontFamily">@font/worksans_regular</item>
         <item name="android:fontFamily">@font/worksans_regular</item>
         <item name="android:letterSpacing">0</item>

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.net.Uri
+import android.os.Parcelable
 import android.view.View
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
@@ -31,6 +32,18 @@ fun <T> Context.intentActivity(activity: Class<T>, value: String, name: String =
 
 fun <T> Context.intentActivity(activity: Class<T>) {
     val i = Intent(applicationContext, activity)
+    startActivity(i)
+}
+
+fun <T> Context.intentActivity(activity: Class<T>, value: Parcelable?, name: String = "extra") {
+    val i = Intent(applicationContext, activity)
+    i.putExtra(name, value)
+    startActivity(i)
+}
+
+fun <T> Fragment.intentActivity(activity: Class<T>, value: Parcelable?, name: String = "extra") {
+    val i = Intent(requireActivity(), activity)
+    i.putExtra(name, value)
     startActivity(i)
 }
 

@@ -5,7 +5,9 @@ import android.app.Activity
 import android.os.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.result.contract.ActivityResultContracts
+import com.inyongtisto.helpers.databinding.ActivityMainBinding
 import com.inyongtisto.helpers.util.BaseActivity
+import com.inyongtisto.helpers.util.Rounded
 import com.inyongtisto.myhelper.PullRefresh
 import com.inyongtisto.myhelper.extension.*
 import com.inyongtisto.myhelper.util.EditTextSearchListener
@@ -17,52 +19,24 @@ import java.util.*
 
 class MainActivity : BaseActivity() {
 
-    private lateinit var permissions: StoragePermissionsManager
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        PullRefresh(swipeRefresh) {
-            progress.show()
-            Handler(Looper.myLooper()!!).postDelayed({
-                progress.dismiss()
-                swipeRefresh.isRefreshing = false
-            }, 2000)
-        }
-
-        val outputDateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).apply {
-            timeZone = TimeZone.getTimeZone("UTC")
-        }
-
-        btn_simpan.setOnClickListener {
-            showConfirmDialog("Doalog", "This is the message")
-        }
-
-        spn.setOnPositionSelectedListener(this, arrayListOf()) {
-
-        }
-//        permissions = StoragePermissionsManager(this, launcherResult, launcherPermissions)
-//        permissions.askPermissions()
+        initUI()
+        Rounded(1015.49, 10.0)
     }
 
-    private val launcherResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (permissions.isGranted(it)) {
-            //Permission granted
-        } else permissions.showDialogReq() //Permission not granted
-    }
+    private fun initUI() {
+        binding.apply {
+            val list = listOf("Makan", "Minum", "Tidur")
+            spnData.setOnItemSelectedListener(this@MainActivity, list) {
 
-    private val launcherPermissions = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
-        permissions.isGranted(result)
-        if (permissions.isGranted(result)) {
-            //Permission granted
-        } else this.permissions.showDialogReq()  //Permission not granted
-    }
-
-    var fileImage: File? = null
-    private val profileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == Activity.RESULT_OK) {
-            val uri = it.data?.data!!
-            fileImage = File(uri.path!!)
+            }
         }
     }
 }
