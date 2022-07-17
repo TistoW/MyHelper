@@ -96,12 +96,21 @@ fun AppCompatImageView.setTintColor(context: Context, color: Int) {
 }
 
 fun Activity.lightStatusBar() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        val decor = this.window.decorView
-        decor.systemUiVisibility =
-            decor.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv() //set status text  light
+    val decor = this.window.decorView
+    decor.systemUiVisibility = decor.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv() //set status text  light
+}
 
-    }
+fun Activity.blackStatusBar() {
+    val decor = this.window.decorView
+    decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+}
+
+fun Activity.setLightStatusBar() {
+    lightStatusBar()
+}
+
+fun Activity.setBlackStatusBar() {
+    blackStatusBar()
 }
 
 fun Spinner.setOnItemSelectedListener(

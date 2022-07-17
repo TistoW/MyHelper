@@ -8,6 +8,7 @@ import java.text.NumberFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.random.Random
 
 fun String.remove(string: String): String = replace(string, "")
 
@@ -28,14 +29,13 @@ fun String?.uppercaseFirstChar(): String {
 
 @SuppressLint("SimpleDateFormat")
 fun String.convertTanggal(
-    tgl: String,
-    formatBaru: String,
-    fromatLama: String = "yyyy-MM-dd kk:mm:ss"
+    toFormat: String,
+    fromFormat: String = "yyyy-MM-dd kk:mm:ss"
 ): String {
-    val dateFormat = SimpleDateFormat(fromatLama)
-    val confert = dateFormat.parse(tgl)
-    dateFormat.applyPattern(formatBaru)
-    return dateFormat.format(confert ?: "")
+    val dateFormat = SimpleDateFormat(fromFormat)
+    val convert = dateFormat.parse(this)
+    dateFormat.applyPattern(toFormat)
+    return dateFormat.format(convert ?: "")
 }
 
 
@@ -208,6 +208,40 @@ fun String?.toKFormat(): String {
 
 fun String.searchQuery(): String {
     return "%$this%"
+}
+
+fun getRandomName(withNumber: Boolean = false): String {
+    val listName = listOf(
+        "Jude", "Isabella", "Arthur", "Millie", "Andrea", "Marcus", "Atlas", "Ariella", "Kyle", "Evan", "Ira", "Hayden",
+        "Bailey", "Gianna", "Valerie", "Brianna", "Jesse", "Cecilia", "Leo", "Leilani", "Dante", "Zoe", "Khadijah", "Mya", "Sharon",
+        "Sean", "Brielle", "Ayla", "Shia", "Riley", "Raya", "Sloane", "Alana", "Charlie", "Kian", "Hudson", "Elise", "Akira", "Mika", "Freya",
+        "Nia", "Natasha", "Myra", "Mateo", "Everett", "Rae", "Savannah", "Thea", "Finley", "Alaina", "Mina", "Yara", "Emerson", "Camille", "Ivan", "Skyler",
+        "Skylar", "Alma", "Reese", "Sasha", "Asa", "Sage", "Camila", "Amira", "Kieran", "Monica", "Everly", "Evie", "Maverick", "Kyra", "Ian", "Julia", "Vivian",
+        "Theo", "Ophelia", "Chelsea", "Azariah", "Jade", "Lara", "Ava", "Morgan", "Lennox", "Luna", "Isabelle", "Amir", "Rhys", "Arlo", "Giovanni", "Aisha", "Orion",
+        "Ahmed", "Nolan", "Ezekiel", "Michelle", "Lea", "Silas", "Elaine", "Molly",
+    )
+    val rndNumber = Random.nextInt(11, 99)
+    val rnd = Random.nextInt(0, listName.size - 1)
+    return listName[rnd] + "" + if (withNumber) rndNumber else ""
+}
+
+fun generateRandomName(withNumber: Boolean = false) = getRandomName(withNumber)
+
+@SuppressLint("SimpleDateFormat")
+fun getSalam(): String {
+    val dateNow = System.currentTimeMillis()
+    val sTgl = SimpleDateFormat("dd MMMM yyyy")
+    val sJam = SimpleDateFormat("kk")
+    val tgl: String = sTgl.format(dateNow)
+    val jam: String = sJam.format(dateNow)
+
+    val iJam = jam.toInt()
+    var salam = ""
+    if (iJam <= 10) salam = "Selamat Pagi"
+    if (iJam in 11..14) salam = "Selamat Siang"
+    if (iJam in 13..18) salam = "Selamat Sore"
+    if (iJam in 19..24) salam = "Selamat Malam"
+    return salam
 }
 
 

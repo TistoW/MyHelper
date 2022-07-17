@@ -10,7 +10,7 @@ abstract class BaseDialog : DialogFragment() {
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(
-                getFragmentWidthPercentage(80),
+                getFragmentWidthPercentage(90),
                 WindowManager.LayoutParams.WRAP_CONTENT
         )
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

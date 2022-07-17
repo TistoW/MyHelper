@@ -8,8 +8,10 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.inyongtisto.myhelper.R
 import com.inyongtisto.myhelper.util.MoneyTextWatcher
 import java.text.NumberFormat
@@ -192,6 +194,12 @@ fun AppCompatEditText.setOnSearchActionListener(onSearch: (s: String) -> Unit) {
             return false
         }
     })
+}
+
+fun TextInputLayout.setStartDrawable(drawable: Int) {
+//    this.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(context, drawable), null)
+    this.setStartIconDrawable(drawable)
+//    this.setStartIconMode(TextInputLayout.END_ICON_CUSTOM)
 }
 
 

@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_3sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:gravity="center"
             android:textAppearance="@style/TypographyStyles.Text4"
             android:textColor="@color/gray3"
@@ -54,7 +54,7 @@
                 android:layout_gravity="center"
                 android:text="@string/dialog_ok"
                 android:textAppearance="@style/TypographyStyles.Text3.Bold"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="@color/colorPrimary" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -67,8 +67,8 @@
             app:cardElevation="0dp">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="@dimen/_12sdp"
-                android:layout_height="@dimen/_12sdp"
+                android:layout_width="@dimen/_14sdp"
+                android:layout_height="@dimen/_14sdp"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_asset_close" />
 

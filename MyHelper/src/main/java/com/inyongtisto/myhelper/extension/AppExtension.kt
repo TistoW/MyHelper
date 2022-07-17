@@ -110,20 +110,6 @@ fun Context.setError(editText: EditText) {
     editText.requestFocus()
 }
 
-fun Activity.blackStatusBar(context: Activity) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        val decor = this.window.decorView
-        decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-    }
-}
-
-fun Activity.blackStatusBar() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        val decor = this.window.decorView
-        decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-    }
-}
-
 fun Activity.isCameraPermissionGranted(context: Context, REQUEST_PERMISSION_CAMERA: Int): Boolean {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
@@ -328,4 +314,40 @@ fun Context.getImei(): String {
     }
 
     return imei.uppercase()
+}
+
+fun checkPrefix(mPhone: String): String {
+    val phone: String = mPhone.substring(0, 4)
+    if (phone == "0831" || phone == "0832" || phone == "0833" || phone == "0835" ||
+        phone == "0836" || phone == "0837" || phone == "0838" || phone == "0839") {
+        return "Axis"
+    } else if (phone == "0817" || phone == "0818" || phone == "0819" || phone == "0859" || phone == "0877" || phone == "0878" || phone == "0879") {
+        return "XL"
+    } else if (phone == "0811" || phone == "0812" || phone == "0813" || phone == "0821" || phone == "0822" || phone == "0823" || phone == "0851" || phone == "0852" || phone == "0853" || phone == "0854") {
+        return "Telkomsel"
+    } else if (phone == "0814" || phone == "0815" || phone == "0816" || phone == "0855" || phone == "0856" || phone == "0857" || phone == "0858") {
+        return "Indosat"
+    } else if (phone == "0895" || phone == "0896" || phone == "0897" || phone == "0898" || phone == "0899") {
+        return "Tri"
+    } else if (phone == "0881" || phone == "0882" || phone == "0883" || phone == "0884" || phone == "0885" || phone == "0886" || phone == "0887" || phone == "0888" || phone == "0889") {
+        return "Smartfren"
+    } else if (phone == "0828") {
+        return "Ceria"
+    } else {
+        return "non"
+    }
+}
+
+fun Activity.setPrimaryStatusBarBackgound() {
+    setStatusBarBackgroudColor(R.color.colorPrimary)
+    lightStatusBar()
+}
+
+fun Activity.setWhiteStatusBarBackgound() {
+    setStatusBarBackgroudColor(R.color.white)
+    blackStatusBar()
+}
+
+fun Activity.setStatusBarBackgoundColor(color: Int) {
+    setStatusBarBackgroudColor(color)
 }

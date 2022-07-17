@@ -1,21 +1,10 @@
 package com.inyongtisto.helpers
 
-import android.Manifest
-import android.app.Activity
 import android.os.*
-import androidx.appcompat.app.AppCompatActivity
-import androidx.activity.result.contract.ActivityResultContracts
 import com.inyongtisto.helpers.databinding.ActivityMainBinding
 import com.inyongtisto.helpers.util.BaseActivity
 import com.inyongtisto.helpers.util.Rounded
-import com.inyongtisto.myhelper.PullRefresh
 import com.inyongtisto.myhelper.extension.*
-import com.inyongtisto.myhelper.util.EditTextSearchListener
-import com.inyongtisto.myhelper.util.StoragePermissionsManager
-import kotlinx.android.synthetic.main.activity_main.*
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MainActivity : BaseActivity() {
 
@@ -37,6 +26,37 @@ class MainActivity : BaseActivity() {
             spnData.setOnItemSelectedListener(this@MainActivity, list) {
 
             }
+
+            btnDialogConfim.setOnClickListener {
+                showConfirmDialog("Dialog", "Are you okey", "Yes, I'm") {
+                    toastSuccess("Success")
+                }
+            }
         }
+
+        val date = CustomDate
+        logs("Today:${date.getToday()}")
+        logs("firstDayOfThisWeek:${date.getFirstDayOfThisWeek()}")
+        logs("lastDayOfThisWeek:${date.getLastDayOfThisWeek()}")
+        logs("firstDayOfLastWeek:${date.getFirstDayOfLastWeek()}")
+        logs("lastDayOfLastWeek:${date.getLastDayOfLastWeek()}")
+
+        logs("firstDayOfThisMonth:${firstDayOfThisMonth()}")
+        logs("lastDayOfThisMonth:${lastDayOfThisMonth()}")
+
+        logs("firstDayOfLastMonth:${firstDayOfLastMonth()}")
+        logs("lastDayOfLastMonth:${lastDayOfLastMonth()}")
+
+        logs("last30Day:${last30Day()}")
+        logs("next30Day:${next30Day()}")
+
+        logs("last7Day:${last7Day()}")
+        logs("next7Day:${next7Day()}")
+
+        logs("tomorrow:${tomorrow()}")
+        logs("yesterday:${yesterday()}")
+
+        logs("nextDay:${nextDay(10)}")
+
     }
 }

@@ -8,6 +8,12 @@
     android:padding="15sp"
     tools:context=".MainActivity">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_dialogConfim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open Dialog Confim" />
+
     <com.google.android.material.card.MaterialCardView
         style="@style/Material.OutlineBox"
         android:layout_width="match_parent"
