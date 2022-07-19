@@ -31,27 +31,27 @@ fun firstDayOfThisWeek(formatDate: String = defaultDateFormat): String {
 fun lastDayOfThisWeek(formatDate: String = defaultDateFormat): String {
     val calendar = Calendar.getInstance()
     calendar.set(Calendar.DAY_OF_WEEK, 1)
-    return formatData(formatDate).format(calendar.time)
+    return calendar.getDate(formatDate)
 }
 
 fun firstDayOfLastWeek(formatDate: String = defaultDateFormat): String {
     val firstDayOfThisWeek = firstDayOfThisWeek(formatDate)
     val calendar = firstDayOfThisWeek.toCalender(formatDate)
     calendar.add(Calendar.DAY_OF_WEEK, -7)
-    return formatData(formatDate).format(calendar.time)
+    return calendar.getDate(formatDate)
 }
 
 fun lastDayOfLastWeek(formatDate: String = defaultDateFormat): String {
     val firstDayOfThisWeek = firstDayOfThisWeek(formatDate)
     val calendar = firstDayOfThisWeek.toCalender(formatDate)
     calendar.add(Calendar.DAY_OF_WEEK, -1)
-    return formatData(formatDate).format(calendar.time)
+    return calendar.getDate(formatDate)
 }
 
 fun firstDayOfThisMonth(formatDate: String = defaultDateFormat): String {
     val calendar = Calendar.getInstance()
     calendar.set(Calendar.DAY_OF_MONTH, 1)
-    return formatData(formatDate).format(calendar.time)
+    return calendar.getDate(formatDate)
 }
 
 fun lastDayOfThisMonth(formatDate: String = defaultDateFormat): String {
@@ -63,7 +63,7 @@ fun firstDayOfLastMonth(formatDate: String = defaultDateFormat): String {
     val cal = Calendar.getInstance()
     cal.time = lastDayOfLastMonth(formatDate).toDate(formatDate)
     cal[Calendar.DAY_OF_MONTH] = cal.getActualMinimum(Calendar.DAY_OF_MONTH)
-    return formatData(formatDate).format(cal.time)
+    return cal.getDate(formatDate)
 }
 
 fun lastDayOfLastMonth(formatDate: String = defaultDateFormat): String {
@@ -80,41 +80,45 @@ fun last30Day(formatDate: String = defaultDateFormat): String {
 fun next30Day(formatDate: String = defaultDateFormat): String {
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.MONTH, 1)
-    return formatData(formatDate).format(calendar.time)
+    return calendar.getDate(formatDate)
 }
 
 fun last7Day(formatDate: String = defaultDateFormat): String {
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.DAY_OF_WEEK, -7)
-    return formatData(formatDate).format(calendar.time)
+    return calendar.getDate(formatDate)
 }
 
 fun next7Day(formatDate: String = defaultDateFormat): String {
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.DAY_OF_WEEK, 7)
-    return formatData(formatDate).format(calendar.time)
+    return calendar.getDate(formatDate)
 }
 
 fun tomorrow(formatDate: String = defaultDateFormat): String {
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.DAY_OF_WEEK, 1)
-    return formatData(formatDate).format(calendar.time)
+    return calendar.getDate(formatDate)
 }
 
 fun yesterday(formatDate: String = defaultDateFormat): String {
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.DAY_OF_WEEK, -1)
-    return formatData(formatDate).format(calendar.time)
+    return calendar.getDate(formatDate)
 }
 
 fun nextDay(day: Int = 1, formatDate: String = defaultDateFormat): String {
     val calendar = Calendar.getInstance()
     calendar.add(Calendar.DAY_OF_WEEK, day)
-    return formatData(formatDate).format(calendar.time)
+    return calendar.getDate(formatDate)
 }
 
 fun String.toCalender(formatDate: String = defaultDateFormat): Calendar {
-    val sdf = formatData(formatDate)
+    var format = formatDate
+    if (this.contains("Z")) { // utc format
+        format = defaultUTCDateFormat
+    }
+    val sdf = formatData(format)
     val date = sdf.parse(this)
     return date?.toCalendar() ?: Calendar.getInstance()
 }
@@ -153,4 +157,13 @@ fun Calendar.toNextWeek(): Date {
 fun Calendar.toLastWeek(): Date {
     add(Calendar.DAY_OF_WEEK, -6)
     return time
+}
+
+fun Calendar.addDay(day: Int): Calendar {
+    add(Calendar.DATE, day)
+    return this
+}
+
+fun Calendar.getDate(format: String = defaultDateFormat): String {
+    return formatData(format).format(time)
 }
