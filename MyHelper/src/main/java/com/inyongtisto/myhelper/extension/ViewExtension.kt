@@ -13,6 +13,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.transition.Slide
 import androidx.transition.Transition
@@ -93,6 +94,10 @@ fun AppCompatImageView.setTintColor(context: Context, color: Int) {
         ContextCompat.getColor(context, color),
         android.graphics.PorterDuff.Mode.MULTIPLY
     )
+}
+
+fun AppCompatImageView.setTintColor(color: Int) {
+    ImageViewCompat.setImageTintList(this, ContextCompat.getColorStateList(context, R.color.colorPrimary))
 }
 
 fun Activity.lightStatusBar() {
