@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.inyongtisto.myhelper.BuildConfig
+import com.inyongtisto.myhelper.util.AppConstants
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -179,3 +180,12 @@ fun Activity.checkUpdates(
         })
 }
 
+inline fun <reified T : Any> Activity.extra(key: String = AppConstants.EXTRA, default: T? = null) = lazy {
+    val value = intent?.extras?.get(key)
+    if (value is T) value else default
+}
+
+inline fun <reified T : Any> Activity.getExtra(key: String = AppConstants.EXTRA, default: T? = null) = lazy {
+    val value = intent?.extras?.get(key)
+    if (value is T) value else default
+}

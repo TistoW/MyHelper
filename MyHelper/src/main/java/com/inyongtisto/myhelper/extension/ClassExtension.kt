@@ -70,3 +70,11 @@ fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observ
         }
     })
 }
+
+fun <T> T?.isNull(): Boolean {
+    return this == null
+}
+
+fun <T> T?.isNotNull(): Boolean {
+    return this != null
+}
