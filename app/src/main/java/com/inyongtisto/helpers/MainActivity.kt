@@ -1,6 +1,7 @@
 package com.inyongtisto.helpers
 
 import android.os.*
+import android.view.ViewTreeObserver
 import com.inyongtisto.helpers.databinding.ActivityMainBinding
 import com.inyongtisto.helpers.util.BaseActivity
 import com.inyongtisto.helpers.util.Rounded
@@ -58,5 +59,17 @@ class MainActivity : BaseActivity() {
 
         logs("nextDay:${nextDay(10)}")
 
+        _listener = onKeyboardShowListener {
+            logs("isShow:$it")
+        }
+    }
+
+    private var _listener: ViewTreeObserver.OnGlobalLayoutListener? = null
+    private val listener get() = _listener!!
+
+    override fun onResume() {
+        super.onResume()
+        val view = binding.root
+        view.viewTreeObserver.addOnGlobalLayoutListener(listener)
     }
 }

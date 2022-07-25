@@ -7,13 +7,11 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.*
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
+import androidx.core.widget.NestedScrollView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.transition.Slide
 import androidx.transition.Transition
@@ -151,4 +149,28 @@ fun View.setVisibelityWithAnimation(
     transition.addTarget(this)
     TransitionManager.beginDelayedTransition(views, transition)
     this.visibility = if (show) View.VISIBLE else View.GONE
+}
+
+private fun NestedScrollView.scrollToBottom() {
+    post {
+        fullScroll(ScrollView.FOCUS_DOWN)
+    }
+}
+
+private fun NestedScrollView.scrollToTop() {
+    post {
+        fullScroll(ScrollView.FOCUS_DOWN)
+    }
+}
+
+private fun ScrollView.scrollToBottom() {
+    post {
+        fullScroll(ScrollView.FOCUS_DOWN)
+    }
+}
+
+private fun ScrollView.scrollToTop() {
+    post {
+        fullScroll(ScrollView.FOCUS_DOWN)
+    }
 }

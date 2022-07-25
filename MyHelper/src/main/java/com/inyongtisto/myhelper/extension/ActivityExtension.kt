@@ -5,9 +5,12 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
+import android.graphics.Rect
 import android.net.Uri
 import android.os.Parcelable
+import android.util.TypedValue
 import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +26,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.jsoup.Jsoup
 import java.util.concurrent.ExecutionException
+import kotlin.math.roundToInt
 
 
 fun <T> Context.intentActivity(activity: Class<T>, value: String, name: String = "extra") {
@@ -127,57 +131,57 @@ fun Activity.checkUpdates(
     CompositeDisposable().add(Observable.fromCallable {
         try {
             newVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=$packageName")
-                .timeout(30000)
-                .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
-                .referrer("http://www.google.com")
-                .get()
-                .select(".hAyfc .htlgb")[7]
-                .ownText()
-        } catch (e:Exception){
+                    .timeout(30000)
+                    .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+                    .referrer("http://www.google.com")
+                    .get()
+                    .select(".hAyfc .htlgb")[7]
+                    .ownText()
+        } catch (e: Exception) {
 
         }
 
     }.subscribeOn(Schedulers.computation())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe {
-            if (newVersion.isEmpty()) return@subscribe
-            try {
-                val mLatestVersionName = newVersion
-                logs("version:$appVersionName - $mLatestVersionName")
-                if (appVersionName != mLatestVersionName) {
-                    val alertDialog: AlertDialog.Builder = AlertDialog.Builder(this)
-                    alertDialog.setTitle("Update Aplikasi")
-                    alertDialog.setMessage("Update aplikasi ke versi yang lebih stabil.")
-                    alertDialog.setPositiveButton("Update") { dialog, _ ->
-                        dialog.dismiss()
-                        try {
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("market://details?id=$packageName")
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                if (newVersion.isEmpty()) return@subscribe
+                try {
+                    val mLatestVersionName = newVersion
+                    logs("version:$appVersionName - $mLatestVersionName")
+                    if (appVersionName != mLatestVersionName) {
+                        val alertDialog: AlertDialog.Builder = AlertDialog.Builder(this)
+                        alertDialog.setTitle("Update Aplikasi")
+                        alertDialog.setMessage("Update aplikasi ke versi yang lebih stabil.")
+                        alertDialog.setPositiveButton("Update") { dialog, _ ->
+                            dialog.dismiss()
+                            try {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse("market://details?id=$packageName")
+                                    )
                                 )
-                            )
-                        } catch (anfe: ActivityNotFoundException) {
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                            } catch (anfe: ActivityNotFoundException) {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                                    )
                                 )
-                            )
+                            }
                         }
-                    }
-                    alertDialog.setNegativeButton("Tutup") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    alertDialog.show()
+                        alertDialog.setNegativeButton("Tutup") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        alertDialog.show()
 
+                    }
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                } catch (e: ExecutionException) {
+                    e.printStackTrace()
                 }
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            } catch (e: ExecutionException) {
-                e.printStackTrace()
-            }
-        })
+            })
 }
 
 inline fun <reified T : Any> Activity.extra(key: String = AppConstants.EXTRA, default: T? = null) = lazy {
@@ -188,4 +192,68 @@ inline fun <reified T : Any> Activity.extra(key: String = AppConstants.EXTRA, de
 inline fun <reified T : Any> Activity.getExtra(key: String = AppConstants.EXTRA, default: T? = null) = lazy {
     val value = intent?.extras?.get(key)
     if (value is T) value else default
+}
+
+fun Activity.getRootView(): View {
+    return findViewById(android.R.id.content)
+}
+
+fun Context.convertDpToPx(dp: Float): Float {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp,
+        this.resources.displayMetrics
+    )
+}
+
+fun Activity.isKeyboardOpen(): Boolean {
+    val visibleBounds = Rect()
+    this.getRootView().getWindowVisibleDisplayFrame(visibleBounds)
+    val heightDiff = getRootView().height - visibleBounds.height()
+    val marginOfError = this.convertDpToPx(50F).roundToInt()
+    return heightDiff > marginOfError
+}
+
+fun Activity.isKeyboardClosed(): Boolean {
+    return !this.isKeyboardOpen()
+}
+
+fun Activity.onKeyboardShowListener(isShow: (Boolean) -> Unit): ViewTreeObserver.OnGlobalLayoutListener {
+
+    /* example variable
+
+        private var _listener: ViewTreeObserver.OnGlobalLayoutListener? = null
+        private val listener get() = _listener!!
+
+        // onCreateView
+
+        _listener = keyboardShowListener {
+            logs("isShow:$it")
+        }
+
+     */
+
+    return object : ViewTreeObserver.OnGlobalLayoutListener {
+        // Keep a reference to the last state of the keyboard
+        private var lastState: Boolean = isKeyboardOpen()
+
+        /**
+         * Something in the layout has changed
+         * so check if the keyboard is open or closed
+         * and if the keyboard state has changed
+         * save the new state and invoke the callback
+         */
+        override fun onGlobalLayout() {
+            logs("cek ini")
+            val isOpen = isKeyboardOpen()
+            if (isOpen == lastState) {
+                isShow.invoke(isOpen)
+                return
+            } else {
+                logs("is Open")
+                isShow.invoke(isOpen)
+                lastState = isOpen
+            }
+        }
+    }
 }
