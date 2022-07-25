@@ -151,25 +151,25 @@ fun View.setVisibelityWithAnimation(
     this.visibility = if (show) View.VISIBLE else View.GONE
 }
 
-private fun NestedScrollView.scrollToBottom() {
+fun NestedScrollView.scrollToBottom() {
     post {
         fullScroll(ScrollView.FOCUS_DOWN)
     }
 }
 
-private fun NestedScrollView.scrollToTop() {
+fun NestedScrollView.scrollToTop() {
     post {
         fullScroll(ScrollView.FOCUS_DOWN)
     }
 }
 
-private fun ScrollView.scrollToBottom() {
+fun ScrollView.scrollToBottom() {
     post {
         fullScroll(ScrollView.FOCUS_DOWN)
     }
 }
 
-private fun ScrollView.scrollToTop() {
+fun ScrollView.scrollToTop() {
     post {
         fullScroll(ScrollView.FOCUS_DOWN)
     }

@@ -244,13 +244,14 @@ fun Activity.onKeyboardShowListener(isShow: (Boolean) -> Unit): ViewTreeObserver
          * save the new state and invoke the callback
          */
         override fun onGlobalLayout() {
-            logs("cek ini")
+            logs("Keyboard listener")
             val isOpen = isKeyboardOpen()
             if (isOpen == lastState) {
                 isShow.invoke(isOpen)
+                logs("Keyboard is close")
                 return
             } else {
-                logs("is Open")
+                logs("keyboard is Open")
                 isShow.invoke(isOpen)
                 lastState = isOpen
             }
