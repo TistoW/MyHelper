@@ -60,7 +60,12 @@ class StoragePermissionsManager(
         return result[Manifest.permission.READ_EXTERNAL_STORAGE] == true && result[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true
     }
 
-    fun isResultGranted(it: ActivityResult): Boolean {
+    @JvmName("isGranted1")
+    fun isGranted(result: Map<String, Boolean>?): Boolean {
+        return result?.get(Manifest.permission.READ_EXTERNAL_STORAGE) == true && result[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true
+    }
+
+    fun isGranted(it: ActivityResult): Boolean {
         if (it.resultCode == AppCompatActivity.RESULT_OK) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 if (Environment.isExternalStorageManager()) return true //Permission granted
