@@ -48,11 +48,11 @@ fun logs(message: String?) {
     Log.d("RESPONSE", message ?: "message")
 }
 
-fun logs(tag: String, message: String?) {
+fun logs(tag: String?, message: String?) {
     Log.d(tag, message ?: "message")
 }
 
-fun logs(tag: String, vararg str: String) {
+fun logs(tag: String?, vararg str: String) {
     var message = ""
     for ((i, s) in str.withIndex()) {
         message += if (i == str.size - 1) s else "$s - "
