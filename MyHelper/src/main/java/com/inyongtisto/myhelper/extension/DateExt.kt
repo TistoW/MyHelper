@@ -167,3 +167,17 @@ fun Calendar.addDay(day: Int): Calendar {
 fun Calendar.getDate(format: String = defaultDateFormat): String {
     return formatData(format).format(time)
 }
+
+@SuppressLint("SimpleDateFormat")
+fun currentTime(format: String = defaultDateFormat): String {
+    val sdf = SimpleDateFormat(format)
+    return sdf.format(Date())
+}
+
+@SuppressLint("SimpleDateFormat")
+fun currentTimeUTC(isUTCTime: Boolean = true): String {
+    val sdf = SimpleDateFormat(defaultDateFormatMillisecond)
+    val result = sdf.format(Date())
+    val addDay: Int? = if (isUTCTime) -7 else null
+    return result.convertToUTC(defaultDateFormatMillisecond, addDay = addDay)
+}

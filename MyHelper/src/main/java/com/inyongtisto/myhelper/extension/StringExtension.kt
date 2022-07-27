@@ -35,41 +35,74 @@ fun String.convertTanggal(
     val dateFormat = SimpleDateFormat(fromFormat)
     val convert = dateFormat.parse(this)
     dateFormat.applyPattern(toFormat)
-    return dateFormat.format(convert ?: "")
+
+    try {
+
+    } catch (e: Exception) {
+
+    }
+
+    return dateFormat.format(convert ?: dateExample)
 }
 
 
 const val defaultDateFormat = "yyyy-MM-dd kk:mm:ss"
+const val defaultDateFormatMillisecond = "yyyy-MM-dd kk:mm:ss.SSS"
+const val dateExampleUTC = "1990-01-01T00:00:00.000000Z"
+const val dateExample = "1990-01-01 00:00:00"
 const val defaultUTCDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
 @SuppressLint("SimpleDateFormat")
 fun String.convertToUTC(
-    fromatLama: String = defaultDateFormat
+    fromFormat: String = defaultDateFormat,
+    addDay: Int? = null
 ): String {
-    val formatBaru = defaultUTCDateFormat
-    val dateFormat = SimpleDateFormat(fromatLama)
-    val confert = dateFormat.parse(this)
-    dateFormat.applyPattern(formatBaru)
-    return dateFormat.format(confert ?: "")
+    val newFormat = defaultUTCDateFormat
+    val dateFormat = SimpleDateFormat(fromFormat)
+    var result = dateExampleUTC
+    try {
+        result = if (addDay.isNotNull()) {
+            val dd = dateFormat.parse(this)
+            // tambah 7 jam untuk indonesia
+            val hour: Long = 3600 * 1000 // in milli-seconds.
+            val newDate = Date((dd?.time.def(1)) + (addDay.def(1)) * hour)
+            dateFormat.applyPattern(newFormat)
+            dateFormat.format(newDate)
+        } else {
+            val date = dateFormat.parse(this)
+            dateFormat.applyPattern(newFormat)
+            dateFormat.format(date ?: dateExample)
+        }
+    } catch (e: ParseException) {
+        loge(e.message)
+    }
+    return result
 }
 
 @SuppressLint("SimpleDateFormat")
-fun String.convertFromUTC(ygDimau: String = defaultDateFormat): String {
-    var hasil = ""
-    val frmtlama = defaultUTCDateFormat
-    val dateFormat = SimpleDateFormat(frmtlama)
+fun dummyResult(toFormat: String): String {
+    val dateFormat = SimpleDateFormat(defaultDateFormat)
+    val date = dateFormat.parse(dateExample)
+    dateFormat.applyPattern(toFormat)
+    return dateFormat.format(date ?: dateExample)
+}
+
+@SuppressLint("SimpleDateFormat")
+fun String.convertFromUTC(newFormat: String = defaultDateFormat): String {
+    var result = dummyResult(newFormat)
+    val formatBefore = defaultUTCDateFormat
+    val dateFormat = SimpleDateFormat(formatBefore)
     try {
         val dd = dateFormat.parse(this)
         // tambah 7 jam untuk indonesia
         val hour: Long = 3600 * 1000 // in milli-seconds.
-        val newDate = Date(dd!!.time + 7 * hour)
-        dateFormat.applyPattern(ygDimau)
-        hasil = dateFormat.format(newDate)
-
+        val newDate = Date((dd?.time ?: 0) + 7 * hour)
+        dateFormat.applyPattern(newFormat)
+        result = dateFormat.format(newDate)
     } catch (e: ParseException) {
-        e.printStackTrace()
+        loge(e.message)
     }
-    return hasil
+    return result
 }
 
 fun String.convertFromUTCDay(): String {
@@ -244,5 +277,6 @@ fun getSalam(): String {
     return salam
 }
 
-
-
+fun String?.clearJsonString(): String {
+    return this?.replace("\"{", "{")?.replace("}\"", "}")?.replace("\\", "") ?: ""
+}

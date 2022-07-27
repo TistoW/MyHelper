@@ -44,12 +44,12 @@ fun gone() = View.GONE
 
 const val dateFormat = "yyyy-MM-dd"
 
-fun logs(message: String) {
-    Log.d("RESPONS", message)
+fun logs(message: String?) {
+    Log.d("RESPONSE", message ?: "message")
 }
 
-fun logs(tag: String, message: String) {
-    Log.d(tag, message)
+fun logs(tag: String, message: String?) {
+    Log.d(tag, message ?: "message")
 }
 
 fun logs(tag: String, vararg str: String) {
@@ -58,6 +58,14 @@ fun logs(tag: String, vararg str: String) {
         message += if (i == str.size - 1) s else "$s - "
     }
     Log.d(tag, message)
+}
+
+fun loge(message: String?) {
+    Log.e("ERROR", message ?: "message")
+}
+
+fun loge(tag: String, message: String?) {
+    Log.e(tag, message ?: "message")
 }
 
 fun longLogs(longString: String, tag: String = "RESPONS") {
@@ -350,4 +358,20 @@ fun Activity.setWhiteStatusBarBackgound() {
 
 fun Activity.setStatusBarBackgoundColor(color: Int) {
     setStatusBarBackgroudColor(color)
+}
+
+fun Int?.def(v: Int): Int {
+    return this ?: v
+}
+
+fun String?.def(v: String): String {
+    return this ?: v
+}
+
+fun Double?.def(v: Double): Double {
+    return this ?: v
+}
+
+fun Long?.def(v: Long): Long {
+    return this ?: v
 }

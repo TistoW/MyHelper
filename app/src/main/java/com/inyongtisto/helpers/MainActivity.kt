@@ -59,17 +59,10 @@ class MainActivity : BaseActivity() {
 
         logs("nextDay:${nextDay(10)}")
 
-        _listener = onKeyboardShowListener {
-            logs("isShow:$it")
-        }
-    }
+        val currentTime = currentTimeUTC(isUTCTime = false)
+        logs("time:$currentTime")
+        logs("timeToUTC:${currentTimeUTC()}")
+        logs("timeFromUTC:" + currentTimeUTC().convertFromUTC())
 
-    private var _listener: ViewTreeObserver.OnGlobalLayoutListener? = null
-    private val listener get() = _listener!!
-
-    override fun onResume() {
-        super.onResume()
-        val view = binding.root
-        view.viewTreeObserver.addOnGlobalLayoutListener(listener)
     }
 }

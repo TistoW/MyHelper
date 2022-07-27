@@ -17,6 +17,7 @@ import androidx.transition.Slide
 import androidx.transition.Transition
 import androidx.transition.TransitionManager
 import com.inyongtisto.myhelper.R
+import com.squareup.picasso.Picasso
 
 fun View.toVisible() {
     this.visibility = View.VISIBLE
@@ -173,4 +174,15 @@ fun ScrollView.scrollToTop() {
     post {
         fullScroll(ScrollView.FOCUS_DOWN)
     }
+}
+
+fun ImageView.setImagePicasso(url: String, error: Int = R.color.gray5, onError: ((String) -> Unit)? = null) {
+    val picasso = Picasso.Builder(context)
+            .listener { _, _, exception ->
+                onError?.invoke(exception.message ?: "Error")
+                logs("Error:" + exception.message)
+            }.build()
+    picasso.load(url)
+            .error(error)
+            .into(this)
 }
