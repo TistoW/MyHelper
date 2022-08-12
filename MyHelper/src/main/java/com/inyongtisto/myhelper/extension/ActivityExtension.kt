@@ -96,6 +96,38 @@ fun Activity.getStringExtra(name: String = "extra"): String? {
     return intent.getStringExtra(name)
 }
 
+fun <T> Context.createIntent(activity: Class<T>): Intent {
+    return Intent(applicationContext, activity)
+}
+
+fun <T> Context.createIntent(activity: Class<T>, value: String, name: String = "extra"): Intent {
+    val i = Intent(applicationContext, activity)
+    i.putExtra(name, value)
+    return i
+}
+
+fun <T> Context.createIntent(activity: Class<T>, value: Parcelable?, name: String = "extra"): Intent {
+    val i = Intent(applicationContext, activity)
+    i.putExtra(name, value)
+    return i
+}
+
+fun <T> Fragment.createIntent(activity: Class<T>): Intent {
+    return Intent(requireActivity(), activity)
+}
+
+fun <T> Fragment.createIntent(activity: Class<T>, value: String, name: String = "extra"): Intent {
+    val i = Intent(requireActivity(), activity)
+    i.putExtra(name, value)
+    return i
+}
+
+fun <T> Fragment.createIntent(activity: Class<T>, value: Parcelable?, name: String = "extra"): Intent {
+    val i = Intent(requireActivity(), activity)
+    i.putExtra(name, value)
+    return i
+}
+
 fun <T> Activity.intentActivityResult(
     activity: Class<T>,
     activityResult: ActivityResultLauncher<Intent>
