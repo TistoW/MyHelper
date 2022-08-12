@@ -258,3 +258,14 @@ fun Activity.onKeyboardShowListener(isShow: (Boolean) -> Unit): ViewTreeObserver
         }
     }
 }
+
+fun Context.openMap(latitude: Double, longitude: Double) {
+    val uri = "http://maps.google.com/maps?q=loc:$latitude,$longitude"
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+    intent.setPackage("com.google.android.apps.maps")
+    startActivity(intent)
+}
+
+fun Fragment.openMap(latitude: Double, longitude: Double) {
+    requireActivity().openMap(latitude, longitude)
+}
