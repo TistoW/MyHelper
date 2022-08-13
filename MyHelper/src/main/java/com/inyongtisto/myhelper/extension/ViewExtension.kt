@@ -2,6 +2,7 @@ package com.inyongtisto.myhelper.extension
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Paint
 import android.os.Build
 import android.os.Handler
@@ -16,6 +17,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.transition.Slide
 import androidx.transition.Transition
 import androidx.transition.TransitionManager
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.inyongtisto.myhelper.R
 import com.squareup.picasso.Picasso
 
@@ -185,4 +188,8 @@ fun ImageView.setImagePicasso(url: String, error: Int = R.color.gray5, onError: 
     picasso.load(url)
             .error(error)
             .into(this)
+}
+
+fun MaterialButton.setStrokeColor(color: Int) {
+    strokeColor = ColorStateList.valueOf(context.getColor(color))
 }
