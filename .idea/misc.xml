@@ -29,6 +29,18 @@
         <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/drawable/dialog_bg.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/drawable/ic_asset_close.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/drawable/ic_baseline_close_24.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/drawable/ic_close.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/drawable/ic_search.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/layout/date_picker.xml" value="0.18055555555555555" />
+        <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/layout/date_time_picker.xml" value="0.18055555555555555" />
+        <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/layout/divider_layout.xml" value="0.18055555555555555" />
+        <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/layout/item_spinner.xml" value="0.18055555555555555" />
+        <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/layout/layout_btn_simpan.xml" value="0.18055555555555555" />
+        <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/layout/layout_progress_dialog.xml" value="0.18055555555555555" />
+        <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/layout/layout_search.xml" value="0.15" />
+        <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/layout/view_date_picker.xml" value="0.18055555555555555" />
+        <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/layout/view_dialog_confirm.xml" value="0.18055555555555555" />
+        <entry key="..\:/Users/User/Documents/Android/MyProject/Helpers/MyHelper/src/main/res/layout/view_loading.xml" value="0.18055555555555555" />
       </map>
     </option>
   </component>
