@@ -51,16 +51,15 @@
 
 <!--    <color name="grey">#F1F1F1</color>-->
 <!--    <color name="grey0">#FAFAFA</color>-->
-<!--    <color name="grey1">#F5F5F5</color>-->
-<!--    <color name="grey2">#EEEEEE</color>-->
-<!--    <color name="grey3">#E0E0E0</color>-->
-<!--    <color name="grey4">#BDBDBD</color>-->
-<!--    <color name="grey5">#9E9E9E</color>-->
-<!--    <color name="grey6">#757575</color>-->
-<!--    <color name="grey7">#616161</color>-->
-<!--    <color name="grey8">#424242</color>-->
-<!--    <color name="grey9">#212121</color>-->
-<!--    <color name="grey10">#F8F8F8</color>-->
+<!--    <color name="grey1">#F5F5F5</color> // gray5-->
+<!--    <color name="grey2">#EEEEEE</color> // gray5-->
+<!--    <color name="grey3">#E0E0E0</color> // gray4-->
+<!--    <color name="grey4">#BDBDBD</color> // gray4-->
+<!--    <color name="grey5">#9E9E9E</color> // gray3-->
+<!--    <color name="grey6">#757575</color> // gray3-->
+<!--    <color name="grey7">#616161</color> // gray2-->
+<!--    <color name="grey8">#424242</color> // gray2-->
+<!--    <color name="grey9">#212121</color> // gray1-->
 
     <color name="black_20">#33000000</color>
 
