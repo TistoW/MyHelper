@@ -9,14 +9,18 @@ fun AppCompatActivity.showConfirmDialog(
     title: String,
     subtitle: String,
     actionText: String = "Ok",
+    cancellable: Boolean = true,
+    percentage: Int = 80,
     onAction: (() -> Unit)? = null) {
-    ConfirmDialogFragment(title, subtitle, actionText, onAction).show(supportFragmentManager, ConfirmDialogFragment.TAG)
+    ConfirmDialogFragment(title, subtitle, actionText, cancellable, percentage, onAction).show(supportFragmentManager, ConfirmDialogFragment.TAG)
 }
 
 fun Fragment.showConfirmDialog(
     title: String,
     subtitle: String,
     actionText: String = "Ok",
+    cancellable: Boolean = true,
+    percentage: Int = 80,
     onAction: (() -> Unit)? = null) {
-    ConfirmDialogFragment(title, subtitle, actionText, onAction).show(childFragmentManager, ConfirmDialogFragment.TAG)
+    ConfirmDialogFragment(title, subtitle, actionText, cancellable, percentage, onAction).show(childFragmentManager, ConfirmDialogFragment.TAG)
 }

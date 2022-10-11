@@ -29,7 +29,7 @@ class MainActivity : BaseActivity() {
             }
 
             btnDialogConfim.setOnClickListener {
-                showConfirmDialog("Dialog", "Are you okey", "Yes, I'm") {
+                showConfirmDialog("Dialog", "Are you okey", "Yes, I'm", percentage =  60) {
                     toastSuccess("Success")
                 }
             }
