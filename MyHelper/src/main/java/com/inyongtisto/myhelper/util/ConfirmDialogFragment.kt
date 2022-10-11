@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.inyongtisto.myhelper.base.BaseDialog
 import com.inyongtisto.myhelper.databinding.ViewDialogConfirmBinding
+import com.inyongtisto.myhelper.extension.visible
 import io.reactivex.functions.Cancellable
 
 class ConfirmDialogFragment(
     private val title: String,
     private val subtitle: String,
     private val actionText: String = "Ok",
+    private val actionTextSecondary: String? = null,
     private val cancellable: Boolean = true,
     percentage: Int = 80,
+    private val onActionSecondary: (() -> Unit)? = null,
     private val onAction: (() -> Unit)? = null
 ) : BaseDialog(percentage) {
 
@@ -37,7 +40,7 @@ class ConfirmDialogFragment(
         setupClickListeners()
     }
 
-    private fun init(){
+    private fun init() {
         isCancelable = cancellable
     }
 
@@ -46,6 +49,8 @@ class ConfirmDialogFragment(
             tvTitle.text = title
             tvSubtitle.text = subtitle
             tvConifrm.text = actionText
+            tvActionSecondary.text = actionTextSecondary
+            lySecondary.visible(!actionTextSecondary.isNullOrEmpty())
         }
     }
 
@@ -57,6 +62,11 @@ class ConfirmDialogFragment(
 
             btnConfirm.setOnClickListener {
                 onAction?.invoke()
+                dismiss()
+            }
+
+            btnActionSecondary.setOnClickListener {
+                onActionSecondary?.invoke()
                 dismiss()
             }
         }

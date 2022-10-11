@@ -58,6 +58,36 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/lySecondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/divider_layout" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_actionSecondary"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/large_height"
+                app:cardBackgroundColor="@color/light"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:id="@+id/tv_actionSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/dialog_ok"
+                    android:textAppearance="@style/TypographyStyles.Text3.Bold"
+                    android:textColor="@color/gray1" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/btn_close"
             android:layout_width="match_parent"
