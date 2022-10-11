@@ -6,12 +6,12 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.inyongtisto.myhelper.extension.getFragmentWidthPercentage
 
-abstract class BaseDialog : DialogFragment() {
+abstract class BaseDialog(private val percentage: Int = 80) : DialogFragment() {
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(
-                getFragmentWidthPercentage(90),
-                WindowManager.LayoutParams.WRAP_CONTENT
+            getFragmentWidthPercentage(percentage),
+            WindowManager.LayoutParams.WRAP_CONTENT
         )
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }

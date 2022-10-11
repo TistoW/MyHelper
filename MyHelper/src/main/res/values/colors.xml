@@ -49,17 +49,27 @@
 
     <color name="green_normal">#069517</color>
 
-<!--    <color name="grey">#F1F1F1</color>-->
-<!--    <color name="grey0">#FAFAFA</color>-->
-<!--    <color name="grey1">#F5F5F5</color> // gray5-->
-<!--    <color name="grey2">#EEEEEE</color> // gray5-->
-<!--    <color name="grey3">#E0E0E0</color> // gray4-->
-<!--    <color name="grey4">#BDBDBD</color> // gray4-->
-<!--    <color name="grey5">#9E9E9E</color> // gray3-->
-<!--    <color name="grey6">#757575</color> // gray3-->
-<!--    <color name="grey7">#616161</color> // gray2-->
-<!--    <color name="grey8">#424242</color> // gray2-->
-<!--    <color name="grey9">#212121</color> // gray1-->
+    <!--    <color name="grey">#F1F1F1</color>-->
+    <!--    <color name="grey0">#FAFAFA</color>-->
+    <!--    <color name="grey1">#F5F5F5</color> // gray5-->
+    <!--    <color name="grey2">#EEEEEE</color> // gray5-->
+    <!--    <color name="grey3">#E0E0E0</color> // gray4-->
+    <!--    <color name="grey4">#BDBDBD</color> // gray4-->
+    <!--    <color name="grey5">#9E9E9E</color> // gray3-->
+    <!--    <color name="grey6">#757575</color> // gray3-->
+    <!--    <color name="grey7">#616161</color> // gray2-->
+    <!--    <color name="grey8">#424242</color> // gray2-->
+    <!--    <color name="grey9">#212121</color> // gray1-->
+
+    <color name="gray_100">#292929</color>
+    <color name="gray_200">#424242</color>
+    <color name="gray_300">#616161</color>
+    <color name="gray_400">#757575</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_600">#BDBDBD</color>
+    <color name="gray_700">#E0E0E0</color>
+    <color name="gray_800">#EEEEEE</color>
+    <color name="gray_900">#F5F5F5</color>
 
     <color name="black_20">#33000000</color>
 
