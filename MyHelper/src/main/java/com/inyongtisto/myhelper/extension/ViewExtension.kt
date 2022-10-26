@@ -1,5 +1,6 @@
 package com.inyongtisto.myhelper.extension
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.res.ColorStateList
@@ -107,9 +108,21 @@ fun Activity.lightStatusBar() {
     decor.systemUiVisibility = decor.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv() //set status text  light
 }
 
+@SuppressLint("ObsoleteSdkInt")
 fun Activity.blackStatusBar() {
-    val decor = this.window.decorView
-    decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        window.insetsController?.setSystemBarsAppearance(
+            WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+            WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+        )
+    } else if (Build.VERSION.SDK_INT >= 23) {
+        val decor: View = this.window.decorView
+        if (decor.systemUiVisibility != View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR) {
+            decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        } else {
+            decor.systemUiVisibility = 0
+        }
+    }
 }
 
 fun Activity.setLightStatusBar() {
@@ -179,7 +192,7 @@ fun ScrollView.scrollToTop() {
     }
 }
 
-fun ImageView.setImagePicasso(url: String, error: Int = R.color.gray5, onError: ((String) -> Unit)? = null) {
+fun ImageView.setImagePicasso(url: String?, error: Int = R.color.gray5, onError: ((String) -> Unit)? = null) {
     val picasso = Picasso.Builder(context)
             .listener { _, _, exception ->
                 onError?.invoke(exception.message ?: "Error")

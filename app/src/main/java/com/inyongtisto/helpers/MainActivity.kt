@@ -6,6 +6,7 @@ import com.inyongtisto.helpers.databinding.ActivityMainBinding
 import com.inyongtisto.helpers.util.BaseActivity
 import com.inyongtisto.helpers.util.Rounded
 import com.inyongtisto.myhelper.extension.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
@@ -19,6 +20,8 @@ class MainActivity : BaseActivity() {
 
         initUI()
         Rounded(1015.49, 10.0)
+//        setBlackStatusBar()
+//        imageView.setImagePicasso()
     }
 
     private fun initUI() {
