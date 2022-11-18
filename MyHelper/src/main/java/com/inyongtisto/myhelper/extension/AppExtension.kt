@@ -7,6 +7,8 @@ import android.content.*
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Rect
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.os.Handler
@@ -29,6 +31,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.inyongtisto.myhelper.R
 import com.inyongtisto.myhelper.util.AppConstants.TIME_STAMP_FORMAT
 import java.net.URLEncoder
@@ -374,4 +377,41 @@ fun Double?.def(v: Double): Double {
 
 fun Long?.def(v: Long): Long {
     return this ?: v
+}
+
+fun <T> T.toMap(): Map<String, String> {
+    val map: Map<String, String> = HashMap()
+    return Gson().fromJson(this.toJson(), map.javaClass)
+}
+
+fun Context.isOffline(): Boolean {
+    return !isOnline()
+}
+
+fun Fragment.isOffline(): Boolean {
+    return !requireActivity().isOnline()
+}
+
+fun Fragment.isOnline(): Boolean {
+    return requireActivity().isOnline()
+}
+
+fun Context.isOnline(): Boolean {
+    val context = this
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+    if (capabilities != null) {
+        if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+            logs("Internet:NetworkCapabilities.TRANSPORT_CELLULAR")
+            return true
+        } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+            logs("Internet:NetworkCapabilities.TRANSPORT_WIFI")
+            return true
+        } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+            logs("Internet:NetworkCapabilities.TRANSPORT_ETHERNET")
+            return true
+        }
+    }
+    logs("Internet:NetworkCapabilities.NO_INTERNET_CONNECTION")
+    return false
 }
