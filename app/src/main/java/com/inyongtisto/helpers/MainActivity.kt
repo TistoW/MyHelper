@@ -1,12 +1,11 @@
 package com.inyongtisto.helpers
 
 import android.os.*
-import android.view.ViewTreeObserver
 import com.inyongtisto.helpers.databinding.ActivityMainBinding
 import com.inyongtisto.helpers.util.BaseActivity
 import com.inyongtisto.helpers.util.Rounded
 import com.inyongtisto.myhelper.extension.*
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.random.Random
 
 class MainActivity : BaseActivity() {
 
@@ -25,6 +24,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initUI() {
+
         binding.apply {
             val list = listOf("Makan", "Minum", "Tidur")
             spnData.setOnItemSelectedListener(this@MainActivity, list) {
@@ -38,34 +38,34 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        val date = CustomDate
-        logs("Today:${date.getToday()}")
-        logs("firstDayOfThisWeek:${date.getFirstDayOfThisWeek()}")
-        logs("lastDayOfThisWeek:${date.getLastDayOfThisWeek()}")
-        logs("firstDayOfLastWeek:${date.getFirstDayOfLastWeek()}")
-        logs("lastDayOfLastWeek:${date.getLastDayOfLastWeek()}")
-
-        logs("firstDayOfThisMonth:${firstDayOfThisMonth()}")
-        logs("lastDayOfThisMonth:${lastDayOfThisMonth()}")
-
-        logs("firstDayOfLastMonth:${firstDayOfLastMonth()}")
-        logs("lastDayOfLastMonth:${lastDayOfLastMonth()}")
-
-        logs("last30Day:${last30Day()}")
-        logs("next30Day:${next30Day()}")
-
-        logs("last7Day:${last7Day()}")
-        logs("next7Day:${next7Day()}")
-
-        logs("tomorrow:${tomorrow()}")
-        logs("yesterday:${yesterday()}")
-
-        logs("nextDay:${nextDay(10)}")
-
-        val currentTime = currentTimeUTC(isUTCTime = false)
-        logs("time:$currentTime")
-        logs("timeToUTC:${currentTimeUTC()}")
-        logs("timeFromUTC:" + currentTimeUTC().convertFromUTC())
+//        val date = CustomDate
+//        logs("Today:${date.getToday()}")
+//        logs("firstDayOfThisWeek:${date.getFirstDayOfThisWeek()}")
+//        logs("lastDayOfThisWeek:${date.getLastDayOfThisWeek()}")
+//        logs("firstDayOfLastWeek:${date.getFirstDayOfLastWeek()}")
+//        logs("lastDayOfLastWeek:${date.getLastDayOfLastWeek()}")
+//
+//        logs("firstDayOfThisMonth:${firstDayOfThisMonth()}")
+//        logs("lastDayOfThisMonth:${lastDayOfThisMonth()}")
+//
+//        logs("firstDayOfLastMonth:${firstDayOfLastMonth()}")
+//        logs("lastDayOfLastMonth:${lastDayOfLastMonth()}")
+//
+//        logs("last30Day:${last30Day()}")
+//        logs("next30Day:${next30Day()}")
+//
+//        logs("last7Day:${last7Day()}")
+//        logs("next7Day:${next7Day()}")
+//
+//        logs("tomorrow:${tomorrow()}")
+//        logs("yesterday:${yesterday()}")
+//
+//        logs("nextDay:${nextDay(10)}")
+//
+//        val currentTime = currentTimeUTC(isUTCTime = false)
+//        logs("time:$currentTime")
+//        logs("timeToUTC:${currentTimeUTC()}")
+//        logs("timeFromUTC:" + currentTimeUTC().convertFromUTC())
 
     }
 }

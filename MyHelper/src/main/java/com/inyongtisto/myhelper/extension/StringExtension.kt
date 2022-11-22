@@ -253,9 +253,12 @@ fun getRandomName(withNumber: Boolean = false): String {
         "Theo", "Ophelia", "Chelsea", "Azariah", "Jade", "Lara", "Ava", "Morgan", "Lennox", "Luna", "Isabelle", "Amir", "Rhys", "Arlo", "Giovanni", "Aisha", "Orion",
         "Ahmed", "Nolan", "Ezekiel", "Michelle", "Lea", "Silas", "Elaine", "Molly",
     )
-    val rndNumber = Random.nextInt(11, 99)
-    val rnd = Random.nextInt(0, listName.size - 1)
-    return listName[rnd] + "" + if (withNumber) rndNumber else ""
+    return listName[randomInt(0, listName.size - 1)] + "" + if (withNumber) randomInt(10, 99) else ""
+}
+
+fun randomInt(from: Int, to: Int): Int {
+    val randomGenerator = Random(System.currentTimeMillis())
+    return randomGenerator.nextInt(from, to)
 }
 
 fun generateRandomName(withNumber: Boolean = false) = getRandomName(withNumber)
