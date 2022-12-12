@@ -100,7 +100,7 @@ fun AppCompatImageView.setTintColor(context: Context, color: Int) {
 }
 
 fun AppCompatImageView.setTintColor(color: Int) {
-    ImageViewCompat.setImageTintList(this, ContextCompat.getColorStateList(context, R.color.colorPrimary))
+    ImageViewCompat.setImageTintList(this, ContextCompat.getColorStateList(context, color))
 }
 
 fun Activity.lightStatusBar() {

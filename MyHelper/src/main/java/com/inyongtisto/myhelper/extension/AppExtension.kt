@@ -326,24 +326,31 @@ fun Context.getImei(): String {
 }
 
 fun checkPrefix(mPhone: String): String {
-    val phone: String = mPhone.substring(0, 4)
-    if (phone == "0831" || phone == "0832" || phone == "0833" || phone == "0835" ||
-        phone == "0836" || phone == "0837" || phone == "0838" || phone == "0839") {
-        return "Axis"
-    } else if (phone == "0817" || phone == "0818" || phone == "0819" || phone == "0859" || phone == "0877" || phone == "0878" || phone == "0879") {
-        return "XL"
-    } else if (phone == "0811" || phone == "0812" || phone == "0813" || phone == "0821" || phone == "0822" || phone == "0823" || phone == "0851" || phone == "0852" || phone == "0853" || phone == "0854") {
-        return "Telkomsel"
-    } else if (phone == "0814" || phone == "0815" || phone == "0816" || phone == "0855" || phone == "0856" || phone == "0857" || phone == "0858") {
-        return "Indosat"
-    } else if (phone == "0895" || phone == "0896" || phone == "0897" || phone == "0898" || phone == "0899") {
-        return "Tri"
-    } else if (phone == "0881" || phone == "0882" || phone == "0883" || phone == "0884" || phone == "0885" || phone == "0886" || phone == "0887" || phone == "0888" || phone == "0889") {
-        return "Smartfren"
-    } else if (phone == "0828") {
-        return "Ceria"
-    } else {
-        return "non"
+    when (mPhone.substring(0, 4)) {
+        "0831", "0832", "0833", "0835", "0836", "0837", "0838", "0839" -> {
+            return "Axis"
+        }
+        "0817", "0818", "0819", "0859", "0877", "0878", "0879" -> {
+            return "XL"
+        }
+        "0811", "0812", "0813", "0821", "0822", "0823", "0851", "0852", "0853", "0854" -> {
+            return "Telkomsel"
+        }
+        "0814", "0815", "0816", "0855", "0856", "0857", "0858" -> {
+            return "Indosat"
+        }
+        "0895", "0896", "0897", "0898", "0899" -> {
+            return "Tri"
+        }
+        "0881", "0882", "0883", "0884", "0885", "0886", "0887", "0888", "0889" -> {
+            return "Smartfren"
+        }
+        "0828" -> {
+            return "Ceria"
+        }
+        else -> {
+            return "non"
+        }
     }
 }
 
