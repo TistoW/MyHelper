@@ -1,6 +1,6 @@
 package com.inyongtisto.myhelper.extension
 
-fun String?.toDoubleWithSafety(): Double {
+fun String?.toDoubleSafety(): Double {
     return if (this != null) {
         if (this.isEmpty()) {
             0.0
@@ -17,7 +17,7 @@ fun String?.toDoubleWithSafety(): Double {
     }
 }
 
-fun Double?.toDoubleWithSafety(): Double {
+fun Double?.toDoubleSafety(): Double {
     return if (this != null) {
         try {
             this.toDouble()
@@ -30,7 +30,7 @@ fun Double?.toDoubleWithSafety(): Double {
     }
 }
 
-fun Int?.toDoubleWithSafety(): Double {
+fun Int?.toDoubleSafety(): Double {
     return if (this != null) {
         try {
             this.toDouble()
@@ -43,7 +43,7 @@ fun Int?.toDoubleWithSafety(): Double {
     }
 }
 
-fun Long?.toDoubleWithSafety(): Double {
+fun Long?.toDoubleSafety(): Double {
     return if (this != null) {
         try {
             this.toDouble()
@@ -53,10 +53,10 @@ fun Long?.toDoubleWithSafety(): Double {
         }
     } else {
         0.0
-    }.also { logs("hasil toDoubleWithSafety : $it") }
+    }.also { logs("hasil toDoubleSafety : $it") }
 }
 
-fun Int?.toFloatWithSafety(): Float {
+fun Int?.toFloatSafety(): Float {
     return if (this != null) {
         try {
             this.toFloat()
@@ -69,7 +69,7 @@ fun Int?.toFloatWithSafety(): Float {
     }
 }
 
-fun String?.toIntWithSafety(): Int {
+fun String?.toIntSafety(): Int {
     return if (this != null) {
         if (this.isEmpty()) {
             0
@@ -86,11 +86,11 @@ fun String?.toIntWithSafety(): Int {
     }
 }
 
-fun Boolean?.toBoolWithSafety(): Boolean {
+fun Boolean?.toBoolSafety(): Boolean {
     return this ?: false
 }
 
-fun Double?.toIntWithSafety(): Int {
+fun Double?.toIntSafety(): Int {
     return if (this != null) {
         try {
             this.toInt()
@@ -103,7 +103,7 @@ fun Double?.toIntWithSafety(): Int {
     }
 }
 
-fun Float?.toIntWithSafety(): Int {
+fun Float?.toIntSafety(): Int {
     return if (this != null) {
         try {
             this.toInt()
@@ -116,7 +116,7 @@ fun Float?.toIntWithSafety(): Int {
     }
 }
 
-fun Long?.toIntWithSafety(): Int {
+fun Long?.toIntSafety(): Int {
     return if (this != null) {
         try {
             this.toInt()
@@ -129,7 +129,7 @@ fun Long?.toIntWithSafety(): Int {
     }
 }
 
-fun Int?.toIntWithSafety(): Int {
+fun Int?.toIntSafety(): Int {
     return if (this != null) {
         try {
             this.toInt()
@@ -142,7 +142,7 @@ fun Int?.toIntWithSafety(): Int {
     }
 }
 
-fun Float?.toFloatWithSafety(): Float {
+fun Float?.toFloatSafety(): Float {
     return if (this != null) {
         try {
             this.toFloat()
@@ -155,7 +155,7 @@ fun Float?.toFloatWithSafety(): Float {
     }
 }
 
-fun Byte?.toIntWithSafety(): Int {
+fun Byte?.toIntSafety(): Int {
     return if (this != null) {
         try {
             this.toInt()
