@@ -1,6 +1,5 @@
-"# MyHelper" 
+"# MyHelper"
 
+just add this on your dependencies
 
-just add this on yur dependencies
-
-implementation 'com.github.TistoW:MyHelper:2.0.14'
+implementation 'com.github.TistoW:MyHelper:2.0.16'
