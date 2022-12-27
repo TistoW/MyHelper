@@ -311,9 +311,9 @@ fun Double?.formatCurrency(showCurrency: Boolean = false): String {
 }
 
 fun String?.formatCurrency(showCurrency: Boolean = false): String {
-    return this.toDoubleWithSafety().formatCurrency(showCurrency)
+    return this.toDoubleSafety().formatCurrency(showCurrency)
 }
 
 fun Int?.formatCurrency(showCurrency: Boolean = false): String {
-    return this.toDoubleWithSafety().formatCurrency(showCurrency)
+    return this.toDoubleSafety().formatCurrency(showCurrency)
 }
