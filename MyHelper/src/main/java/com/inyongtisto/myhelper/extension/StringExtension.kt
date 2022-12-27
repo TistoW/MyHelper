@@ -15,6 +15,7 @@ fun String.remove(string: String): String = replace(string, "")
 fun String.removeComma(): String = replace(",", "")
 
 fun String.fixPhoneNumber(): String {
+    logs("")
     return when {
         take(1) == "0" -> "62${this.substring(1, this.length)}"
         take(2) == "62" -> this
@@ -196,7 +197,6 @@ fun Int.toRequestBody(): RequestBody {
     return this.toString().toRequestBody("text/plain".toMediaTypeOrNull())
 }
 
-
 @SuppressLint("SimpleDateFormat")
 fun String.toSalam(): String {
     val dateNow = System.currentTimeMillis()
@@ -215,12 +215,16 @@ fun String.toSalam(): String {
 }
 
 fun String?.getInitial(): String {
-    if (this.isNullOrEmpty()) return ""
-    val array = this.split(" ")
-    if (array.isEmpty()) return this
-    var inisial = array[0].substring(0, 1)
-    if (array.size > 1) inisial += array[1].substring(0, 1)
-    return inisial.uppercase()
+    try {
+        if (this.isNullOrEmpty()) return ""
+        val array = this.split(" ")
+        if (array.isEmpty()) return this
+        var inisial = array[0].substring(0, 1)
+        if (array.size > 1) inisial += array[1].substring(0, 1)
+        return inisial.uppercase()
+    } catch (e: Exception) {
+        return "N"
+    }
 }
 
 fun String?.toKFormat(): String {
@@ -232,7 +236,6 @@ fun String?.toKFormat(): String {
             7 -> this.toRupiah(true).dropLast(6) + "M"
             in 8..9 -> this.dropLast(6) + "M"
             10 -> this.toRupiah(true).dropLast(6) + "M"
-            in 8..9 -> this.dropLast(10) + "B"
             in 11..100 -> this.dropLast(9).toRupiah(true) + "B"
             else -> this
         }
@@ -282,4 +285,35 @@ fun getSalam(): String {
 
 fun String?.clearJsonString(): String {
     return this?.replace("\"{", "{")?.replace("}\"", "}")?.replace("\\", "") ?: ""
+}
+
+fun String?.equalText(string: String?): Boolean {
+    return this?.lowercase()?.contains(string?.lowercase() ?: "") ?: false
+}
+
+private fun String.translateJson(): String {
+    return this.replace("\\u003d", "=")
+}
+
+fun Double?.formatCurrency(showCurrency: Boolean = false): String {
+    if (this.isNull()) return "0"
+    val localeID = Locale("in", "ID")
+    val formatRupiah: NumberFormat = NumberFormat.getCurrencyInstance(localeID)
+    formatRupiah.minimumFractionDigits = 0
+    return try {
+        formatRupiah
+                .format(this)
+                .replace("Rp", if (showCurrency) "Rp. " else "")
+    } catch (e: Exception) {
+        e.printStackTrace()
+        "0"
+    }
+}
+
+fun String?.formatCurrency(showCurrency: Boolean = false): String {
+    return this.toDoubleWithSafety().formatCurrency(showCurrency)
+}
+
+fun Int?.formatCurrency(showCurrency: Boolean = false): String {
+    return this.toDoubleWithSafety().formatCurrency(showCurrency)
 }

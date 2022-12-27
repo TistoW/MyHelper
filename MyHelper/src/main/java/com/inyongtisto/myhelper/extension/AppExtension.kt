@@ -45,8 +45,8 @@ fun gone() = View.GONE
 
 const val dateFormat = "yyyy-MM-dd"
 
-fun logs(message: String?) {
-    Log.d("RESPONSE", message ?: "message")
+fun logs(message: String? = "message") {
+    Log.d("RESPONSE", message.def())
 }
 
 fun logs(tag: String?, message: String?) {
@@ -368,19 +368,19 @@ fun Activity.setStatusBarBackgoundColor(color: Int) {
     setStatusBarBackgroudColor(color)
 }
 
-fun Int?.def(v: Int): Int {
+fun Int?.def(v: Int = 0): Int {
     return this ?: v
 }
 
-fun String?.def(v: String): String {
+fun String?.def(v: String = ""): String {
     return this ?: v
 }
 
-fun Double?.def(v: Double): Double {
+fun Double?.def(v: Double = 0.0): Double {
     return this ?: v
 }
 
-fun Long?.def(v: Long): Long {
+fun Long?.def(v: Long = 0L): Long {
     return this ?: v
 }
 

@@ -5,6 +5,7 @@ import com.inyongtisto.helpers.databinding.ActivityMainBinding
 import com.inyongtisto.helpers.util.BaseActivity
 import com.inyongtisto.helpers.util.Rounded
 import com.inyongtisto.myhelper.extension.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.random.Random
 
 class MainActivity : BaseActivity() {

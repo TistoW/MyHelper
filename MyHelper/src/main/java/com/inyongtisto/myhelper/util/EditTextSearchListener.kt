@@ -8,7 +8,11 @@ import android.text.Editable
 import android.view.View
 import android.view.View.OnFocusChangeListener
 
-class EditTextSearchListener(editText: EditText, val delay: Long = 1000, val onChange: ((s: String) -> Unit?)? = null) {
+class EditTextSearchListener(
+    editText: EditText,
+    val delay: Long = 1000,
+    private val onChange: ((s: String) -> Unit?)? = null
+) {
     var lastTextEdit: Long = 0
     var handler = Handler(Looper.myLooper()!!)
     var text = ""
@@ -18,7 +22,7 @@ class EditTextSearchListener(editText: EditText, val delay: Long = 1000, val onC
     }
 
     private fun listener(editText: EditText) {
-        editText.onFocusChangeListener = OnFocusChangeListener { v: View?, hasFocus: Boolean ->
+        editText.onFocusChangeListener = OnFocusChangeListener { _: View?, _: Boolean ->
 
         }
         editText.addTextChangedListener(object : TextWatcher {

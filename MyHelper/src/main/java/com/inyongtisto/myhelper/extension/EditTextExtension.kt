@@ -1,5 +1,7 @@
 package com.inyongtisto.myhelper.extension
 
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
@@ -62,18 +64,8 @@ fun AppCompatEditText.clearSearch() {
     clearFocus()
 }
 
-fun AppCompatEditText.addCustomTextWatcher(button: View) {
-
-    context.getColor(android.R.color.holo_blue_bright)
-    addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {}
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            button.isEnabled = !s.isNullOrEmpty()
-        }
-    })
+fun EditText.setOnRupiahChangeListener(onChange: ((s: String) -> Unit?)? = null) {
+    onChangeRupiah(onChange)
 }
 
 fun EditText.onChangeRupiah(onChange: ((s: String) -> Unit?)? = null) {
@@ -114,22 +106,23 @@ fun EditText.onChangeRupiah(onChange: ((s: String) -> Unit?)? = null) {
     })
 }
 
+fun TextInputEditText.setOnChangeListener(onChange: ((s: String) -> Unit)? = null) {
+    onChangeListener(onChange)
+}
+
+fun EditText.setOnChangeListener(onChange: ((s: String) -> Unit)? = null) {
+    onChangeListener(onChange)
+}
+
 fun TextInputEditText.onChangeListener(onChange: ((s: String) -> Unit)? = null) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(p0: Editable?) {
-
-        }
-
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            onChange?.invoke(s.toString())
-        }
-    })
+    changeListener(onChange)
 }
 
 fun EditText.onChangeListener(onChange: ((s: String) -> Unit?)? = null) {
+    changeListener(onChange)
+}
+
+fun EditText.changeListener(onChange: ((s: String) -> Unit?)? = null) {
     this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {
 
@@ -200,6 +193,39 @@ fun TextInputLayout.setStartDrawable(drawable: Int) {
 //    this.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(context, drawable), null)
     this.setStartIconDrawable(drawable)
 //    this.setStartIconMode(TextInputLayout.END_ICON_CUSTOM)
+}
+
+fun EditText.setOnDelayChangeListener(
+    delay: Long = 1000,
+    onClear: ((s: String) -> Unit?)? = null,
+    onChange: ((s: String) -> Unit?)? = null
+) {
+    var lastTextEdit: Long = 0
+    val handler = Handler(Looper.myLooper()!!)
+    var text = ""
+    val inputFinishChecker = Runnable {
+        if (System.currentTimeMillis() > lastTextEdit + delay - 500) {
+            onChange?.invoke(text)
+        }
+    }
+
+    addTextChangedListener(object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            //You need to remove this to run only once
+            text = s.toString()
+            handler.removeCallbacks(inputFinishChecker)
+        }
+
+        override fun afterTextChanged(s: Editable) {
+            //avoid triggering event when text is empty
+            if (s.isNotEmpty()) {
+                lastTextEdit = System.currentTimeMillis()
+                handler.postDelayed(inputFinishChecker, delay)
+            } else onClear?.invoke(s.toString())
+        }
+    })
+
 }
 
 

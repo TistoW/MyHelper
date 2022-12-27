@@ -193,6 +193,7 @@ fun ScrollView.scrollToTop() {
 }
 
 fun ImageView.setImagePicasso(url: String?, error: Int = R.color.gray5, onError: ((String) -> Unit)? = null) {
+    R.attr.colorPrimary
     val picasso = Picasso.Builder(context)
             .listener { _, _, exception ->
                 onError?.invoke(exception.message ?: "Error")
@@ -205,4 +206,11 @@ fun ImageView.setImagePicasso(url: String?, error: Int = R.color.gray5, onError:
 
 fun MaterialButton.setStrokeColor(color: Int) {
     strokeColor = ColorStateList.valueOf(context.getColor(color))
+}
+
+fun Activity.transparentStatusBar(){
+    window.setFlags(
+        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+        WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+    )
 }
