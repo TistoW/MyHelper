@@ -291,7 +291,7 @@ fun String?.equalText(string: String?): Boolean {
     return this?.lowercase()?.contains(string?.lowercase() ?: "") ?: false
 }
 
-private fun String.translateJson(): String {
+fun String.translateJson(): String {
     return this.replace("\\u003d", "=")
 }
 

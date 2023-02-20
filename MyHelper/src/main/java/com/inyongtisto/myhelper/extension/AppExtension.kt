@@ -79,13 +79,13 @@ fun longLogs(longString: String, tag: String = "RESPONS") {
     }
 }
 
-private fun <T> List<T>.loga(string: String = "This:") {
+fun <T> List<T>.loga(string: String = "This:") {
     this.forEach {
         logs("$string:" + it.toJson())
     }
 }
 
-private fun <T> T.logm(string: String = "This:") {
+fun <T> T.logm(string: String = "This:") {
     logs("$string:" + this.toJson())
 }
 
@@ -182,16 +182,18 @@ fun Context.openWhatsApp(phone: String, message: String = "Hallo admin,") {
         if (i.resolveActivity(packageManager) != null) {
             startActivity(i)
         } else {
+            logs("cek ini tidak bisa")
             openWhatsappAlternate(phone, message)
         }
     } catch (e: Exception) {
+        logs("cek ini tidak bisa1")
         openWhatsappAlternate(phone, message)
     }
 }
 
-fun Context.openWhatsappAlternate(nomor: String, message: String) {
+fun Context.openWhatsappAlternate(phone: String, message: String) {
     try {
-        var toNumber = nomor // contains spaces.
+        var toNumber = phone // contains spaces.
         toNumber = toNumber.replace("+", "").replace(" ", "")
         val sendIntent = Intent("android.intent.action.MAIN")
         sendIntent.putExtra("jid", "$toNumber@s.whatsapp.net")
@@ -201,9 +203,29 @@ fun Context.openWhatsappAlternate(nomor: String, message: String) {
         sendIntent.type = "text/plain"
         startActivity(sendIntent)
     } catch (e: Exception) {
-        toastSimple("Gagal Membuka Whatsapp!")
+        logs("cek ini tidak bisa2")
+        openWhatsAppBusiness(phone, message)
     }
 }
+
+@SuppressLint("QueryPermissionsNeeded")
+fun Context.openWhatsAppBusiness(phone: String, message: String = "Hallo admin,") {
+    try {
+        val packageManager: PackageManager = packageManager
+        val i = Intent(Intent.ACTION_VIEW)
+        val url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode(message, "UTF-8")
+        i.setPackage("com.whatsapp.w4b")
+        i.data = Uri.parse(url)
+        if (i.resolveActivity(packageManager) != null) {
+            startActivity(i)
+        } else {
+            toastSimple("Gagal Membuka Whatsapp Business!")
+        }
+    } catch (e: Exception) {
+        toastSimple("Gagal Membuka Whatsapp Business!")
+    }
+}
+
 
 fun Context.openBrowser(url: String) {
     val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

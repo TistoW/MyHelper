@@ -33,9 +33,11 @@ class MainActivity : BaseActivity() {
             }
 
             btnDialogConfim.setOnClickListener {
-                showConfirmDialog("Dialog", "Are you okey", "Yes, I'm", percentage = 60) {
-                    toastSuccess("Success")
-                }
+//                showConfirmDialog("Dialog", "Are you okey", "Yes, I'm", percentage = 60) {
+//                    toastSuccess("Success")
+//                }
+
+                openWhatsApp("6282341810186", "Test Haloo")
             }
         }
 

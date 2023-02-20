@@ -15,15 +15,15 @@ fun File?.toMultipartBody(name: String = "image"): MultipartBody.Part? {
     return MultipartBody.Part.createFormData(name, this.name, reqFile)
 }
 
-fun File?.toAudioMultipartBody(): MultipartBody.Part? {
+fun File?.toAudioMultipartBody(name: String = "file"): MultipartBody.Part? {
     if (this == null) return null
     val reqFile: RequestBody = this.asRequestBody("audio/*".toMediaTypeOrNull())
-    return MultipartBody.Part.createFormData("audio", this.name, reqFile)
+    return MultipartBody.Part.createFormData(name, this.name, reqFile)
 }
 
-fun File?.toPdfMultipartBody(): MultipartBody.Part? {
+fun File?.toPdfMultipartBody(name: String = "file"): MultipartBody.Part? {
     if (this == null) return null
     val reqFile: RequestBody = this.asRequestBody("application/pdf".toMediaTypeOrNull())
-    return MultipartBody.Part.createFormData("audio", this.name, reqFile)
+    return MultipartBody.Part.createFormData(name, this.name, reqFile)
 }
 
