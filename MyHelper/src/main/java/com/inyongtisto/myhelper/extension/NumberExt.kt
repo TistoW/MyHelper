@@ -8,7 +8,7 @@ fun String?.toDoubleSafety(): Double {
             try {
                 this.toDouble()
             } catch (e: NumberFormatException) {
-                e.printStackTrace()
+                logs("ErrorNumber:"+e.message)
                 0.0
             }
         }
@@ -22,7 +22,7 @@ fun Double?.toDoubleSafety(): Double {
         try {
             this.toDouble()
         } catch (e: NumberFormatException) {
-            e.printStackTrace()
+            logs("ErrorNumber:"+e.message)
             0.0
         }
     } else {
@@ -35,7 +35,7 @@ fun Int?.toDoubleSafety(): Double {
         try {
             this.toDouble()
         } catch (e: NumberFormatException) {
-            e.printStackTrace()
+            logs("ErrorNumber:"+e.message)
             0.0
         }
     } else {
@@ -48,7 +48,7 @@ fun Long?.toDoubleSafety(): Double {
         try {
             this.toDouble()
         } catch (e: NumberFormatException) {
-            e.printStackTrace()
+            logs("ErrorNumber:"+e.message)
             0.0
         }
     } else {
@@ -61,7 +61,7 @@ fun Int?.toFloatSafety(): Float {
         try {
             this.toFloat()
         } catch (e: NumberFormatException) {
-            e.printStackTrace()
+            logs("ErrorNumber:"+e.message)
             0f
         }
     } else {
@@ -77,7 +77,7 @@ fun String?.toIntSafety(): Int {
             try {
                 this.toInt()
             } catch (e: NumberFormatException) {
-                e.printStackTrace()
+                logs("ErrorNumber:"+e.message)
                 0
             }
         }
@@ -95,7 +95,7 @@ fun Double?.toIntSafety(): Int {
         try {
             this.toInt()
         } catch (e: NumberFormatException) {
-            e.printStackTrace()
+            logs("ErrorNumber:"+e.message)
             0
         }
     } else {
@@ -108,7 +108,7 @@ fun Float?.toIntSafety(): Int {
         try {
             this.toInt()
         } catch (e: NumberFormatException) {
-            e.printStackTrace()
+            logs("ErrorNumber:"+e.message)
             0
         }
     } else {
@@ -121,7 +121,7 @@ fun Long?.toIntSafety(): Int {
         try {
             this.toInt()
         } catch (e: NumberFormatException) {
-            e.printStackTrace()
+            logs("ErrorNumber:"+e.message)
             0
         }
     } else {
@@ -134,7 +134,7 @@ fun Int?.toIntSafety(): Int {
         try {
             this.toInt()
         } catch (e: NumberFormatException) {
-            e.printStackTrace()
+            logs("ErrorNumber:"+e.message)
             0
         }
     } else {
@@ -147,7 +147,7 @@ fun Float?.toFloatSafety(): Float {
         try {
             this.toFloat()
         } catch (e: NumberFormatException) {
-            e.printStackTrace()
+            logs("ErrorNumber:"+e.message)
             0f
         }
     } else {
@@ -160,7 +160,7 @@ fun Byte?.toIntSafety(): Int {
         try {
             this.toInt()
         } catch (e: NumberFormatException) {
-            e.printStackTrace()
+            logs("ErrorNumber:"+e.message)
             0
         }
     } else {
