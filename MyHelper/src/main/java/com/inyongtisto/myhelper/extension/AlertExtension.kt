@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.inyongtisto.myhelper.R
@@ -20,29 +21,29 @@ fun Context.showToast(message: String) {
 
 fun Context.showSuccessDialog(message: String, onConfirmClickListener: () -> Unit) {
     SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-        .setTitleText(getString(R.string.berhasil))
-        .setContentText(message)
-        .setConfirmText(getString(R.string.dialog_ok))
-        .setConfirmClickListener {
-            it.dismiss()
-            onConfirmClickListener()
-        }
-        .show()
+            .setTitleText(getString(R.string.berhasil))
+            .setContentText(message)
+            .setConfirmText(getString(R.string.dialog_ok))
+            .setConfirmClickListener {
+                it.dismiss()
+                onConfirmClickListener()
+            }
+            .show()
 }
 
 fun Context.showSuccessDialog(title: String, pesan: String) {
     SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-        .setTitleText(title)
-        .setContentText(pesan)
-        .show()
+            .setTitleText(title)
+            .setContentText(pesan)
+            .show()
 }
 
 fun Context.showErrorDialog(message: String, title: String = getString(R.string.oopss)) {
     SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-        .setTitleText(title)
-        .setConfirmText(getString(R.string.dialog_ok))
-        .setContentText(message)
-        .show()
+            .setTitleText(title)
+            .setConfirmText(getString(R.string.dialog_ok))
+            .setContentText(message)
+            .show()
 }
 
 fun Context.showErrorDialog(
@@ -51,49 +52,38 @@ fun Context.showErrorDialog(
     onClicked: () -> Unit
 ) {
     SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
-        .setTitleText(title)
-        .setConfirmText(getString(R.string.dialog_ok))
-        .setContentText(message)
-        .setConfirmClickListener {
-            it.dismiss()
-            onClicked()
-        }
-        .show()
+            .setTitleText(title)
+            .setConfirmText(getString(R.string.dialog_ok))
+            .setContentText(message)
+            .setConfirmClickListener {
+                it.dismiss()
+                onClicked()
+            }
+            .show()
 }
 
 fun Context.showInfoDialog(title: String, pesan: String) {
     SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-        .setTitleText(title)
-        .setContentText(pesan)
-        .show()
+            .setTitleText(title)
+            .setContentText(pesan)
+            .show()
 }
 
 fun Context.showInfoDialog(title: String, pesan: String, onConfirmClickListener: () -> Unit) {
     SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-        .setTitleText(title)
-        .setContentText(pesan)
-        .setConfirmClickListener {
-            it.dismiss()
-            onConfirmClickListener()
-        }
-        .show()
+            .setTitleText(title)
+            .setContentText(pesan)
+            .setConfirmClickListener {
+                it.dismiss()
+                onConfirmClickListener()
+            }
+            .show()
 }
 
-fun Activity.showWarningConfirmAlert(title: String, message: String, onConfirmClickListener: () -> Unit) {
-    SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
-        .setTitleText(title)
-        .setContentText(message)
-        .setConfirmText(getString(R.string.dialog_ok))
-        .setConfirmClickListener {
-            it.dismiss()
-            onConfirmClickListener()
-        }
-        .setCancelText("Tutup")
-        .setCancelClickListener {
-            it.dismiss()
-        }
-        .show()
+fun AppCompatActivity.showWarningConfirmAlert(title: String, message: String, onConfirmClickListener: () -> Unit) {
+    showConfirmDialog(title, message, onAction = onConfirmClickListener)
 }
+
 
 fun Fragment.showSuccessDialog(message: String, onConfirmClickListener: () -> Unit) {
     requireActivity().showSuccessDialog(message, onConfirmClickListener)

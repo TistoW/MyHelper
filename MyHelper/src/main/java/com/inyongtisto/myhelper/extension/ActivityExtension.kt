@@ -1,11 +1,13 @@
 package com.inyongtisto.myhelper.extension
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.graphics.Rect
+import android.graphics.drawable.InsetDrawable
 import android.net.Uri
 import android.os.Parcelable
 import android.util.TypedValue
@@ -14,8 +16,12 @@ import android.view.ViewTreeObserver
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.inyongtisto.myhelper.BuildConfig
@@ -300,4 +306,37 @@ fun Context.openMap(latitude: Double, longitude: Double) {
 
 fun Fragment.openMap(latitude: Double, longitude: Double) {
     requireActivity().openMap(latitude, longitude)
+}
+
+class MenuImage(
+    var name: String,
+    @DrawableRes var image: Int
+)
+
+@SuppressLint("RestrictedApi")
+fun Activity.popUpMenuImage(view: View, list: List<MenuImage>, onClicked: (String) -> Unit) {
+    val popupMenu = PopupMenu(this, view)
+    list.forEach {
+        popupMenu.menu.add(it.name).icon = AppCompatResources.getDrawable(this, it.image)
+    }
+    if (popupMenu.menu is MenuBuilder) {
+        val menuBuilder = popupMenu.menu as MenuBuilder
+        menuBuilder.setOptionalIconsVisible(true)
+        for (item in menuBuilder.visibleItems) {
+            val iconMarginPx = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                AppConstants.ICON_MARGIN.toFloat(),
+                resources.displayMetrics
+            ).toInt()
+            if (item.icon != null) {
+                item.icon = InsetDrawable(item.icon, iconMarginPx, 0, iconMarginPx, 0)
+            }
+        }
+    }
+    popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+        onClicked.invoke(it.toString())
+        return@OnMenuItemClickListener true
+    })
+
+    popupMenu.show()
 }

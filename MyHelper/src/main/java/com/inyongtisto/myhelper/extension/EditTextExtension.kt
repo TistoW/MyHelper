@@ -228,4 +228,21 @@ fun EditText.setOnDelayChangeListener(
 
 }
 
+fun TextInputEditText.getInt(): Int {
+    return this.getString().removeComma().toIntSafety()
+}
+
+fun TextInputEditText.getDouble(): Double {
+    return this.getString().removeComma().toDoubleSafety()
+}
+
+fun EditText.getInt(): Int {
+    return this.getString().removeComma().toIntSafety()
+}
+
+fun EditText.getDouble(): Double {
+    return this.getString().removeComma().toDoubleSafety()
+}
+
+
 

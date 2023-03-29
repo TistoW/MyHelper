@@ -15,17 +15,18 @@ fun String.remove(string: String): String = replace(string, "")
 fun String.removeComma(): String = replace(",", "")
 
 fun String.fixPhoneNumber(): String {
-    logs("")
+    val phone = this.remove("+")
     return when {
-        take(1) == "0" -> "62${this.substring(1, this.length)}"
-        take(2) == "62" -> this
-        isNullOrEmpty() -> this
-        else -> "62$this"
+        take(1) == "0" -> "62${phone.substring(1, phone.length)}"
+        take(2) == "62" -> phone
+        isNullOrEmpty() -> phone
+        else -> "62$phone"
     }
 }
 
 fun String?.uppercaseFirstChar(): String {
-    return this?.replaceFirstChar { it.uppercaseChar() } ?: ""
+    val value = this?.lowercase()
+    return value?.replaceFirstChar { it.uppercaseChar() } ?: ""
 }
 
 @SuppressLint("SimpleDateFormat")
@@ -317,3 +318,12 @@ fun String?.formatCurrency(showCurrency: Boolean = false): String {
 fun Int?.formatCurrency(showCurrency: Boolean = false): String {
     return this.toDoubleSafety().formatCurrency(showCurrency)
 }
+
+fun String?.startWithZero(): String {
+    var result = this
+    if (this?.startsWith("62") == true) {
+        result = "0" + result?.substring(2)
+    }
+    return result ?: ""
+}
+
