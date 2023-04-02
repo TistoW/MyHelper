@@ -78,7 +78,7 @@ fun String.convertToUTC(
     } catch (e: ParseException) {
         loge(e.message)
     }
-    return result
+    return result.replace(" 24", " 00")
 }
 
 @SuppressLint("SimpleDateFormat")
@@ -104,7 +104,7 @@ fun String.convertFromUTC(newFormat: String = defaultDateFormat): String {
     } catch (e: ParseException) {
         loge(e.message)
     }
-    return result
+    return result.replace(" 24", " 00")
 }
 
 fun String.convertFromUTCDay(): String {
