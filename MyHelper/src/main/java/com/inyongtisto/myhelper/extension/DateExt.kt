@@ -181,3 +181,19 @@ fun currentTimeUTC(isUTCTime: Boolean = true): String {
     val addDay: Int? = if (isUTCTime) -7 else null
     return result.convertToUTC(defaultDateFormatMillisecond, addDay = addDay)
 }
+
+fun String?.toStartOfTheDay(): String {
+    return this?.convertTanggal("yyyy-MM-dd") + "00:00:00"
+}
+
+fun String?.toEndOfTheDay(): String {
+    return this?.convertTanggal("yyyy-MM-dd") + "23:59:59"
+}
+
+fun getStartOfTheDay(): String {
+    return "${currentTime("yyyy-MM-dd")} 00:00:00"
+}
+
+fun getEndOfTheDay(): String {
+    return "${currentTime("yyyy-MM-dd")} 23:59:59"
+}
