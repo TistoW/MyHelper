@@ -183,11 +183,11 @@ fun currentTimeUTC(isUTCTime: Boolean = true): String {
 }
 
 fun String?.toStartOfTheDay(): String {
-    return this?.convertTanggal("yyyy-MM-dd") + "00:00:00"
+    return this?.convertTanggal("yyyy-MM-dd") + " 00:00:00"
 }
 
 fun String?.toEndOfTheDay(): String {
-    return this?.convertTanggal("yyyy-MM-dd") + "23:59:59"
+    return this?.convertTanggal("yyyy-MM-dd") + " 23:59:59"
 }
 
 fun getStartOfTheDay(): String {
