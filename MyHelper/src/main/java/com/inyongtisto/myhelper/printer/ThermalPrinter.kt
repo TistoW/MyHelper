@@ -2,21 +2,23 @@ package com.inyongtisto.myhelper.printer
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
+import android.content.Intent
 import android.graphics.Bitmap
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.FutureTarget
+import android.provider.Settings
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import com.dantsu.escposprinter.connection.DeviceConnection
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothConnection
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothPrintersConnections
 import com.dantsu.escposprinter.textparser.PrinterTextParserImg
+import com.imin.printerlib.util.BluetoothUtil
 import com.inyongtisto.myhelper.extension.addPaddingLeft
 import com.inyongtisto.myhelper.extension.logs
 import com.inyongtisto.myhelper.printer.asyc.AsyncBluetoothEscPosPrint
 import com.inyongtisto.myhelper.printer.asyc.AsyncEscPosPrint
 import com.inyongtisto.myhelper.printer.asyc.AsyncEscPosPrinter
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 enum class Alignment(val value: String) {
     Center("[C]"),
@@ -52,10 +54,8 @@ enum class BarcodeType(val value: String) {
 class ThermalPrinter(
     private var context: Activity
 ) {
-    init {
-        loadBluetoothPrintersConnections()
-    }
 
+    private var bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     var listBluetoothDevice = ArrayList<BluetoothConnection>()
     private var paperWidth = 50f
     private var charactersPerLine = 32
@@ -63,6 +63,11 @@ class ThermalPrinter(
     private var asyncPrinter: AsyncEscPosPrinter? = null
     private var printText = ""
     private var isConnected = false
+
+    init {
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        loadBluetoothPrintersConnections()
+    }
 
     fun addText(text: String, alignment: Alignment = Alignment.Left, style: Style? = null, size: Size? = null) {
         val temp = createText(text, alignment, style, size)
@@ -124,6 +129,10 @@ class ThermalPrinter(
         return listBluetoothDevice
     }
 
+    fun getPairedBluetoothDevice(): List<BluetoothDevice>? {
+        return BluetoothUtil.getPairedDevices()
+    }
+
     fun getDevice(address: String) {
         val device = listBluetoothDevice.find { it.device.address == address }
 
@@ -136,6 +145,29 @@ class ThermalPrinter(
     fun setSetupPrinter(paperWidth: Float = this.paperWidth, charactersPerLine: Int = this.charactersPerLine) {
         this.paperWidth = paperWidth
         this.charactersPerLine = charactersPerLine
+    }
+
+    fun isBluetoothOn(): Boolean {
+        return BluetoothUtil.isBluetoothOn()
+    }
+
+    fun openBluetoothSetting(launcher: ActivityResultLauncher<Intent>) {
+        if (bluetoothAdapter != null) {
+            launcher.launch(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE))
+        } else {
+            Toast.makeText(context, "Device Not Support Bluetooth", Toast.LENGTH_SHORT).show()
+        }
+
+//    private var bluetoothLauncher =
+//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//            if (result.resultCode == Activity.RESULT_OK) {
+//                getPrinterList()
+//            }
+//        }
+    }
+
+    private fun openBluetoothListSetting(launcher: ActivityResultLauncher<Intent>) {
+        launcher.launch(Intent(Settings.ACTION_BLUETOOTH_SETTINGS))
     }
 
     fun connectPrinter(address: String?, onErrorConnection: ((String?) -> Unit)? = null, onConnected: (() -> Unit)? = null) {
