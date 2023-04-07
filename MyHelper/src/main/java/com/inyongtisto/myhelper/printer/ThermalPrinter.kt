@@ -246,7 +246,8 @@ class ThermalPrinter(
     }
 
     fun testPrint() {
-        print("Test Print Success")
+        addText("Test Print Success")
+        print()
     }
 
     fun print(
