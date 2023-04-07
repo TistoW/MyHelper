@@ -69,12 +69,12 @@ class ThermalPrinter(
         loadBluetoothPrintersConnections()
     }
 
-    fun addText(text: String, alignment: Alignment = Alignment.Left, style: Style? = null, size: Size? = null) {
+    fun addText(text: String?, alignment: Alignment = Alignment.Left, style: Style? = null, size: Size? = null) {
         val temp = createText(text, alignment, style, size)
         printText += "$temp\n"
     }
 
-    fun addTextColumn(vararg str: String) {
+    fun addTextColumn(vararg str: String?) {
         var text = ""
         str.forEach {
             text += it
@@ -112,7 +112,7 @@ class ThermalPrinter(
         addText(text, alignment)
     }
 
-    fun createText(text: String, alignment: Alignment = Alignment.Left, style: Style? = null, size: Size? = null): String {
+    fun createText(text: String?, alignment: Alignment = Alignment.Left, style: Style? = null, size: Size? = null): String {
         val styleStart = if (style != null) "<${style.value}>" else ""
         val styleEnd = if (style != null) "</${style.value}>" else ""
 
