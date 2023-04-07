@@ -9,11 +9,11 @@ import android.graphics.Bitmap
 import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.annotation.RequiresPermission
 import com.dantsu.escposprinter.connection.DeviceConnection
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothConnection
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothPrintersConnections
 import com.dantsu.escposprinter.textparser.PrinterTextParserImg
-import com.imin.printerlib.util.BluetoothUtil
 import com.inyongtisto.myhelper.extension.addPaddingLeft
 import com.inyongtisto.myhelper.extension.logs
 import com.inyongtisto.myhelper.printer.asyc.AsyncBluetoothEscPosPrint
@@ -129,13 +129,37 @@ class ThermalPrinter(
         return listBluetoothDevice
     }
 
-    fun getPairedBluetoothDevice(): List<BluetoothDevice>? {
-        return BluetoothUtil.getPairedDevices()
+    @RequiresPermission(value = "android.permission.BLUETOOTH_CONNECT")
+    fun getPairedBluetoothDevice(): List<BluetoothDevice> {
+        val deviceList: MutableList<BluetoothDevice> = ArrayList()
+        val pairedDevices = BluetoothAdapter.getDefaultAdapter().bondedDevices
+        if (pairedDevices.size > 0) {
+            val var2: Iterator<BluetoothDevice> = pairedDevices.iterator()
+            while (var2.hasNext()) {
+                val device = var2.next()
+                deviceList.add(device)
+            }
+        }
+        return deviceList
+    }
+
+    @RequiresPermission(value = "android.permission.BLUETOOTH_CONNECT")
+    fun getSpecificDevice(deviceClass: Int): List<BluetoothDevice> {
+        val devices = getPairedBluetoothDevice()
+        val printerDevices: MutableList<BluetoothDevice> = ArrayList()
+        val var3: Iterator<BluetoothDevice> = devices.iterator()
+        while (var3.hasNext()) {
+            val device = var3.next()
+            val klass = device.bluetoothClass
+            if (klass.majorDeviceClass == deviceClass) {
+                printerDevices.add(device)
+            }
+        }
+        return printerDevices
     }
 
     fun getDevice(address: String) {
         val device = listBluetoothDevice.find { it.device.address == address }
-
     }
 
     fun isConnected(): Boolean {
@@ -148,8 +172,11 @@ class ThermalPrinter(
     }
 
     fun isBluetoothOn(): Boolean {
-        return BluetoothUtil.isBluetoothOn()
+        val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        return mBluetoothAdapter != null && mBluetoothAdapter.isEnabled
     }
+
+
 
     fun openBluetoothSetting(launcher: ActivityResultLauncher<Intent>) {
         if (bluetoothAdapter != null) {
@@ -161,13 +188,19 @@ class ThermalPrinter(
 //    private var bluetoothLauncher =
 //        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 //            if (result.resultCode == Activity.RESULT_OK) {
-//                getPrinterList()
+//
 //            }
 //        }
     }
 
     private fun openBluetoothListSetting(launcher: ActivityResultLauncher<Intent>) {
         launcher.launch(Intent(Settings.ACTION_BLUETOOTH_SETTINGS))
+//    private var bluetoothLauncher =
+//        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//            if (result.resultCode == Activity.RESULT_OK) {
+//
+//            }
+//        }
     }
 
     fun connectPrinter(address: String?, onErrorConnection: ((String?) -> Unit)? = null, onConnected: (() -> Unit)? = null) {
