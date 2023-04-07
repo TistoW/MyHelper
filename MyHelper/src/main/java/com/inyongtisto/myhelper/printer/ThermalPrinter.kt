@@ -69,9 +69,10 @@ class ThermalPrinter(
         loadBluetoothPrintersConnections()
     }
 
-    fun addText(text: String?, alignment: Alignment = Alignment.Left, style: Style? = null, size: Size? = null) {
+    fun addText(text: String?, alignment: Alignment = Alignment.Left, style: Style? = null, size: Size? = null, newLine: Boolean = true) {
         val temp = createText(text, alignment, style, size)
-        printText += "$temp\n"
+        val space = if (newLine) "\n" else ""
+        printText += "$temp$space"
     }
 
     fun addTextColumn(vararg str: String?) {
@@ -89,7 +90,7 @@ class ThermalPrinter(
     }
 
     fun addDashLine() {
-        addText("-------------------------------\n", Alignment.Center)
+        addText("--------------------------------", Alignment.Center)
     }
 
     fun addImage(bitmap: Bitmap?, alignment: Alignment = Alignment.Center, paddingLeft: Int = 0) {

@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothConnection
 import com.inyongtisto.helpers.databinding.ActivityMainBinding
+import com.inyongtisto.helpers.printExample.PrintExampleActivity
 import com.inyongtisto.helpers.printExample.PrinterAdapter
 import com.inyongtisto.helpers.printExample.PrinterDevice
 import com.inyongtisto.helpers.util.BaseActivity
@@ -45,6 +46,10 @@ class MainActivity : BaseActivity() {
 
             btnDialogConfim.setOnClickListener {
                 openWhatsApp("6282341810186", "Test Haloo")
+            }
+
+            btnPrinterExample.setOnClickListener {
+                intentActivity(PrintExampleActivity::class.java)
             }
         }
 

@@ -9,9 +9,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothConnection
-import com.inyongtisto.helpers.databinding.ActivityMainBinding
+import com.inyongtisto.helpers.databinding.ActivityPrinterExampleBinding
 import com.inyongtisto.helpers.util.BaseActivity
-import com.inyongtisto.helpers.util.Rounded
 import com.inyongtisto.myhelper.extension.*
 import com.inyongtisto.myhelper.printer.Alignment
 import com.inyongtisto.myhelper.printer.Size
@@ -21,17 +20,17 @@ import kotlin.concurrent.thread
 
 class PrintExampleActivity : BaseActivity() {
 
-    private var _binding: ActivityMainBinding? = null
+    private var _binding: ActivityPrinterExampleBinding? = null
     private val binding get() = _binding!!
 
     private var adapter: PrinterAdapter = PrinterAdapter()
-    private var listDevice: MutableList<BluetoothConnection>? = null
+    private var listDevice: ArrayList<BluetoothConnection> = ArrayList()
     private var printerFunction: ThermalPrinter? = null
     private var bitmapImage: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityPrinterExampleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         adapter()
@@ -71,52 +70,53 @@ class PrintExampleActivity : BaseActivity() {
                 it.createText("No.Order"),
                 it.createText("A010", Alignment.Right),
             )
-            it.addSpace()
-            it.addDashLine()
-            it.addTextColumn(
-                it.createText("1 Martabak"),
-                it.createText("10.000", Alignment.Right),
-            )
-            it.addTextColumn(
-                it.createText("1 Es Teh Manis"),
-                it.createText("2.000", Alignment.Right),
-            )
-            it.addDashLine()
-            it.addTextColumn(
-                it.createText("Subtotal"),
-                it.createText("12.000", Alignment.Right),
-            )
-            it.addTextColumn(
-                it.createText("Diskon"),
-                it.createText("2.000", Alignment.Right),
-            )
-            it.addTextColumn(
-                it.createText("Pajak(5%)"),
-                it.createText("500", Alignment.Right),
-            )
-
-            it.addSpace()
-            it.addTextColumn(
-                it.createText("Total"),
-                it.createText("10.500", Alignment.Right),
-            )
-            it.addTextColumn(
-                it.createText("Tunai"),
-                it.createText("11.000", Alignment.Right),
-            )
-            it.addTextColumn(
-                it.createText("Kembalian"),
-                it.createText("500", Alignment.Right),
-            )
+//            it.addSpace()
+//            it.addDashLine()
+//            it.addTextColumn(
+//                it.createText("1 Martabak"),
+//                it.createText("10.000", Alignment.Right),
+//            )
+//            it.addTextColumn(
+//                it.createText("1 Es Teh Manis"),
+//                it.createText("2.000", Alignment.Right),
+//            )
+//            it.addDashLine()
+//            it.addTextColumn(
+//                it.createText("Subtotal"),
+//                it.createText("12.000", Alignment.Right),
+//            )
+//            it.addTextColumn(
+//                it.createText("Diskon"),
+//                it.createText("2.000", Alignment.Right),
+//            )
+//            it.addTextColumn(
+//                it.createText("Pajak(5%)"),
+//                it.createText("500", Alignment.Right),
+//            )
+//
+//            it.addSpace()
+//            it.addTextColumn(
+//                it.createText("Total"),
+//                it.createText("10.500", Alignment.Right),
+//            )
+//            it.addTextColumn(
+//                it.createText("Tunai"),
+//                it.createText("11.000", Alignment.Right),
+//            )
+//            it.addTextColumn(
+//                it.createText("Kembalian"),
+//                it.createText("500", Alignment.Right),
+//            )
 
             it.addSpace()
             it.addDashLine()
             it.addText("Barang Yang sudang dibeli tidak dapat dikembalikan\nTerima kasih sudah belanja di toko kami", Alignment.Center)
+            it.addText("Powered by Zenenta", Alignment.Center, newLine = false)
 
-            it.addBarcode("123456")
-            it.addSpace()
-            it.addQrcode("123456", Alignment.Left)
-            it.addSpace()
+//            it.addBarcode("123456")
+//            it.addSpace()
+//            it.addQrcode("123456", Alignment.Left)
+//            it.addSpace()
 
             longLogs(it.getTextPrint())
             it.print(onPrintError = { message ->
