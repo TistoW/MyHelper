@@ -6,7 +6,7 @@ import android.app.Activity
 import android.content.*
 import android.content.pm.PackageManager
 import android.content.res.Resources
-import android.graphics.Rect
+import android.graphics.*
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.inyongtisto.myhelper.R
 import com.inyongtisto.myhelper.util.AppConstants.TIME_STAMP_FORMAT
+import java.net.URL
 import java.net.URLEncoder
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -452,4 +453,61 @@ inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
 inline fun <reified T : Parcelable> Intent.parcelable(key: String): T? = when {
     Build.VERSION.SDK_INT >= 33 -> getParcelableExtra(key, T::class.java)
     else -> @Suppress("DEPRECATION") getParcelableExtra(key) as? T
+}
+
+
+fun Bitmap.toBlackAndWhite(): Bitmap {
+    val width = this.width
+    val height = this.height
+    // create output bitmap
+    val bmOut = Bitmap.createBitmap(width, height, this.config)
+    // color information
+    var a: Int
+    var r: Int
+    var g: Int
+    var b: Int
+    var pixel: Int
+    for (x in 0 until width) {
+        for (y in 0 until height) {
+            // get pixel color
+            pixel = this.getPixel(x, y)
+            a = Color.alpha(pixel)
+            r = Color.red(pixel)
+            g = Color.green(pixel)
+            b = Color.blue(pixel)
+            var gray = (0.2989 * r + 0.5870 * g + 0.1140 * b).toInt()
+            // use 128 as threshold, above -> white, below -> black
+            gray = if (gray > 128) {
+                255
+            } else {
+                0
+            }
+            // set new pixel color to output bitmap
+            bmOut.setPixel(x, y, Color.argb(a, gray, gray, gray))
+        }
+    }
+    return bmOut
+}
+
+fun Bitmap.addPaddingLeft(paddingLeft: Int): Bitmap {
+    val outputBitmap = Bitmap.createBitmap(width + paddingLeft, height, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(outputBitmap)
+    canvas.drawColor(Color.WHITE)
+    canvas.drawBitmap(this, paddingLeft.toFloat(), 0f, null)
+    return outputBitmap
+}
+
+fun String.convertUrlToBitmap(): Bitmap? {
+    var bitmap: Bitmap? = null
+    try {
+        val url = URL(this)
+        val connection = url.openConnection()
+        connection.doInput = true
+        connection.connect()
+        val input = connection.getInputStream()
+        bitmap = BitmapFactory.decodeStream(input)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return bitmap
 }

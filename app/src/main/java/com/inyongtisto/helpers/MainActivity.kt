@@ -1,12 +1,25 @@
 package com.inyongtisto.helpers
 
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.*
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import com.bumptech.glide.Glide
+import com.dantsu.escposprinter.connection.bluetooth.BluetoothConnection
 import com.inyongtisto.helpers.databinding.ActivityMainBinding
+import com.inyongtisto.helpers.printExample.PrinterAdapter
+import com.inyongtisto.helpers.printExample.PrinterDevice
 import com.inyongtisto.helpers.util.BaseActivity
 import com.inyongtisto.helpers.util.Rounded
 import com.inyongtisto.myhelper.extension.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.random.Random
+import com.inyongtisto.myhelper.printer.Alignment
+import com.inyongtisto.myhelper.printer.Size
+import com.inyongtisto.myhelper.printer.ThermalPrinter
+import com.inyongtisto.myhelper.printer.Style
+import kotlin.concurrent.thread
 
 class MainActivity : BaseActivity() {
 
@@ -20,8 +33,6 @@ class MainActivity : BaseActivity() {
 
         initUI()
         Rounded(1015.49, 10.0)
-//        setBlackStatusBar()
-//        imageView.setImagePicasso()
     }
 
     private fun initUI() {
@@ -33,13 +44,13 @@ class MainActivity : BaseActivity() {
             }
 
             btnDialogConfim.setOnClickListener {
-//                showConfirmDialog("Dialog", "Are you okey", "Yes, I'm", percentage = 60) {
-//                    toastSuccess("Success")
-//                }
-
                 openWhatsApp("6282341810186", "Test Haloo")
             }
         }
+
+//        setBlackStatusBar()
+//        imageView.setImagePicasso()
+
 
 //        val date = CustomDate
 //        logs("Today:${date.getToday()}")

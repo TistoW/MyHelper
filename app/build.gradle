@@ -1,7 +1,10 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+}
 
 android {
     compileSdkVersion 33
@@ -51,6 +54,13 @@ dependencies {
 
     implementation project(':MyHelper')
 
+    // printer bluetooth thermal
+    implementation 'com.github.DantSu:ESCPOS-ThermalPrinter-Android:3.2.0'
+
     //Pixele
 //    implementation "com.intuit.sdp:sdp-android:1.0.6"
+
+    // glide
+    implementation "com.github.bumptech.glide:glide:4.14.2"
+    kapt "com.github.bumptech.glide:compiler:4.14.2"
 }
