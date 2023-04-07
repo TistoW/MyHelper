@@ -177,7 +177,6 @@ class ThermalPrinter(
     }
 
 
-
     fun openBluetoothSetting(launcher: ActivityResultLauncher<Intent>) {
         if (bluetoothAdapter != null) {
             launcher.launch(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE))
@@ -193,7 +192,7 @@ class ThermalPrinter(
 //        }
     }
 
-    private fun openBluetoothListSetting(launcher: ActivityResultLauncher<Intent>) {
+    fun openBluetoothListSetting(launcher: ActivityResultLauncher<Intent>) {
         launcher.launch(Intent(Settings.ACTION_BLUETOOTH_SETTINGS))
 //    private var bluetoothLauncher =
 //        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -244,6 +243,10 @@ class ThermalPrinter(
 
     fun getTextPrint(): String {
         return printText
+    }
+
+    fun testPrint() {
+        print("Test Print Success")
     }
 
     fun print(
