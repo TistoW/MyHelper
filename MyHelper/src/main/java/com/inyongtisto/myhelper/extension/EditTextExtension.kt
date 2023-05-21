@@ -1,5 +1,6 @@
 package com.inyongtisto.myhelper.extension
 
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
@@ -7,11 +8,10 @@ import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
-import androidx.core.content.ContextCompat
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.inyongtisto.myhelper.R
@@ -244,5 +244,35 @@ fun EditText.getDouble(): Double {
     return this.getString().removeComma().toDoubleSafety()
 }
 
+fun EditText.openKeyboard() {
+    val imm: InputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+}
+
+fun EditText.showKeyboard() {
+    openKeyboard()
+}
+
+fun showKeyboard(editText: EditText) {
+    editText.openKeyboard()
+}
+
+fun openKeyboard(editText: EditText) {
+    editText.openKeyboard()
+}
+
+fun EditText.onEnterKeyPressed(onEnterPressed: (() -> Unit)) {
+    setOnKeyListener(object : View.OnKeyListener {
+        override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
+            // If the event is a key-down event on the "enter" button
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                // Perform action on key press
+                onEnterPressed.invoke()
+                return true
+            }
+            return false
+        }
+    })
+}
 
 
