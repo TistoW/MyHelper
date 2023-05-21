@@ -244,21 +244,21 @@ fun EditText.getDouble(): Double {
     return this.getString().removeComma().toDoubleSafety()
 }
 
-fun EditText.openKeyboard() {
+fun EditText.showKeyboard() {
     val imm: InputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }
 
-fun EditText.showKeyboard() {
-    openKeyboard()
+fun EditText.openKeyboard() {
+    showKeyboard()
 }
 
-fun showKeyboard(editText: EditText) {
-    editText.openKeyboard()
+fun showKeyboards(editText: EditText) {
+    editText.showKeyboard()
 }
 
-fun openKeyboard(editText: EditText) {
-    editText.openKeyboard()
+fun openKeyboards(editText: EditText) {
+    editText.showKeyboard()
 }
 
 fun EditText.onEnterKeyPressed(onEnterPressed: (() -> Unit)) {
