@@ -28,9 +28,11 @@
     </com.google.android.material.card.MaterialCardView>
 
     <ImageView
+        android:layout_marginTop="@dimen/_10sdp"
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_gravity="center_horizontal" />
 
     <EditText
         android:id="@+id/editText"

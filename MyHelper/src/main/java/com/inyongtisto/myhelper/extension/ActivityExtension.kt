@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.drawable.InsetDrawable
 import android.net.Uri
@@ -13,18 +12,14 @@ import android.os.Parcelable
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewTreeObserver
-import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.inyongtisto.myhelper.BuildConfig
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.inyongtisto.myhelper.util.AppConstants
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -339,4 +334,26 @@ fun Activity.popUpMenuImage(view: View, list: List<MenuImage>, onClicked: (Strin
     })
 
     popupMenu.show()
+}
+
+fun Activity.imagePicker(
+    width: Int = 1080,
+    height: Int = 1080,
+    compress: Int = 1024,
+    isCrop: Boolean = true,
+    onlyCamera: Boolean = false,
+    onlyGallery: Boolean = false,
+    intent: (Intent) -> Unit
+) {
+    val picker = ImagePicker
+            .with(this)
+            .maxResultSize(width, height)
+
+    if (compress > 0) picker.compress(compress)
+    if (isCrop) picker.crop()
+    if (onlyCamera) picker.cameraOnly()
+    if (onlyGallery) picker.galleryOnly()
+    picker.createIntent {
+        intent.invoke(it)
+    }
 }

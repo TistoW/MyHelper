@@ -1,6 +1,7 @@
 package com.inyongtisto.helpers
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.*
@@ -20,6 +21,7 @@ import com.inyongtisto.myhelper.printer.Alignment
 import com.inyongtisto.myhelper.printer.Size
 import com.inyongtisto.myhelper.printer.ThermalPrinter
 import com.inyongtisto.myhelper.printer.Style
+import java.io.File
 import kotlin.concurrent.thread
 
 class MainActivity : BaseActivity() {
@@ -49,7 +51,10 @@ class MainActivity : BaseActivity() {
             }
 
             btnPrinterExample.setOnClickListener {
-                intentActivity(PrintExampleActivity::class.java)
+//                intentActivity(PrintExampleActivity::class.java)
+                imagePicker {
+                    profileLauncher.launch(it)
+                }
             }
         }
 
@@ -86,5 +91,14 @@ class MainActivity : BaseActivity() {
 //        logs("timeToUTC:${currentTimeUTC()}")
 //        logs("timeFromUTC:" + currentTimeUTC().convertFromUTC())
 
+    }
+
+    private var fileImage: File? = null
+    private val profileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val uri = it.data?.data!!
+            fileImage = File(uri.path!!)
+            Glide.with(this).load(fileImage).into(binding.imageView)
+        }
     }
 }
