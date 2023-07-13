@@ -28,6 +28,7 @@ class MainActivity : BaseActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
+    private val repeatFunction = RepeatFunction
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,10 +101,5 @@ class MainActivity : BaseActivity() {
             fileImage = File(uri.path!!)
             Glide.with(this).load(fileImage).into(binding.imageView)
         }
-    }
-
-    override fun onDestroy() {
-        stopRepeatFunction()
-        super.onDestroy()
     }
 }

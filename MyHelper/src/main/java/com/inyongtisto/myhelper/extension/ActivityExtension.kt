@@ -361,23 +361,3 @@ fun Activity.imagePicker(
         intent.invoke(it)
     }
 }
-
-//
-//fun repeatFunction(delay: Int = 1, period: Int = 1) {
-//    repeatFunction(delay.toDouble(), period.toDouble())
-//}
-private var timer = Timer()
-fun repeatFunction(delay: Int = 1, period: Int = 60, action: TimerTask.() -> Unit) {
-    timer = Timer()
-    val mDelay = (delay * 1000).toLong() // Delay before the first execution (0 milliseconds)
-    val mPeriod = (period * 1000).toLong() // Repeat every 1 minute (60 seconds * 1000 milliseconds)
-    timer.scheduleAtFixedRate(mDelay, mPeriod, action)
-}
-
-fun destroyRepeatFunction() {
-    timer.cancel()
-}
-
-fun stopRepeatFunction() {
-    timer.cancel()
-}
