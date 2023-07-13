@@ -101,4 +101,9 @@ class MainActivity : BaseActivity() {
             Glide.with(this).load(fileImage).into(binding.imageView)
         }
     }
+
+    override fun onDestroy() {
+        stopRepeatFunction()
+        super.onDestroy()
+    }
 }

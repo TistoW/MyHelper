@@ -48,6 +48,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.inyongtisto.helpers.printExample.PrintExampleActivity" />
+        <activity android:name="com.inyongtisto.helpers.BlankActivity" />
     </application>
 
 </manifest>

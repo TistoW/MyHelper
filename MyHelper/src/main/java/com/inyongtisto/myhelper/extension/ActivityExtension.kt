@@ -8,6 +8,8 @@ import android.content.Intent
 import android.graphics.Rect
 import android.graphics.drawable.InsetDrawable
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import android.os.Parcelable
 import android.util.TypedValue
 import android.view.View
@@ -26,7 +28,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.jsoup.Jsoup
+import java.util.*
 import java.util.concurrent.ExecutionException
+import kotlin.concurrent.scheduleAtFixedRate
 import kotlin.math.roundToInt
 
 
@@ -356,4 +360,24 @@ fun Activity.imagePicker(
     picker.createIntent {
         intent.invoke(it)
     }
+}
+
+//
+//fun repeatFunction(delay: Int = 1, period: Int = 1) {
+//    repeatFunction(delay.toDouble(), period.toDouble())
+//}
+private var timer = Timer()
+fun repeatFunction(delay: Int = 1, period: Int = 60, action: TimerTask.() -> Unit) {
+    timer = Timer()
+    val mDelay = (delay * 1000).toLong() // Delay before the first execution (0 milliseconds)
+    val mPeriod = (period * 1000).toLong() // Repeat every 1 minute (60 seconds * 1000 milliseconds)
+    timer.scheduleAtFixedRate(mDelay, mPeriod, action)
+}
+
+fun destroyRepeatFunction() {
+    timer.cancel()
+}
+
+fun stopRepeatFunction() {
+    timer.cancel()
 }
