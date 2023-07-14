@@ -1,28 +1,16 @@
 package com.inyongtisto.helpers
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.*
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
-import com.dantsu.escposprinter.connection.bluetooth.BluetoothConnection
 import com.inyongtisto.helpers.databinding.ActivityMainBinding
-import com.inyongtisto.helpers.printExample.PrintExampleActivity
-import com.inyongtisto.helpers.printExample.PrinterAdapter
-import com.inyongtisto.helpers.printExample.PrinterDevice
 import com.inyongtisto.helpers.util.BaseActivity
 import com.inyongtisto.helpers.util.Rounded
 import com.inyongtisto.myhelper.extension.*
-import com.inyongtisto.myhelper.printer.Alignment
-import com.inyongtisto.myhelper.printer.Size
-import com.inyongtisto.myhelper.printer.ThermalPrinter
-import com.inyongtisto.myhelper.printer.Style
+import com.inyongtisto.myhelper.util.CountDown
+import com.inyongtisto.myhelper.util.RepeatFunction
 import java.io.File
-import kotlin.concurrent.thread
 
 class MainActivity : BaseActivity() {
 
@@ -37,6 +25,41 @@ class MainActivity : BaseActivity() {
 
         initUI()
         Rounded(1015.49, 10.0)
+        val countdown = CountDown(
+            onDone = {
+//                binding.textView.text = "Done"
+            }, countDown = {
+                binding.textView.text = it
+            }
+        )
+        countdown.start(10)
+        binding.textView.setOnClickListener {
+            countdown.start()
+        }
+
+        var isPause = false
+        binding.btnPause.apply {
+            setOnClickListener {
+                if (isPause) {
+                    isPause = false
+                    countdown.resume()
+                    text = "Pause"
+                    logs("isPause:$isPause")
+                } else {
+                    isPause = true
+                    countdown.pause()
+                    text = "Start"
+                    logs("Start:$isPause")
+                }
+            }
+
+        }
+
+        binding.btnReset.setOnClickListener {
+            isPause = false
+            logs("Reset:$isPause")
+            countdown.reset()
+        }
     }
 
     private fun initUI() {

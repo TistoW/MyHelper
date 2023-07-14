@@ -1,4 +1,4 @@
-package com.inyongtisto.myhelper.extension
+package com.inyongtisto.myhelper.util
 
 import java.util.*
 import kotlin.concurrent.scheduleAtFixedRate
@@ -12,15 +12,7 @@ object RepeatFunction {
         timer.scheduleAtFixedRate(mDelay, mPeriod, action)
     }
 
-    fun destroy() {
-        timer.cancel()
-    }
-
     fun stop() {
-        timer.cancel()
-    }
-
-    fun cancel() {
         timer.cancel()
     }
 }

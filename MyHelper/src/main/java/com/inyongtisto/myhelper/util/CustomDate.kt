@@ -1,4 +1,6 @@
-package com.inyongtisto.myhelper.extension
+package com.inyongtisto.myhelper.util
+
+import com.inyongtisto.myhelper.extension.*
 
 object CustomDate {
     fun getToday(formatDate: String = defaultDateFormat) = today(formatDate)
