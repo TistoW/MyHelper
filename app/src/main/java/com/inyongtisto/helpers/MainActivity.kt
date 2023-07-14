@@ -25,41 +25,6 @@ class MainActivity : BaseActivity() {
 
         initUI()
         Rounded(1015.49, 10.0)
-        val countdown = CountDown(
-            onDone = {
-//                binding.textView.text = "Done"
-            }, countDown = {
-                binding.textView.text = it
-            }
-        )
-        countdown.start(10)
-        binding.textView.setOnClickListener {
-            countdown.start()
-        }
-
-        var isPause = false
-        binding.btnPause.apply {
-            setOnClickListener {
-                if (isPause) {
-                    isPause = false
-                    countdown.resume()
-                    text = "Pause"
-                    logs("isPause:$isPause")
-                } else {
-                    isPause = true
-                    countdown.pause()
-                    text = "Start"
-                    logs("Start:$isPause")
-                }
-            }
-
-        }
-
-        binding.btnReset.setOnClickListener {
-            isPause = false
-            logs("Reset:$isPause")
-            countdown.reset()
-        }
     }
 
     private fun initUI() {
