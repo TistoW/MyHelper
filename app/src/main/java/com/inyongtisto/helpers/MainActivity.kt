@@ -11,6 +11,11 @@ import com.inyongtisto.myhelper.extension.*
 import com.inyongtisto.myhelper.util.CountDown
 import com.inyongtisto.myhelper.util.RepeatFunction
 import java.io.File
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.util.*
 
 class MainActivity : BaseActivity() {
 
@@ -25,6 +30,21 @@ class MainActivity : BaseActivity() {
 
         initUI()
         Rounded(1015.49, 10.0)
+
+        val dateUtc = "2023-07-16T08:43:31.000Z"
+        val time = dateUtc.convertFromUTC()
+        logs("$dateUtc - $time")
+    }
+
+    fun convertUtcToIndonesianTime(utcTime: String): String {
+        val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        utcFormat.timeZone = TimeZone.getTimeZone("UTC")
+
+        val indonesianFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        indonesianFormat.timeZone = TimeZone.getTimeZone("Asia/Jakarta")
+
+        val utcDate = utcFormat.parse(utcTime)
+        return indonesianFormat.format(utcDate)
     }
 
     private fun initUI() {

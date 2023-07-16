@@ -90,19 +90,19 @@ fun dummyResult(toFormat: String): String {
 }
 
 @SuppressLint("SimpleDateFormat")
-fun String.convertFromUTC(newFormat: String = defaultDateFormat): String {
-    var result = dummyResult(newFormat)
-    val formatBefore = defaultUTCDateFormat
-    val dateFormat = SimpleDateFormat(formatBefore)
+fun String?.convertFromUTC(toFormat: String = defaultDateFormat, fromFormat: String = defaultUTCDateFormat, timeZone: String = "Asia/Jakarta"): String {
+    if (this == null) return dummyResult(toFormat)
+    var result: String
     try {
-        val dd = dateFormat.parse(this)
-        // tambah 7 jam untuk indonesia
-        val hour: Long = 3600 * 1000 // in milli-seconds.
-        val newDate = Date((dd?.time ?: 0) + 7 * hour)
-        dateFormat.applyPattern(newFormat)
-        result = dateFormat.format(newDate)
-    } catch (e: ParseException) {
-        loge(e.message)
+        val utcFormat = SimpleDateFormat(fromFormat, Locale.getDefault())
+        utcFormat.timeZone = TimeZone.getTimeZone("UTC")
+        val indonesianFormat = SimpleDateFormat(toFormat, Locale.getDefault())
+        indonesianFormat.timeZone = TimeZone.getTimeZone(timeZone)
+        val utcDate = utcFormat.parse(this)
+        result = utcDate?.let { indonesianFormat.format(it) } ?: "2000-01-01 01:00:00"
+    } catch (e: Exception) {
+        result = dummyResult(toFormat)
+        logs("Error Time Format:${e.message}")
     }
     return result.replace(" 24", " 00")
 }
