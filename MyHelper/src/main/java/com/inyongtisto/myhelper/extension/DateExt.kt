@@ -1,6 +1,12 @@
 package com.inyongtisto.myhelper.extension
 
 import android.annotation.SuppressLint
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZonedDateTime
@@ -200,4 +206,160 @@ fun getStartOfTheDay(): String {
 
 fun getEndOfTheDay(): String {
     return "${currentTime("yyyy-MM-dd")} 23:59:59"
+}
+
+
+private fun datePickerDialog(
+    title: String = "Select Date",
+    date: String? = null, // formatDate yyyy-MM-dd,
+    result: (String) -> Unit // // format result date yyyy-MM-dd,
+): MaterialDatePicker<Long> {
+    val builder = MaterialDatePicker.Builder
+            .datePicker()
+            .setTitleText(title)
+
+    val selectedCalender = android.icu.util.Calendar.getInstance()
+    if (!date.isNullOrEmpty()) {
+        date.let { selectedDate ->
+            val year = selectedDate.convertTanggal("yyyy").toIntSafety()
+            val month = selectedDate.convertTanggal("MM").toIntSafety() - 1
+            val day = selectedDate.convertTanggal("dd").toIntSafety()
+            selectedCalender.set(year, month, day)
+            builder.setSelection(selectedCalender.timeInMillis)
+        }
+    }
+    val datePicker = builder.build()
+    datePicker.addOnPositiveButtonClickListener { selection ->
+        val calendar = android.icu.util.Calendar.getInstance()
+        calendar.timeInMillis = selection
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val selectedDate = simpleDateFormat.format(calendar.time)
+        result.invoke(selectedDate)
+    }
+    return datePicker
+}
+
+private fun timePickerDialog(
+    title: String = "Select a Time",
+    hour: Int = 0,
+    minute: Int = 0,
+    result: (hour: Int, minute: Int) -> Unit // // format result date kk:mm
+): MaterialTimePicker {
+    val timeBuilder = MaterialTimePicker
+            .Builder()
+            .setTitleText(title)
+            .setTimeFormat(TimeFormat.CLOCK_24H)
+            .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+    timeBuilder.setHour(hour)
+    timeBuilder.setMinute(minute)
+    val timePicker = timeBuilder.build()
+    timePicker.addOnPositiveButtonClickListener {
+        result.invoke(timePicker.hour, timePicker.minute)
+    }
+    return timePicker
+}
+
+fun dateTimePickerDialog(
+    manager: FragmentManager,
+    titleDate: String = "Select Date",
+    titleTime: String = "Select a Time",
+    dateTime: String? = null, // formatDate yyyy-MM-dd kk:mm:ss,
+    result: (String) -> Unit // // format result date yyyy-MM-dd kk:mm:ss,
+) {
+    val builder = MaterialDatePicker.Builder
+            .datePicker()
+            .setTitleText(titleDate)
+
+    val selectedCalender = android.icu.util.Calendar.getInstance()
+    if (!dateTime.isNullOrEmpty()) {
+        dateTime.let { selectedDate ->
+            val year = selectedDate.convertTanggal("yyyy").toIntSafety()
+            val month = selectedDate.convertTanggal("MM").toIntSafety() - 1
+            val day = selectedDate.convertTanggal("dd").toIntSafety()
+            selectedCalender.set(year, month, day)
+            builder.setSelection(selectedCalender.timeInMillis)
+        }
+    }
+    val datePicker = builder.build()
+    datePicker.addOnPositiveButtonClickListener { selection ->
+        val calendar = android.icu.util.Calendar.getInstance()
+        calendar.timeInMillis = selection
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date = simpleDateFormat.format(calendar.time)
+
+        val timeBuilder = MaterialTimePicker
+                .Builder()
+                .setTitleText(titleTime)
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
+        if (!dateTime.isNullOrEmpty()) {
+            dateTime.let { selectedDate ->
+                val hour = selectedDate.convertTanggal("kk").toIntSafety()
+                val minute = selectedDate.convertTanggal("mm").toIntSafety()
+                timeBuilder.setHour(hour)
+                timeBuilder.setMinute(minute)
+            }
+        }
+        val timePicker = timeBuilder.build()
+        timePicker.show(manager, "TIME_PICKER")
+
+        timePicker.addOnPositiveButtonClickListener {
+            val time = "${timePicker.hour}:${timePicker.minute}"
+            val selectedDate = "$date $time:00"
+            result.invoke(selectedDate)
+        }
+    }
+    datePicker.show(manager, "DatePicker")
+}
+
+fun Fragment.datePicker(
+    title: String = "Select Date",
+    date: String? = null, // formatDate yyyy-MM-dd,
+    result: (String) -> Unit // // format result date yyyy-MM-dd,
+) {
+    datePickerDialog(title, date, result).show(childFragmentManager, "DatePicker")
+}
+
+fun AppCompatActivity.datePicker(
+    title: String = "Select Date",
+    date: String? = null, // formatDate yyyy-MM-dd,
+    result: (String) -> Unit // // format result date yyyy-MM-dd,
+) {
+    datePickerDialog(title, date, result).show(supportFragmentManager, "DatePicker")
+}
+
+fun Fragment.timePicker(
+    title: String = "Select a Time",
+    hour: Int = 0,
+    minute: Int = 0,
+    result: (hour: Int, minute: Int) -> Unit // // format result date kk:mm
+) {
+    timePickerDialog(title, hour, minute, result).show(childFragmentManager, "timePicker")
+}
+
+fun AppCompatActivity.timePicker(
+    title: String = "Select a Time",
+    hour: Int = 0,
+    minute: Int = 0,
+    result: (hour: Int, minute: Int) -> Unit // // format result date kk:mm
+) {
+    timePickerDialog(title, hour, minute, result).show(supportFragmentManager, "timePicker")
+}
+
+fun Fragment.dateTimePicker(
+    titleDate: String = "Select Date",
+    titleTime: String = "Select a Time",
+    dateTime: String? = null, // formatDate yyyy-MM-dd kk:mm:ss,
+    result: (String) -> Unit // // format result date yyyy-MM-dd kk:mm:ss,
+) {
+    dateTimePickerDialog(childFragmentManager, titleDate, titleTime, dateTime, result)
+}
+
+fun AppCompatActivity.dateTimePicker(
+    titleDate: String = "Select Date",
+    titleTime: String = "Select a Time",
+    dateTime: String? = null, // formatDate yyyy-MM-dd kk:mm:ss,
+    result: (String) -> Unit // // format result date yyyy-MM-dd kk:mm:ss,
+) {
+    dateTimePickerDialog(supportFragmentManager, titleDate, titleTime, dateTime, result)
 }

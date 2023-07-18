@@ -9,6 +9,7 @@ import com.inyongtisto.helpers.util.BaseActivity
 import com.inyongtisto.helpers.util.Rounded
 import com.inyongtisto.myhelper.extension.*
 import com.inyongtisto.myhelper.util.CountDown
+import com.inyongtisto.myhelper.util.CustomDate
 import com.inyongtisto.myhelper.util.RepeatFunction
 import java.io.File
 import java.text.SimpleDateFormat
@@ -33,6 +34,7 @@ class MainActivity : BaseActivity() {
 
         val dateUtc = "2023-07-16T08:43:31.000Z"
         val time = dateUtc.convertFromUTC()
+        val cusrom = CustomDate
         logs("$dateUtc - $time")
     }
 
