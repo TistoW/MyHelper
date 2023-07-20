@@ -123,6 +123,41 @@ class ThermalPrinter(
         return "${alignment.value}$styleStart$sizeStart$text$sizeEnd$styleEnd"
     }
 
+    fun leftText(text: String?, size: Size? = null) {
+        addText(text, size = size)
+    }
+
+    fun rightText(text: String?, size: Size? = null) {
+        addText(text, alignment = Alignment.Right, size = size)
+    }
+
+    fun centerText(text: String?, size: Size? = null) {
+        addText(text, alignment = Alignment.Center, size = size)
+    }
+
+    fun leftTextBold(text: String?, size: Size? = null) {
+        addText(text, size = size, style = Style.Bold)
+    }
+
+    fun rightTextBold(text: String?, size: Size? = null) {
+        addText(text, alignment = Alignment.Right, size = size, style = Style.Bold)
+    }
+
+    fun centerTextBold(text: String?, size: Size? = null) {
+        addText(text, alignment = Alignment.Center, size = size, style = Style.Bold)
+    }
+
+    fun leftRightText(
+        textLeft: String?, textRight: String?,
+        leftSize: Size? = null, leftStyle: Style? = null,
+        rightSize: Size? = null, rightStyle: Style? = null
+    ) {
+        addTextColumn(
+            createText(textLeft, size = leftSize, style = leftStyle),
+            createText(textRight, Alignment.Right, size = rightSize, style = rightStyle),
+        )
+    }
+
     fun loadBluetoothPrintersConnections(): List<BluetoothConnection> {
         val bluetoothDevicesList = BluetoothPrintersConnections().list
         listBluetoothDevice = ArrayList()
