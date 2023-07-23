@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Rect
 import android.graphics.drawable.InsetDrawable
 import android.net.Uri
@@ -360,4 +361,13 @@ fun Activity.imagePicker(
     picker.createIntent {
         intent.invoke(it)
     }
+}
+
+fun Activity.isLandscapeMode(): Boolean {
+    val currentOrientation = resources.configuration.orientation
+    return currentOrientation == Configuration.ORIENTATION_LANDSCAPE
+}
+
+fun Activity.percentageDialog(): Int {
+    return if (isLandscapeMode()) 55 else 80
 }

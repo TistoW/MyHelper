@@ -1,0 +1,6 @@
+<resources>
+    <dimen name="small_height">@dimen/_19sdp</dimen>
+    <dimen name="normal_height">@dimen/_24sdp</dimen>
+    <dimen name="medium_height">@dimen/_28sdp</dimen>
+    <dimen name="large_height">@dimen/_32sdp</dimen>
+</resources>

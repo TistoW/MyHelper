@@ -36,6 +36,12 @@ class MainActivity : BaseActivity() {
         val time = dateUtc.convertFromUTC()
         val cusrom = CustomDate
         logs("$dateUtc - $time")
+
+        showConfirmDialog("Opss...", "message", "Reload", "Tutup aplikasi", percentage = percentageDialog(), onAction = {
+
+        }, onActionSecondary = {
+            finish()
+        })
     }
 
     fun convertUtcToIndonesianTime(utcTime: String): String {
