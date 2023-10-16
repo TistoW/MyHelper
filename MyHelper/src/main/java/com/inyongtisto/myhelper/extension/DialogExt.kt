@@ -12,9 +12,10 @@ fun AppCompatActivity.showConfirmDialog(
     actionTextSecondary: String? = null,
     cancellable: Boolean = true,
     percentage: Int = 80,
+    onClose: (() -> Unit)? = null,
     onActionSecondary: (() -> Unit)? = null,
     onAction: (() -> Unit)? = null) {
-    ConfirmDialogFragment(title, subtitle, actionText,actionTextSecondary, cancellable, percentage,onActionSecondary, onAction).show(supportFragmentManager, ConfirmDialogFragment.TAG)
+    ConfirmDialogFragment(title, subtitle, actionText, actionTextSecondary, cancellable, percentage, onClose, onActionSecondary, onAction).show(supportFragmentManager, ConfirmDialogFragment.TAG)
 }
 
 fun Fragment.showConfirmDialog(
@@ -24,7 +25,8 @@ fun Fragment.showConfirmDialog(
     actionTextSecondary: String? = null,
     cancellable: Boolean = true,
     percentage: Int = 80,
+    onClose: (() -> Unit)? = null,
     onActionSecondary: (() -> Unit)? = null,
     onAction: (() -> Unit)? = null) {
-    ConfirmDialogFragment(title, subtitle, actionText,actionTextSecondary, cancellable, percentage,onActionSecondary, onAction).show(childFragmentManager, ConfirmDialogFragment.TAG)
+    ConfirmDialogFragment(title, subtitle, actionText, actionTextSecondary, cancellable, percentage, onClose, onActionSecondary, onAction).show(childFragmentManager, ConfirmDialogFragment.TAG)
 }
