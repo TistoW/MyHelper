@@ -16,6 +16,7 @@ class ConfirmDialogFragment(
     private val actionTextSecondary: String? = null,
     private val cancellable: Boolean = true,
     percentage: Int = 80,
+    private val onClose: (() -> Unit)? = null,
     private val onActionSecondary: (() -> Unit)? = null,
     private val onAction: (() -> Unit)? = null
 ) : BaseDialog(percentage) {
@@ -56,7 +57,9 @@ class ConfirmDialogFragment(
 
     private fun setupClickListeners() {
         binding.apply {
+            btnClose.visible(isCancelable)
             btnClose.setOnClickListener {
+                onClose?.invoke()
                 dismiss()
             }
 
