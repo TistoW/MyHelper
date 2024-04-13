@@ -1,10 +1,12 @@
 package com.inyongtisto.myhelper.extension
 
 import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.updateLayoutParams
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textfield.TextInputLayout
@@ -43,4 +45,11 @@ fun TextInputLayout.setCenterPrefix() {
         height = ViewGroup.LayoutParams.MATCH_PARENT
     }
     prefixTextView.gravity = Gravity.CENTER_VERTICAL
+}
+
+fun TextView.changeDrawableEnd(drawableResId: Int) {
+    val drawable: Drawable? = AppCompatResources.getDrawable(this.context, drawableResId)
+    drawable?.let {
+        this.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, it, null)
+    }
 }

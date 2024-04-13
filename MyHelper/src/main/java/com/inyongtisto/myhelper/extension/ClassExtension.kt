@@ -23,7 +23,7 @@ fun <R> Activity.getObjectExtra(classOfT: Class<R>, extra: String = "extra"): R?
 fun <T> String?.toModel(classOfT: Class<T>): T? {
     if (this == null) return null
     val obj = Gson().fromJson<Any>(this, classOfT as Type)
-    return Primitives.wrap(classOfT).cast(obj)!!
+    return Primitives.wrap(classOfT).cast(obj) ?: null
 }
 
 fun <T, R> T.toModel(classOfT: Class<R>): R? {
