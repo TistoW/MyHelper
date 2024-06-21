@@ -8,14 +8,11 @@ import com.inyongtisto.helpers.databinding.ActivityMainBinding
 import com.inyongtisto.helpers.util.BaseActivity
 import com.inyongtisto.helpers.util.Rounded
 import com.inyongtisto.myhelper.extension.*
-import com.inyongtisto.myhelper.util.CountDown
 import com.inyongtisto.myhelper.util.CustomDate
+import com.inyongtisto.myhelper.util.EncryptionManager
 import com.inyongtisto.myhelper.util.RepeatFunction
 import java.io.File
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.util.*
 
 class MainActivity : BaseActivity() {
@@ -37,11 +34,31 @@ class MainActivity : BaseActivity() {
         val cusrom = CustomDate
         logs("$dateUtc - $time")
 
-        showConfirmDialog("Opss...", "message", "Reload", "Tutup aplikasi", percentage = percentageDialog(), onAction = {
+//        showConfirmDialog("Opss...", "message", "Reload", "Tutup aplikasi", percentage = percentageDialog(), onAction = {
+//
+//        }, onActionSecondary = {
+//            finish()
+//        })
 
-        }, onActionSecondary = {
-            finish()
-        })
+        binding.btnDialogConfim.setOnClickListener {
+            someMethod()
+        }
+    }
+
+    fun someMethod() {
+        val encryptionManager = EncryptionManager()
+        encryptionManager.key = "a1b2c3d4e5f6g7h8"
+        val data = "Hello, World!"
+        val encryptedData: String = encryptionManager.encrypt(data)
+        println("Encrypted data: $encryptedData")
+
+        val decryptedData: String = encryptionManager.decrypt(encryptedData)
+        println("Decrypted data: $decryptedData")
+
+        println("Key:" + encryptionManager.key)
+
+        val encryptionManagers: EncryptionManager = EncryptionManager.getInstance()
+        println("Key2:" + encryptionManagers.key)
     }
 
     fun convertUtcToIndonesianTime(utcTime: String): String {

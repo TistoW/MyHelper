@@ -2,4 +2,4 @@
 
 just add this on your dependencies
 
-implementation 'com.github.TistoW:MyHelper:2.0.38'
+implementation 'com.github.TistoW:MyHelper:2.0.43'

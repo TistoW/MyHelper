@@ -13,8 +13,15 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.inyongtisto.myhelper.R
 import com.inyongtisto.myhelper.extension.logs
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.DexterError
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 
 class StoragePermissionsManager(
     val context: Activity,
@@ -34,6 +41,52 @@ class StoragePermissionsManager(
 //            //Permission granted
 //        } else this.permissions.showDialogReq()  //Permission not granted
 //    }
+
+    fun hasAllPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED && askPermissions()
+    }
+
+    fun generatePermission(): Boolean {
+        if (hasAllPermission()) {
+            return true
+        } else {
+            Dexter.withContext(context)
+                    .withPermissions(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                    .withListener(object : MultiplePermissionsListener {
+                        override fun onPermissionsChecked(multiplePermissionsReport: MultiplePermissionsReport) {
+                            for (deniedResponse in multiplePermissionsReport.deniedPermissionResponses) {
+                                logs("Denied permission: " + deniedResponse.permissionName)
+                            }
+                            for (grantedResponse in multiplePermissionsReport.grantedPermissionResponses) {
+                                logs("Granted permission: " + grantedResponse.permissionName)
+                            }
+                            if (multiplePermissionsReport.areAllPermissionsGranted()) {
+                                logs("all Grented")
+                            } else logs("All necessary permission is not granted by user.Please do that first")
+                        }
+
+                        override fun onPermissionRationaleShouldBeShown(
+                            list: List<PermissionRequest>,
+                            permissionToken: PermissionToken
+                        ) {
+                        }
+                    })
+                    .withErrorListener { error: DexterError ->
+                        logs("Error : $error")
+                    }.check()
+        }
+        return false
+    }
 
     fun getPermissionStatus(): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
