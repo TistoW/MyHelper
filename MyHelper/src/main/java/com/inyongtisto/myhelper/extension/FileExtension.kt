@@ -122,6 +122,6 @@ fun getDownloadDirectory(): String {
     return getExternalStoragePublicDirectory()
 }
 
-private fun Activity.saveFile(imageToSave: Bitmap, pathLocation: String, fileName: String) {
+fun Activity.saveFile(imageToSave: Bitmap, pathLocation: String, fileName: String) {
     saveBitmapToFileExplorer(imageToSave, pathLocation, fileName)
 }
