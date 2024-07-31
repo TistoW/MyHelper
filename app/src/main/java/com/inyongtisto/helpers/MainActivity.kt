@@ -41,7 +41,9 @@ class MainActivity : BaseActivity() {
 //        })
 
         binding.btnDialogConfim.setOnClickListener {
-            someMethod()
+            popUpMenu(it, listOf("List ini", "ini list nya")) {
+
+            }
         }
     }
 

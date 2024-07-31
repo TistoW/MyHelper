@@ -275,4 +275,57 @@ fun EditText.onEnterKeyPressed(onEnterPressed: (() -> Unit)) {
     })
 }
 
+fun TextInputEditText.addChangeRupiahListener(includePrefix: Boolean = false) {
+    addChangeCurrencyListener(includePrefix)
+}
+
+fun TextInputEditText.addChangeCurrencyListener(includePrefix: Boolean = false) {
+    addTextChangedListener(object : TextWatcher {
+        private var current = ""
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+        override fun afterTextChanged(s: Editable?) {
+            if (s.toString() != current) {
+                val initialCursorPosition = selectionStart
+                removeTextChangedListener(this)
+
+                val cleanString = s.toString().replace("[Rp,.\\s]".toRegex(), "")
+                val parsed = cleanString.toDoubleOrNull()
+                var formatted = if (parsed != null) {
+                    val formatter = NumberFormat.getCurrencyInstance(Locale("in", "ID"))
+                    formatter.maximumFractionDigits = 0
+                    formatter.format(parsed)
+                } else {
+                    ""
+                }
+
+                if (!includePrefix) formatted = formatted.removePrefix("Rp")
+                val newCursorPosition =
+                    calculateNewCursorPosition(initialCursorPosition, s.toString(), formatted)
+                current = formatted
+                setText(formatted)
+                setSelection(newCursorPosition)
+
+                addTextChangedListener(this)
+            }
+        }
+    })
+}
+
+fun calculateNewCursorPosition(
+    initialPosition: Int,
+    originalText: String,
+    formattedText: String
+): Int {
+    // Example logic to adjust cursor position; customize as needed
+    val difference = formattedText.length - originalText.length
+    var newPosition = initialPosition + difference
+    // Ensure the new position is within bounds
+    newPosition = maxOf(0, newPosition)
+    newPosition = minOf(formattedText.length, newPosition)
+    return newPosition
+}
 

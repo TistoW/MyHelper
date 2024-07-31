@@ -90,7 +90,11 @@ fun dummyResult(toFormat: String): String {
 }
 
 @SuppressLint("SimpleDateFormat")
-fun String?.convertFromUTC(toFormat: String = defaultDateFormat, fromFormat: String = defaultUTCDateFormat, timeZone: String = "Asia/Jakarta"): String {
+fun String?.convertFromUTC(
+    toFormat: String = defaultDateFormat,
+    fromFormat: String = defaultUTCDateFormat,
+    timeZone: String = "Asia/Jakarta"
+): String {
     if (this == null) return dummyResult(toFormat)
     var result: String
     try {
@@ -249,15 +253,109 @@ fun String.searchQuery(): String {
 
 fun getRandomName(withNumber: Boolean = false): String {
     val listName = listOf(
-        "Jude", "Isabella", "Arthur", "Millie", "Andrea", "Marcus", "Atlas", "Ariella", "Kyle", "Evan", "Ira", "Hayden",
-        "Bailey", "Gianna", "Valerie", "Brianna", "Jesse", "Cecilia", "Leo", "Leilani", "Dante", "Zoe", "Khadijah", "Mya", "Sharon",
-        "Sean", "Brielle", "Ayla", "Shia", "Riley", "Raya", "Sloane", "Alana", "Charlie", "Kian", "Hudson", "Elise", "Akira", "Mika", "Freya",
-        "Nia", "Natasha", "Myra", "Mateo", "Everett", "Rae", "Savannah", "Thea", "Finley", "Alaina", "Mina", "Yara", "Emerson", "Camille", "Ivan", "Skyler",
-        "Skylar", "Alma", "Reese", "Sasha", "Asa", "Sage", "Camila", "Amira", "Kieran", "Monica", "Everly", "Evie", "Maverick", "Kyra", "Ian", "Julia", "Vivian",
-        "Theo", "Ophelia", "Chelsea", "Azariah", "Jade", "Lara", "Ava", "Morgan", "Lennox", "Luna", "Isabelle", "Amir", "Rhys", "Arlo", "Giovanni", "Aisha", "Orion",
-        "Ahmed", "Nolan", "Ezekiel", "Michelle", "Lea", "Silas", "Elaine", "Molly",
+        "Jude",
+        "Isabella",
+        "Arthur",
+        "Millie",
+        "Andrea",
+        "Marcus",
+        "Atlas",
+        "Ariella",
+        "Kyle",
+        "Evan",
+        "Ira",
+        "Hayden",
+        "Bailey",
+        "Gianna",
+        "Valerie",
+        "Brianna",
+        "Jesse",
+        "Cecilia",
+        "Leo",
+        "Leilani",
+        "Dante",
+        "Zoe",
+        "Khadijah",
+        "Mya",
+        "Sharon",
+        "Sean",
+        "Brielle",
+        "Ayla",
+        "Shia",
+        "Riley",
+        "Raya",
+        "Sloane",
+        "Alana",
+        "Charlie",
+        "Kian",
+        "Hudson",
+        "Elise",
+        "Akira",
+        "Mika",
+        "Freya",
+        "Nia",
+        "Natasha",
+        "Myra",
+        "Mateo",
+        "Everett",
+        "Rae",
+        "Savannah",
+        "Thea",
+        "Finley",
+        "Alaina",
+        "Mina",
+        "Yara",
+        "Emerson",
+        "Camille",
+        "Ivan",
+        "Skyler",
+        "Skylar",
+        "Alma",
+        "Reese",
+        "Sasha",
+        "Asa",
+        "Sage",
+        "Camila",
+        "Amira",
+        "Kieran",
+        "Monica",
+        "Everly",
+        "Evie",
+        "Maverick",
+        "Kyra",
+        "Ian",
+        "Julia",
+        "Vivian",
+        "Theo",
+        "Ophelia",
+        "Chelsea",
+        "Azariah",
+        "Jade",
+        "Lara",
+        "Ava",
+        "Morgan",
+        "Lennox",
+        "Luna",
+        "Isabelle",
+        "Amir",
+        "Rhys",
+        "Arlo",
+        "Giovanni",
+        "Aisha",
+        "Orion",
+        "Ahmed",
+        "Nolan",
+        "Ezekiel",
+        "Michelle",
+        "Lea",
+        "Silas",
+        "Elaine",
+        "Molly",
     )
-    return listName[randomInt(0, listName.size - 1)] + "" + if (withNumber) randomInt(10, 99) else ""
+    return listName[randomInt(0, listName.size - 1)] + "" + if (withNumber) randomInt(
+        10,
+        99
+    ) else ""
 }
 
 fun randomInt(from: Int, to: Int): Int {
@@ -302,9 +400,11 @@ fun Double?.formatCurrency(showCurrency: Boolean = false): String {
     val formatRupiah: NumberFormat = NumberFormat.getCurrencyInstance(localeID)
     formatRupiah.minimumFractionDigits = 0
     return try {
-        formatRupiah
-                .format(this)
-                .replace("Rp", if (showCurrency) "Rp. " else "")
+        var formated = formatRupiah
+            .format(this)
+            .replace("Rp. ", "Rp")
+        formated = formated.replace("Rp", if (showCurrency) "Rp" else "")
+        formated
     } catch (e: Exception) {
         e.printStackTrace()
         "0"
