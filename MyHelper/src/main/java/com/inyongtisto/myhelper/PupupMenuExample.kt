@@ -20,4 +20,5 @@ fun Context.example() {
     popupMenu.menu.add("Hapus Riwayat")
     popupMenu.menu.add("Baca")
     popupMenu.show()
+
 }
