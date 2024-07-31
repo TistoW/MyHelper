@@ -14,6 +14,7 @@ import android.os.*
 import android.provider.Settings
 import android.telephony.TelephonyManager
 import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -281,7 +282,7 @@ fun Context.copyText(text: String, showToast: Boolean = true) {
 }
 
 fun Activity.popUpMenu(view: View, list: List<String>, onClicked: (String) -> Unit) {
-    val popupMenu = PopupMenu(this, view)
+    val popupMenu = PopupMenu(ContextThemeWrapper(this, R.style.CustomPopupMenu), view)
     popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
         onClicked.invoke(it.toString())
         return@OnMenuItemClickListener true
@@ -293,7 +294,7 @@ fun Activity.popUpMenu(view: View, list: List<String>, onClicked: (String) -> Un
 }
 
 fun Context.popUpMenu(view: View, list: List<String>, onClicked: (String) -> Unit) {
-    val popupMenu = PopupMenu(this, view)
+    val popupMenu = PopupMenu(ContextThemeWrapper(this, R.style.CustomPopupMenu), view)
     popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
         onClicked.invoke(it.toString())
         return@OnMenuItemClickListener true
